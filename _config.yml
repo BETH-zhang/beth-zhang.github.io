@@ -1,0 +1,18 @@
+# Welcome to Jekyll!
+#
+# This config file is meant for settings that affect your whole blog, values
+# which you are expected to set up once and rarely need to edit after that.
+# For technical reasons, this file is *NOT* reloaded automatically when you use
+# 'jekyll serve'. If you change this file, please restart the server process.
+
+# Site settings
+title: Frontend Graden
+email: gemeiwangji789@qq.com
+description: > # 在前端的道路上，你也许经历的风景更加绚丽多姿！
+baseurl: "" # the subpath of your site, e.g. /blog
+url: "https://github.com/BETH-zhang" # the base hostname & protocol for your site
+twitter_username: BETH-zhang
+github_username:  BETH-zhang
+
+# Build settings
+markdown: kramdown
