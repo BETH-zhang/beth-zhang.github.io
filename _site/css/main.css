@@ -1,3 +1,4 @@
+@charset "UTF-8";
 /**
  * Reset some basic elements
  */
@@ -476,3 +477,21 @@ pre {
     color: #008080; }
   .highlight .il {
     color: #099; }
+
+/* 基本图文组件样式 */
+.h5_component {
+  background-size: 100%;
+  background-repeat: no-repeat;
+  position: relative; }
+
+#frontend-ox hr {
+  margin-bottom: 20px; }
+#frontend-ox img {
+  width: 60px;
+  height: 60px;
+  vertical-align: middle;
+  border-radius: 50%;
+  margin-right: 10px; }
+#frontend-ox a {
+  display: inline-block;
+  padding-right: 5px; }

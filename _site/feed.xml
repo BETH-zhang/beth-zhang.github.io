@@ -5,8 +5,8 @@
     <description>在前端的道路上风景更加绚丽多姿</description>
     <link>https://github.com/BETH-zhang/</link>
     <atom:link href="https://github.com/BETH-zhang/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Fri, 24 Jun 2016 18:24:33 +0800</pubDate>
-    <lastBuildDate>Fri, 24 Jun 2016 18:24:33 +0800</lastBuildDate>
+    <pubDate>Fri, 24 Jun 2016 20:51:40 +0800</pubDate>
+    <lastBuildDate>Fri, 24 Jun 2016 20:51:40 +0800</lastBuildDate>
     <generator>Jekyll v3.1.6</generator>
     
       <item>
@@ -17,57 +17,39 @@
 
 &lt;h1 id=&quot;section&quot;&gt;盘点前端行业的领袖人物&lt;/h1&gt;
 
-&lt;p&gt;@(人机交互)[核心要点]&lt;/p&gt;
+&lt;script type=&quot;text/javascript&quot; src=&quot;/js/H5ComponentBase.js&quot;&gt;&lt;/script&gt;
 
-&lt;p&gt;&lt;strong&gt;重点&lt;/strong&gt;非重点&lt;/p&gt;
+&lt;script type=&quot;text/javascript&quot; src=&quot;/js/H5ComponentPeopleList.js&quot;&gt;&lt;/script&gt;
 
-&lt;ul&gt;
-  &lt;li&gt;&lt;strong&gt;问题1&lt;/strong&gt; ：11&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;问题2&lt;/strong&gt; ：22&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;问题3&lt;/strong&gt; ：33&lt;/li&gt;
-&lt;/ul&gt;
+&lt;div id=&quot;frontend-ox&quot;&gt;&lt;/div&gt;
 
-&lt;hr /&gt;
+&lt;script type=&quot;text/javascript&quot;&gt;
 
-&lt;h2 id=&quot;section1&quot;&gt;section1&lt;/h2&gt;
+    var listData = [
+        [
+            &quot;蒋长浩博士&quot;,
+            &quot;http://img03.taobaocdn.com/tps/i3/T11xYfXnhmXXXMNuYv-150-150.jpg&quot;,
+            &quot;Facebook&quot;,
+            {
+                &quot;博客&quot;: &quot;http://&quot;,
+                &quot;微博&quot;: &quot;http://&quot;
+            },
+            &quot;蒋长浩，祖籍湖南，获清华大学计算机本硕学位、伊利诺伊大学(UIUC)博士学位，在卡耐基梅隆大学(CMU)、谷歌公司从事过“普适计算~大规模计算”的优化研究。在Facebook任研究科学家，他创造BIGPIPE，使大型网站访速翻1倍，举世关注&quot;
+        ]
+    ];
 
-&lt;blockquote&gt;
-  &lt;p&gt;section1介绍
-section1详细内容&lt;/p&gt;
-&lt;/blockquote&gt;
+    var h5 = new H5ComponentPeopleList(&#39;peoplelist&#39;, {
+        type: &#39;peoplelist&#39;,
+        data: listData,
+        css: {
+            top: 0,
+            opacity: 1,
+        }
+    });
+    $(&#39;#frontend-ox&#39;).append(h5);
 
-&lt;p&gt;正如您在阅读的这份文档，它使用简单的符号标识不同的标题，将某些文字标记为&lt;strong&gt;粗体&lt;/strong&gt;或者&lt;em&gt;斜体&lt;/em&gt;，创建一个&lt;a href=&quot;http://www.example.com&quot;&gt;链接&lt;/a&gt;或一个脚注[^demo]&lt;/p&gt;
+&lt;/script&gt;
 
-&lt;h3 id=&quot;section-1&quot;&gt;表格&lt;/h3&gt;
-&lt;p&gt;| th      |    th | th  |
-| :——– | ——–:| :–: |
-| td  | td |  td   |
-| td  | td |  td   |&lt;/p&gt;
-
-&lt;h2 id=&quot;section2&quot;&gt;section2&lt;/h2&gt;
-
-&lt;h3 id=&quot;section-2&quot;&gt;1&lt;/h3&gt;
-&lt;p&gt;&lt;strong&gt;马克飞象&lt;/strong&gt;增加了&lt;code class=&quot;highlighter-rouge&quot;&gt;@(笔记本)[标签A|标签B]&lt;/code&gt;语法, 以选择笔记本和添加标签。 &lt;strong&gt;绑定账号后&lt;/strong&gt;， 输入&lt;code class=&quot;highlighter-rouge&quot;&gt;(&lt;/code&gt;自动会出现笔记本列表，请从中选择。&lt;/p&gt;
-
-&lt;h3 id=&quot;section-3&quot;&gt;2&lt;/h3&gt;
-&lt;p&gt;&lt;strong&gt;马克飞象&lt;/strong&gt;会自动使用文档内出现的第一个标题作为笔记标题。例如本文，就是第一行的 &lt;code class=&quot;highlighter-rouge&quot;&gt;欢迎使用马克飞象&lt;/code&gt;。&lt;/p&gt;
-
-&lt;h2 id=&quot;section-4&quot;&gt;分享一些链接，或者参考阅读&lt;/h2&gt;
-&lt;ul&gt;
-  &lt;li&gt;内容链接：&lt;a href=&quot;http://weibo.com/u/2788354117&quot;&gt;@马克飞象&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;纯链接：&lt;a href=&quot;&amp;#109;&amp;#097;&amp;#105;&amp;#108;&amp;#116;&amp;#111;:&amp;#104;&amp;#117;&amp;#115;&amp;#116;&amp;#103;&amp;#111;&amp;#099;&amp;#107;&amp;#064;&amp;#103;&amp;#109;&amp;#097;&amp;#105;&amp;#108;&amp;#046;&amp;#099;&amp;#111;&amp;#109;&quot;&gt;&amp;#104;&amp;#117;&amp;#115;&amp;#116;&amp;#103;&amp;#111;&amp;#099;&amp;#107;&amp;#064;&amp;#103;&amp;#109;&amp;#097;&amp;#105;&amp;#108;&amp;#046;&amp;#099;&amp;#111;&amp;#109;&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;hr /&gt;
-&lt;p&gt;写在最后：&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;h4 id=&quot;section-5&quot;&gt;分享一些链接，或者参考阅读&lt;/h4&gt;
-  &lt;ul&gt;
-    &lt;li&gt;部门：技术部前端组&lt;/li&gt;
-    &lt;li&gt;邮箱：&lt;a href=&quot;&amp;#109;&amp;#097;&amp;#105;&amp;#108;&amp;#116;&amp;#111;:&amp;#122;&amp;#104;&amp;#097;&amp;#110;&amp;#103;&amp;#098;&amp;#097;&amp;#105;&amp;#103;&amp;#101;&amp;#064;&amp;#105;&amp;#110;&amp;#110;&amp;#111;&amp;#098;&amp;#117;&amp;#100;&amp;#100;&amp;#121;&amp;#046;&amp;#099;&amp;#111;&amp;#109;&quot;&gt;&amp;#122;&amp;#104;&amp;#097;&amp;#110;&amp;#103;&amp;#098;&amp;#097;&amp;#105;&amp;#103;&amp;#101;&amp;#064;&amp;#105;&amp;#110;&amp;#110;&amp;#111;&amp;#098;&amp;#117;&amp;#100;&amp;#100;&amp;#121;&amp;#046;&amp;#099;&amp;#111;&amp;#109;&lt;/a&gt;&lt;/li&gt;
-  &lt;/ul&gt;
-&lt;/blockquote&gt;
 </description>
         <pubDate>Fri, 24 Jun 2016 00:00:00 +0800</pubDate>
         <link>https://github.com/BETH-zhang/2016/06/24/%E5%89%8D%E7%AB%AF%E5%A4%A7%E7%89%9B-%E4%BD%A0%E8%AE%A4%E8%AF%86%E5%87%A0%E4%B8%AA.html</link>

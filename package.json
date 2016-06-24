@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/BETH-zhang/Frontend-Garden/issues"
   },
-  "homepage": "https://github.com/BETH-zhang/Frontend-Garden#readme"
+  "homepage": "https://github.com/BETH-zhang/Frontend-Garden#readme",
+  "dependencies": {
+    "jquery": "^3.0.0"
+  }
 }

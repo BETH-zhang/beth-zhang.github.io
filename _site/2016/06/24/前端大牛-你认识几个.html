@@ -13,6 +13,7 @@
   <link rel="canonical" href="https://github.com/BETH-zhang/2016/06/24/%E5%89%8D%E7%AB%AF%E5%A4%A7%E7%89%9B-%E4%BD%A0%E8%AE%A4%E8%AF%86%E5%87%A0%E4%B8%AA.html">
   <link rel="alternate" type="application/rss+xml" title="前端花园" href="https://github.com/BETH-zhang/feed.xml">
   <link type="image/x-icon" rel="shortcut icon" href="https://raw.githubusercontent.com/BETH-zhang/Frontend-Garden/gh-pages/_includes/favicon.ico">
+  <script type="text/javascript" src="/js/jquery.min.js"></script>
 </head>
 
 
@@ -69,57 +70,39 @@
 
 <h1 id="section">盘点前端行业的领袖人物</h1>
 
-<p>@(人机交互)[核心要点]</p>
+<script type="text/javascript" src="/js/H5ComponentBase.js"></script>
 
-<p><strong>重点</strong>非重点</p>
+<script type="text/javascript" src="/js/H5ComponentPeopleList.js"></script>
 
-<ul>
-  <li><strong>问题1</strong> ：11</li>
-  <li><strong>问题2</strong> ：22</li>
-  <li><strong>问题3</strong> ：33</li>
-</ul>
+<div id="frontend-ox"></div>
 
-<hr />
+<script type="text/javascript">
 
-<h2 id="section1">section1</h2>
+    var listData = [
+        [
+            "蒋长浩博士",
+            "http://img03.taobaocdn.com/tps/i3/T11xYfXnhmXXXMNuYv-150-150.jpg",
+            "Facebook",
+            {
+                "博客": "http://",
+                "微博": "http://"
+            },
+            "蒋长浩，祖籍湖南，获清华大学计算机本硕学位、伊利诺伊大学(UIUC)博士学位，在卡耐基梅隆大学(CMU)、谷歌公司从事过“普适计算~大规模计算”的优化研究。在Facebook任研究科学家，他创造BIGPIPE，使大型网站访速翻1倍，举世关注"
+        ]
+    ];
 
-<blockquote>
-  <p>section1介绍
-section1详细内容</p>
-</blockquote>
+    var h5 = new H5ComponentPeopleList('peoplelist', {
+        type: 'peoplelist',
+        data: listData,
+        css: {
+            top: 0,
+            opacity: 1,
+        }
+    });
+    $('#frontend-ox').append(h5);
 
-<p>正如您在阅读的这份文档，它使用简单的符号标识不同的标题，将某些文字标记为<strong>粗体</strong>或者<em>斜体</em>，创建一个<a href="http://www.example.com">链接</a>或一个脚注[^demo]</p>
+</script>
 
-<h3 id="section-1">表格</h3>
-<p>| th      |    th | th  |
-| :——– | ——–:| :–: |
-| td  | td |  td   |
-| td  | td |  td   |</p>
-
-<h2 id="section2">section2</h2>
-
-<h3 id="section-2">1</h3>
-<p><strong>马克飞象</strong>增加了<code class="highlighter-rouge">@(笔记本)[标签A|标签B]</code>语法, 以选择笔记本和添加标签。 <strong>绑定账号后</strong>， 输入<code class="highlighter-rouge">(</code>自动会出现笔记本列表，请从中选择。</p>
-
-<h3 id="section-3">2</h3>
-<p><strong>马克飞象</strong>会自动使用文档内出现的第一个标题作为笔记标题。例如本文，就是第一行的 <code class="highlighter-rouge">欢迎使用马克飞象</code>。</p>
-
-<h2 id="section-4">分享一些链接，或者参考阅读</h2>
-<ul>
-  <li>内容链接：<a href="http://weibo.com/u/2788354117">@马克飞象</a></li>
-  <li>纯链接：<a href="&#109;&#097;&#105;&#108;&#116;&#111;:&#104;&#117;&#115;&#116;&#103;&#111;&#099;&#107;&#064;&#103;&#109;&#097;&#105;&#108;&#046;&#099;&#111;&#109;">&#104;&#117;&#115;&#116;&#103;&#111;&#099;&#107;&#064;&#103;&#109;&#097;&#105;&#108;&#046;&#099;&#111;&#109;</a></li>
-</ul>
-
-<hr />
-<p>写在最后：</p>
-
-<blockquote>
-  <h4 id="section-5">分享一些链接，或者参考阅读</h4>
-  <ul>
-    <li>部门：技术部前端组</li>
-    <li>邮箱：<a href="&#109;&#097;&#105;&#108;&#116;&#111;:&#122;&#104;&#097;&#110;&#103;&#098;&#097;&#105;&#103;&#101;&#064;&#105;&#110;&#110;&#111;&#098;&#117;&#100;&#100;&#121;&#046;&#099;&#111;&#109;">&#122;&#104;&#097;&#110;&#103;&#098;&#097;&#105;&#103;&#101;&#064;&#105;&#110;&#110;&#111;&#098;&#117;&#100;&#100;&#121;&#046;&#099;&#111;&#109;</a></li>
-  </ul>
-</blockquote>
 
   </div>
 
