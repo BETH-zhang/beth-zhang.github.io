@@ -18,6 +18,10 @@
     margin-bottom: 0;
     float: left;
 
+    &:hover{
+        text-decoration: none;
+    }
+
     &,
     &:visited {
         color: $grey-color-dark;
@@ -199,6 +203,14 @@
 .post-link {
     display: block;
     font-size: 24px;
+    text-decoration: none;
+}
+
+.post-description{
+    margin-top: 20px;
+    padding: 5px;
+    border: 1px solid $grey-color-light;
+    border-radius: 3px;
 }
 
 

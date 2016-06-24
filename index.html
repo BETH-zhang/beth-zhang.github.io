@@ -9,13 +9,13 @@ layout: default
   <ul class="post-list">
     {% for post in site.posts %}
       <li>
-        <span class="post-meta">
-          <a href="https://github.com/BETH-zhang" target="_blank"/><img class="post-avatar" src="https://avatars3.githubusercontent.com/u/19342035?v=3&s=40"/></a>
-          {{ post.date | date: "%b %-d, %Y" }}</span>
-
         <h2>
           <a class="post-link" href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a>
         </h2>
+        <span class="post-meta">
+          <a href="{{ post.avatarUrl | prepend: site.url }}" target="_blank"/><img class="post-avatar" src="{{ post.avatar | prepend: site.avatar }}"/></a>
+          {{ post.date | date: "%b %-d, %Y" }}</span>
+        <p class="post-description">{{ post.excerpt | strip_html | strip_newlines | truncate: 160 }}</p>
       </li>
     {% endfor %}
   </ul>

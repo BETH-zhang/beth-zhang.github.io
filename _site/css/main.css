@@ -11,7 +11,7 @@ dl, dd, ol, ul, figure {
  * Basic styling
  */
 body {
-  font: 400 16px/1.5 "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font: 400 16px/2 Lantinghei SC, Open Sans, Arial, Hiragino Sans GB, Microsoft YaHei, \\5FAE\8F6F\96C5\9ED1, STHeiti, WenQuanYi Micro Hei, SimSun, sans-serif;
   color: #111;
   background-color: #fdfdfd;
   -webkit-text-size-adjust: 100%;
@@ -160,6 +160,8 @@ pre {
   letter-spacing: -1px;
   margin-bottom: 0;
   float: left; }
+  .site-title:hover {
+    text-decoration: none; }
   .site-title, .site-title:visited {
     color: #424242; }
 
@@ -170,7 +172,7 @@ pre {
     display: none; }
   .site-nav .page-link {
     color: #111;
-    line-height: 1.5; }
+    line-height: 2; }
     .site-nav .page-link:not(:last-child) {
       margin-right: 20px; }
   @media screen and (max-width: 600px) {
@@ -287,7 +289,14 @@ pre {
 
 .post-link {
   display: block;
-  font-size: 24px; }
+  font-size: 24px;
+  text-decoration: none; }
+
+.post-description {
+  margin-top: 20px;
+  padding: 5px;
+  border: 1px solid #e8e8e8;
+  border-radius: 3px; }
 
 /**
  * Posts
