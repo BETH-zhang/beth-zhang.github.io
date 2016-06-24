@@ -5,20 +5,9 @@
     <description>在前端的道路上风景更加绚丽多姿</description>
     <link>https://github.com/BETH-zhang/</link>
     <atom:link href="https://github.com/BETH-zhang/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Fri, 24 Jun 2016 18:10:06 +0800</pubDate>
-    <lastBuildDate>Fri, 24 Jun 2016 18:10:06 +0800</lastBuildDate>
+    <pubDate>Fri, 24 Jun 2016 18:24:33 +0800</pubDate>
+    <lastBuildDate>Fri, 24 Jun 2016 18:24:33 +0800</lastBuildDate>
     <generator>Jekyll v3.1.6</generator>
-    
-      <item>
-        <title>淘宝镜像</title>
-        <description>&lt;p&gt;http://npm.taobao.org/&lt;/p&gt;
-</description>
-        <pubDate>Fri, 24 Jun 2016 00:00:00 +0800</pubDate>
-        <link>https://github.com/BETH-zhang/2016/06/24/%E6%B7%98%E5%AE%9D%E9%95%9C%E5%83%8F.html</link>
-        <guid isPermaLink="true">https://github.com/BETH-zhang/2016/06/24/%E6%B7%98%E5%AE%9D%E9%95%9C%E5%83%8F.html</guid>
-        
-        
-      </item>
     
       <item>
         <title>前端大牛，你认识几个？</title>
@@ -83,6 +72,17 @@ section1详细内容&lt;/p&gt;
         <pubDate>Fri, 24 Jun 2016 00:00:00 +0800</pubDate>
         <link>https://github.com/BETH-zhang/2016/06/24/%E5%89%8D%E7%AB%AF%E5%A4%A7%E7%89%9B-%E4%BD%A0%E8%AE%A4%E8%AF%86%E5%87%A0%E4%B8%AA.html</link>
         <guid isPermaLink="true">https://github.com/BETH-zhang/2016/06/24/%E5%89%8D%E7%AB%AF%E5%A4%A7%E7%89%9B-%E4%BD%A0%E8%AE%A4%E8%AF%86%E5%87%A0%E4%B8%AA.html</guid>
+        
+        
+      </item>
+    
+      <item>
+        <title>淘宝镜像</title>
+        <description>&lt;p&gt;http://npm.taobao.org/&lt;/p&gt;
+</description>
+        <pubDate>Thu, 23 Jun 2016 00:00:00 +0800</pubDate>
+        <link>https://github.com/BETH-zhang/2016/06/23/%E6%B7%98%E5%AE%9D%E9%95%9C%E5%83%8F.html</link>
+        <guid isPermaLink="true">https://github.com/BETH-zhang/2016/06/23/%E6%B7%98%E5%AE%9D%E9%95%9C%E5%83%8F.html</guid>
         
         
       </item>
