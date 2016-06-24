@@ -94,8 +94,7 @@ pre,
 code {
   font-size: 15px;
   border: 1px solid #e8e8e8;
-  border-radius: 3px;
-  background-color: #eef; }
+  border-radius: 3px; }
 
 code {
   padding: 1px 5px; }
@@ -269,7 +268,8 @@ pre {
   padding: 30px 0; }
 
 .page-heading {
-  font-size: 20px; }
+  font-size: 20px;
+  color: #e8e8e8; }
 
 .post-list {
   margin-left: 0;
@@ -282,6 +282,7 @@ pre {
   color: #828282; }
 
 .post-avatar {
+  margin-right: 5px;
   width: 30px;
   height: 30px;
   overflow: hidden;
@@ -297,6 +298,9 @@ pre {
   padding: 5px;
   border: 1px solid #e8e8e8;
   border-radius: 3px; }
+  .post-description .post-link {
+    display: inline;
+    font-size: 14px; }
 
 /**
  * Posts
@@ -334,18 +338,20 @@ pre {
  * Syntax highlighting styles
  */
 .highlight {
-  background: #fff; }
+  background: #f8f8f8; }
   .highlighter-rouge .highlight {
     background: #eef; }
   .highlight .c {
-    color: #998;
+    color: #8f5902;
     font-style: italic; }
   .highlight .err {
-    color: #a61717;
-    background-color: #e3d2d2; }
+    color: #a40000;
+    border: 1px solid #ef2929; }
   .highlight .k {
+    color: #204a87;
     font-weight: bold; }
   .highlight .o {
+    color: #ce5c00;
     font-weight: bold; }
   .highlight .cm {
     color: #998;

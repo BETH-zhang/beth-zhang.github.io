@@ -15,7 +15,7 @@ layout: default
         <span class="post-meta">
           <a href="{{ post.avatarUrl | prepend: site.url }}" target="_blank"/><img class="post-avatar" src="{{ post.avatar | prepend: site.avatar }}"/></a>
           {{ post.date | date: "%b %-d, %Y" }}</span>
-        <p class="post-description">{{ post.excerpt | strip_html | strip_newlines | truncate: 160 }}</p>
+        <p class="post-description">{{ post.excerpt | strip_html | strip_newlines | truncate: 160 }} <a class="post-link" href="{{ post.url | prepend: site.baseurl }}">阅读全文</a></p>
       </li>
     {% endfor %}
   </ul>

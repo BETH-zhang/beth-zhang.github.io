@@ -2,17 +2,17 @@
  * Syntax highlighting styles
  */
 .highlight {
-    background: #fff;
+    background: #f8f8f8;
     @extend %vertical-rhythm;
 
     .highlighter-rouge & {
       background: #eef;
     }
 
-    .c     { color: #998; font-style: italic } // Comment
-    .err   { color: #a61717; background-color: #e3d2d2 } // Error
-    .k     { font-weight: bold } // Keyword
-    .o     { font-weight: bold } // Operator
+    .c     { color: #8f5902; font-style: italic } // Comment
+    .err   { color: #a40000; border: 1px solid #ef2929 } // Error
+    .k     { color: #204a87; font-weight: bold } // Keyword
+    .o     { color: #ce5c00; font-weight: bold } // Operator
     .cm    { color: #998; font-style: italic } // Comment.Multiline
     .cp    { color: #999; font-weight: bold } // Comment.Preproc
     .c1    { color: #998; font-style: italic } // Comment.Single

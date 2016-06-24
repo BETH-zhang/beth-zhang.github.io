@@ -177,6 +177,7 @@
 
 .page-heading {
     font-size: 20px;
+    color: $grey-color-light;
 }
 
 .post-list {
@@ -194,6 +195,7 @@
 }
 
 .post-avatar{
+    margin-right: 5px;
     width: 30px;
     height: 30px;
     overflow: hidden;
@@ -211,6 +213,11 @@
     padding: 5px;
     border: 1px solid $grey-color-light;
     border-radius: 3px;
+
+    .post-link{
+        display: inline;
+        font-size: $small-font-size;
+    }
 }
 
 
