@@ -5,8 +5,8 @@
     <description>在前端的道路上风景更加绚丽多姿</description>
     <link>https://github.com/BETH-zhang/</link>
     <atom:link href="https://github.com/BETH-zhang/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Fri, 24 Jun 2016 20:51:40 +0800</pubDate>
-    <lastBuildDate>Fri, 24 Jun 2016 20:51:40 +0800</lastBuildDate>
+    <pubDate>Fri, 24 Jun 2016 22:37:26 +0800</pubDate>
+    <lastBuildDate>Fri, 24 Jun 2016 22:37:26 +0800</lastBuildDate>
     <generator>Jekyll v3.1.6</generator>
     
       <item>
@@ -24,9 +24,20 @@
 &lt;div id=&quot;frontend-ox&quot;&gt;&lt;/div&gt;
 
 &lt;script type=&quot;text/javascript&quot;&gt;
-
+    var img = &quot;/css/main.css&quot;;
+    console.log(&#39;img&#39;, img);
     var listData = [
         [
+            &quot;蒋长浩博士&quot;,
+            &quot;http://img03.taobaocdn.com/tps/i3/T11xYfXnhmXXXMNuYv-150-150.jpg&quot;,
+            &quot;Facebook&quot;,
+            {
+                &quot;博客&quot;: &quot;http://&quot;,
+                &quot;微博&quot;: &quot;http://&quot;
+            },
+            &quot;&quot;,
+            &quot;蒋长浩，祖籍湖南，获清华大学计算机本硕学位、伊利诺伊大学(UIUC)博士学位，在卡耐基梅隆大学(CMU)、谷歌公司从事过“普适计算~大规模计算”的优化研究。在Facebook任研究科学家，他创造BIGPIPE，使大型网站访速翻1倍，举世关注&quot;
+        ],[
             &quot;蒋长浩博士&quot;,
             &quot;http://img03.taobaocdn.com/tps/i3/T11xYfXnhmXXXMNuYv-150-150.jpg&quot;,
             &quot;Facebook&quot;,
@@ -38,15 +49,14 @@
         ]
     ];
 
-    var h5 = new H5ComponentPeopleList(&#39;peoplelist&#39;, {
+    $(&#39;#frontend-ox&#39;).append(new H5ComponentPeopleList(&#39;peoplelist&#39;, {
         type: &#39;peoplelist&#39;,
         data: listData,
         css: {
             top: 0,
             opacity: 1,
         }
-    });
-    $(&#39;#frontend-ox&#39;).append(h5);
+    }));
 
 &lt;/script&gt;
 

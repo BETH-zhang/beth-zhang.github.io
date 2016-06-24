@@ -485,6 +485,7 @@ pre {
   position: relative; }
 
 #frontend-ox hr {
+  margin-top: 20px;
   margin-bottom: 20px; }
 #frontend-ox img {
   width: 60px;

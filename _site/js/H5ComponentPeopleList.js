@@ -16,8 +16,12 @@ var H5ComponentPeopleList = function(name, cfg){
 		}
 
 		var text = $('<blockquote><p>'+item[4]+'</p></blockquote>');
+		var p3 = $('<p>'+item[5]+'</p>');
 
 		component.append(hr).append(h2).append(p1).append(p2).append(text);
+		if(item[5]){
+			component.append(p3);
+		}
 	});
 
 	return component;
