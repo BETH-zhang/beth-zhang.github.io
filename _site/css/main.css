@@ -279,6 +279,12 @@ pre {
   font-size: 14px;
   color: #828282; }
 
+.post-avatar {
+  width: 30px;
+  height: 30px;
+  overflow: hidden;
+  border-radius: 50%; }
+
 .post-link {
   display: block;
   font-size: 24px; }
