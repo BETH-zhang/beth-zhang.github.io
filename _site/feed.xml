@@ -5,8 +5,8 @@
     <description>在前端的道路上风景更加绚丽多姿</description>
     <link>https://github.com/BETH-zhang/</link>
     <atom:link href="https://github.com/BETH-zhang/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Fri, 24 Jun 2016 23:20:11 +0800</pubDate>
-    <lastBuildDate>Fri, 24 Jun 2016 23:20:11 +0800</lastBuildDate>
+    <pubDate>Sat, 25 Jun 2016 09:00:56 +0800</pubDate>
+    <lastBuildDate>Sat, 25 Jun 2016 09:00:56 +0800</lastBuildDate>
     <generator>Jekyll v3.1.6</generator>
     
       <item>
@@ -223,41 +223,290 @@
                 &quot;微博：kejunz&quot;: &quot;javascript:;&quot;
             },
             &quot;前端大神&quot;
+        ],[
+            &quot;寒冬winter&quot;,
+            img,
+            &quot;&quot;,
+            {
+                &quot;博客:winter-cn&quot;: &quot;http://&quot;,
+                &quot;微博：寒冬winter&quot;: &quot;javascript:;&quot;
+            },
+            &quot;&quot;
+        ],[
+            &quot;左耳朵耗子&quot;,
+            img,
+            &quot;淘宝&quot;,
+            {
+                &quot;博客:酷壳&quot;: &quot;http://&quot;,
+                &quot;微博：左耳朵耗子&quot;: &quot;javascript:;&quot;
+            },
+            &quot;&quot;
+        ],[
+            &quot;fool2fish&quot;,
+            img,
+            &quot;支付宝&quot;,
+            {
+                &quot;微博：fool2fish&quot;: &quot;javascript:;&quot;
+            },
+            &quot;&quot;
+        ],[
+            &quot;朴灵&quot;,
+            img,
+            &quot;阿里巴巴&quot;,
+            {
+                &quot;博客:Html5fiy&quot;: &quot;http://&quot;,
+                &quot;微博：朴灵&quot;: &quot;javascript:;&quot;,
+                &quot;Github:JacksonTian&quot;:&quot;javascript:;&quot;
+            },
+            &quot;《深入浅出Node.js》作者,大牛&quot;
+        ],[
+            &quot;CatChen&quot;,
+            img,
+            &quot;Facebook&quot;,
+            {
+                &quot;博客:陈广琛&quot;: &quot;http://&quot;,
+                &quot;微博：CatChen&quot;: &quot;javascript:;&quot;,
+                &quot;Github:CatChen&quot;:&quot;javascript:;&quot;
+            },
+            &quot;大牛&quot;
+        ],[
+            &quot;BYVod&quot;,
+            img,
+            &quot;Facebook&quot;,
+            {
+                &quot;博客:Beyond the Void&quot;: &quot;http://&quot;,
+                &quot;微博:BYVoid&quot;: &quot;javascript:;&quot;,
+                &quot;Github:byvoid&quot;:&quot;javascript:;&quot;
+            },
+            &quot;英国 《Node.js 开发指南》作者,大牛&quot;
+        ],[
+            &quot;郭宇&quot;,
+            img,
+            &quot;Facebook&quot;,
+            {
+                &quot;博客:Einmal ist keinmal&quot;: &quot;http://&quot;,
+                &quot;微博:郭宇&quot;: &quot;javascript:;&quot;,
+                &quot;Github:turingou&quot;:&quot;javascript:;&quot;
+            },
+            &quot;糗事百科,原支付宝   Node.js&quot;
+        ],[
+            &quot;勾三股四&quot;,
+            img,
+            &quot;淘宝&quot;,
+            {
+                &quot;微博:勾三股四&quot;: &quot;javascript:;&quot;
+            },
+            &quot;&quot;
+        ],[
+            &quot;cnberg&quot;,
+            img,
+            &quot;百度&quot;,
+            {
+                &quot;博客:冰山一角&quot;: &quot;http://&quot;,
+                &quot;微博:berg&quot;: &quot;javascript:;&quot;,
+                &quot;Github:cnberg&quot;:&quot;javascript:;&quot;
+            },
+            &quot;骑行&quot;
+        ],[
+            &quot;cnb大猫erg&quot;,
+            img,
+            &quot;腾讯&quot;,
+            {
+                &quot;博客:意淫笔记&quot;: &quot;http://&quot;,
+                &quot;微博:daemao&quot;: &quot;javascript:;&quot;,
+                &quot;Github:Damao&quot;:&quot;javascript:;&quot;
+            },
+            &quot;知乎&quot;
+        ],[
+            &quot;hzlzh&quot;,
+            img,
+            &quot;腾讯&quot;,
+            {
+                &quot;博客:自力博客&quot;: &quot;http://&quot;,
+                &quot;微博:hzlzh&quot;: &quot;javascript:;&quot;,
+                &quot;Github:hzlzh&quot;:&quot;javascript:;&quot;
+            },
+            &quot;前端开发&quot;
+        ],[
+            &quot;C7210&quot;,
+            img,
+            &quot;&quot;,
+            {
+                &quot;博客&quot;: &quot;http://beforweb.com/&quot;,
+                &quot;微博:C7210&quot;: &quot;javascript:;&quot;,
+                &quot;Github:C7210&quot;:&quot;javascript:;&quot;
+            },
+            &quot;UX、交互设计师、视觉与前端&quot;
+        ],[
+            &quot;张鑫旭&quot;,
+            img,
+            &quot;腾讯&quot;,
+            {
+                &quot;博客:张鑫旭博客&quot;: &quot;javascript:;&quot;,
+                &quot;微博:张鑫旭&quot;: &quot;javascript:;&quot;,
+                &quot;Github:zhangxinxu&quot;:&quot;javascript:;&quot;
+            },
+            &quot;上海 ISUX  前端开发&quot;
+        ],[
+            &quot;lucifr&quot;,
+            img,
+            &quot;腾讯&quot;,
+            {
+                &quot;博客&quot;: &quot;http://lucifr.com/&quot;,
+                &quot;微博:lucifr&quot;: &quot;javascript:;&quot;,
+                &quot;Github:lucifr&quot;:&quot;javascript:;&quot;
+            },
+            &quot;前端开发&quot;
+        ],[
+            &quot;smallni&quot;,
+            img,
+            &quot;腾讯&quot;,
+            {
+                &quot;博客&quot;: &quot;http://www.smallni.com/&quot;,
+                &quot;微博:Smallni&quot;: &quot;javascript:;&quot;,
+                &quot;Github:Smallni&quot;:&quot;javascript:;&quot;
+            },
+            &quot;前端开发&quot;
+        ],[
+            &quot;TQ&quot;,
+            img,
+            &quot;腾讯&quot;,
+            {
+                &quot;博客&quot;: &quot;http://targetkiller.net/&quot;,
+                &quot;微博:Piser-TQ&quot;: &quot;javascript:;&quot;,
+                &quot;Github:tqtan&quot;:&quot;javascript:;&quot;
+            },
+            &quot;ISUX 网页重构&quot;
+        ],[
+            &quot;LOO2K&quot;,
+            img,
+            &quot;墨筹网&quot;,
+            {
+                &quot;博客:LOO2K&quot;: &quot;javascript:;&quot;,
+                &quot;微博:LOO2K&quot;: &quot;javascript:;&quot;,
+                &quot;Github:LOO2K&quot;:&quot;javascript:;&quot;
+            },
+            &quot;少年才俊&quot;
+        ],[
+            &quot;qiqiboy&quot;,
+            img,
+            &quot;金山网络&quot;,
+            {
+                &quot;博客:qiqiboy&quot;: &quot;javascript:;&quot;,
+                &quot;微博:qiqiboy&quot;: &quot;javascript:;&quot;
+            },
+            &quot; UX 吐槽清理大师开发者&quot;
+        ],[
+            &quot;foru17&quot;,
+            img,
+            &quot;金山网络&quot;,
+            {
+                &quot;博客:罗磊的独立博客&quot;: &quot;javascript:;&quot;,
+                &quot;微博:罗罗磊磊&quot;: &quot;javascript:;&quot;,
+                &quot;Github:foru17&quot;:&quot;javascript:;&quot;
+            },
+            &quot;UX 打酱油的&quot;
+        ],[
+            &quot;周爱民&quot;,
+            img,
+            &quot;支付宝&quot;,
+            {
+                &quot;博客:aimingoo专栏&quot;: &quot;javascript:;&quot;,
+            },
+            &quot;JavaScript语言精髓与编程实践作者&quot;
+        ],[
+            &quot;hax&quot;,
+            img,
+            &quot;金山网络&quot;,
+            {
+                &quot;博客:hax的技术部落格&quot;: &quot;javascript:;&quot;,
+                &quot;微博:罗罗磊磊&quot;: &quot;javascript:;&quot;,
+            },
+            &quot;前端大牛&quot;
+        ],[
+            &quot;三生石上&quot;,
+            img,
+            &quot;&quot;,
+            {
+                &quot;博客:三生石上&quot;: &quot;javascript:;&quot;,
+            },
+            &quot;js秘密花园译者&quot;
+        ],[
+            &quot;司徒正美&quot;,
+            img,
+            &quot;去哪儿&quot;,
+            {
+                &quot;博客:Ruby’s Louvre&quot;: &quot;javascript:;&quot;,
+            },
+            &quot;前端开发&quot;
+        ],[
+            &quot;叶小钗&quot;,
+            img,
+            &quot;&quot;,
+            {
+                &quot;博客:叶小钗&quot;: &quot;javascript:;&quot;,
+            },
+            &quot;前端开发&quot;
+        ],[
+            &quot;聂微东&quot;,
+            img,
+            &quot;百度移动云&quot;,
+            {
+                &quot;博客:Darren&quot;: &quot;javascript:;&quot;,
+            },
+            &quot;前端开发&quot;
+        ],[
+            &quot;当耐特&quot;,
+            img,
+            &quot;&quot;,
+            {
+                &quot;博客:iamzhanglei&quot;: &quot;javascript:;&quot;,
+            },
+            &quot;HTML5实验室作者&quot;
+        ],[
+            &quot;教主&quot;,
+            img,
+            &quot;&quot;,
+            {
+                &quot;博客:_frank&quot;: &quot;javascript:;&quot;,
+            },
+            &quot;又一牛&quot;
+        ],[
+            &quot;typeof&quot;,
+            img,
+            &quot;&quot;,
+            {
+                &quot;博客:typeof&quot;: &quot;javascript:;&quot;,
+            },
+            &quot;又一牛&quot;
+        ],[
+            &quot;Gray Zhang&quot;,
+            img,
+            &quot;&quot;,
+            {
+                &quot;博客:Gray Zhang&quot;: &quot;javascript:;&quot;,
+            },
+            &quot;百度一牛&quot;
+        ],[
+            &quot;李松峰&quot;,
+            img,
+            &quot;&quot;,
+            {
+                &quot;博客:为之漫笔&quot;: &quot;javascript:;&quot;,
+            },
+            &quot;高程2等书的译者&quot;
+        ],[
+            &quot;汤姆大叔&quot;,
+            img,
+            &quot;&quot;,
+            {
+                &quot;博客:汤姆大叔的博客&quot;: &quot;javascript:;&quot;,
+            },
+            &quot;《深入理解Bootstrap》、《JavaScript启示录》、《JavaScript设计模式》等多本前端书籍翻译作者&quot;
         ]
     ];
 
 // ID  博客  微博  Github  公司  关键字 
-// 寒冬winter    winter-cn   @寒冬winter   #   #   #
-// 左耳朵耗子   酷壳  @左耳朵耗子  #   淘宝  #
-// fool2fish   #   @fool2fish  #   支付宝 #
-// 朴灵  Html5fiy    @朴灵 JacksonTian 阿里巴巴    《深入浅出Node.js》作者,大牛
-// Cat Chen    陈广琛 @CatChen    @CatChen    Facebook    大牛
-// BYVod   Beyond the Void @BYVoid @byvoid Facebook 英国 《Node.js 开发指南》作者,大牛
-// 郭宇  Einmal ist keinmal  @郭宇 @turingou   糗事百科,原支付宝   Node.js
-// 勾三股四    #   @勾三股四   #   淘宝  #
-// cnberg  冰山一角    @berg   @cnberg 百度  骑行
-// 大猫  意淫笔记    @daemao @Damao  腾讯  知乎
-// hzlzh   自力博客    @hzlzh  @hzlzh  腾讯  前端开发
-// C7210   beforweb.com/   @C7210  @C7210  #   UX、交互设计师、视觉与前端
-// kejun   http://hikejun.com/ #   #   腾讯  前端开发
-// 张鑫旭 张鑫旭博客   @张鑫旭    @zhangxinxu 腾讯 上海 ISUX  前端开发
-// lucifr  http://lucifr.com/  @lucifr @lucifr #   Mac,ios
-// smallni http://www.smallni.com/ #   @Smallni    腾讯  前端开发
-// TQ  http://targetkiller.net/    @Piser-TQ   @tqtan  腾讯 ISUX 网页重构
-// LOO2K   LOO2K   @LOO2K  LOO2K   墨筹网 少年才俊
-// qiqiboy qiqiboy @qiqiboy    #   金山网络 UX 吐槽清理大师开发者
-// foru17  罗磊的独立博客 @罗罗磊磊   @foru17 金山网络 UX 打酱油的
-// 周爱民 aimingoo专栏  #   #   支付宝 JavaScript语言精髓与编程实践作者
-// hax hax的技术部落格   #   #   #   前端大牛
-// 三生石上    三生石上    #   #   #   js秘密花园译者
-// 司徒正美    Ruby’s Louvre   #   #   #   前端开发
-// 叶小钗 叶小钗 #   #   #   前端开发
-// 聂微东 Darren  #   #   百度移动云   前端开发
-// 当耐特 iamzhanglei #   #   #   HTML5实验室作者
-// 教主  _frank  #   #   #   又一牛
-// typeof  typeof  #   #   #   又一牛
-// Gray Zhang  Gray Zhang  #   #   #   百度一牛
-// 李松峰 为之漫笔    #   #   #   高程2等书的译者
 // 小鱼  sofish  @sofish #   #   百姓网一牛
 // vilic   vilic   #   #   #   年轻一牛
 // 彬Go 彬Go #   #   #   人人网一牛
@@ -271,7 +520,6 @@
 // Along   Along’s Blog    @newwave    #   #   Opera 欧朋一牛
 // 安记  cssha   @hanan321   hanan198501 #   去哪网一牛
 // 余弦  EVILCOS 余弦  evilcos 知道创宇    安全（黑客）、架构、团队的各种观点与分享
-// 汤姆大叔    汤姆大叔的博客 #   #   #   《深入理解Bootstrap》、《JavaScript启示录》、《JavaScript设计模式》等多本前端书籍翻译作者
 
     $(&#39;#frontend-ox&#39;).append(new H5ComponentPeopleList(&#39;peoplelist&#39;, {
         type: &#39;peoplelist&#39;,
