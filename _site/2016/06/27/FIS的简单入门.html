@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Fis的简单入门</title>
+  <meta name="description" content="  FIS是专为解决前端开发中自动化工具、性能优化、模块化框架、开发规范、代码部署、开发流程等问题的工具框架。">
+
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="canonical" href="https://github.com/BETH-zhang/2016/06/27/FIS%E7%9A%84%E7%AE%80%E5%8D%95%E5%85%A5%E9%97%A8.html">
+  <link rel="alternate" type="application/rss+xml" title="前端花园" href="https://github.com/BETH-zhang/feed.xml">
+  <link type="image/x-icon" rel="shortcut icon" href="https://raw.githubusercontent.com/BETH-zhang/Frontend-Garden/gh-pages/_includes/favicon.ico">
+  <script type="text/javascript" src="/js/jquery.min.js"></script>
+</head>
+
+
+  <body>
+
+    <header class="site-header">
+
+  <div class="wrapper">
+
+    <a class="site-title" href="/">前端花园</a>
+
+    <nav class="site-nav">
+      <a href="#" class="menu-icon">
+        <svg viewBox="0 0 18 15">
+          <path fill="#424242" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#424242" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484 h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#424242" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+        </svg>
+      </a>
+
+      <div class="trigger">
+        
+          
+          <a class="page-link" href="/about/">About</a>
+          
+        
+          
+        
+          
+        
+          
+        
+      </div>
+    </nav>
+
+  </div>
+
+</header>
+
+
+    <div class="page-content">
+      <div class="wrapper">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title" itemprop="name headline">Fis的简单入门</h1>
+    <p class="post-meta"><a href="https://github.com/BETH-zhang" target="_blank"/><img class="post-avatar" src="https://avatars3.githubusercontent.com/u/19342035?v=3&s=40"/></a><time datetime="2016-06-27T00:00:00+08:00" itemprop="datePublished">Jun 27, 2016</time></p>
+  </header>
+
+  <div class="post-content" itemprop="articleBody">
+    <blockquote>
+  <p>FIS是专为解决前端开发中自动化工具、性能优化、模块化框架、开发规范、代码部署、开发流程等问题的工具框架。</p>
+</blockquote>
+
+<p>使用FIS我们可以快速的完成各种前端项目的资源压缩、合并等等各种性能优化工作，同时FIS还提供了大量的开发辅助功能</p>
+
+<h2>首先我们了解一下FIS的基本命令</h2>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>- fis install: 命令安装fis仓库提供的各种 组件、框架、示例、素材、配置等 开发资源。
+- fis release: 命令用于编译并发布的你的项目，拥有多个参数调整编译发布操作。
+- fis server: 命令可以启动一个本地调试服务器用于预览fis release产出的项目。
+</code></pre>
+</div>
+
+<p>下面这张图描述了FIS的整个使用流程
+<img src="/img/flow_d30795e.jpg" alt="" /></p>
+
+<h2>接下来我们可以通过快速入门进一步的了解FIS</h2>
+
+<!-- 准备工作
+快速入门除了文档外，我们还提供了视频教程，欢迎大家观看，看到最后有彩蛋哟-`д´- 传送门 -->
+
+<h4>工具安装</h4>
+<p>FIS使用Node.js开发，以npm包的形式发布。因此使用FIS需要先安装Node.js，再通过npm安装命令进行FIS安装。</p>
+
+<p>$ npm install -g fis</p>
+
+<p>$ npm install -g fis@1.9.14   此方法可以选择安装FIS版本
+安装遇到困难？点击这里</p>
+
+<p>遇到问题：</p>
+
+<p>FIS作为nodejs模块发布托管在 npm上，npm是nodejs的包管理工具。查看npm网站</p>
+
+<p>用户需要使用npm install命令来安装FIS。更多npm使用，执行 npm -h 来查看</p>
+
+<p>由于npm经常被墙，安装FIS的时候会出现速度过慢，或者安装不上的问题 。可以通过 npm的 –registry参数指定仓库。指定国内的npm镜像来解决npm被墙的问题。</p>
+
+<p>例如：</p>
+
+<p>npm install some-npm-module -g –registry=国内镜像
+下面提供一个国内镜像。其他镜像大家可以自己找找
+–registry=http://registry.npm.taobao.org/
+即你可以通过下面的命令使用cnpmjs仓库安装FIS</p>
+
+<p>npm install fis -g –registry=http://registry.npm.taobao.org/
+注意 如果提示Error: No compatible version found.. ，有可能是npm版本过低导致，可以参考 #83 解决</p>
+
+<p>注意 如果提示WARN optional dep failed, continuing fsevents 警告，可以无视，这个是一个可选依赖包，仅在Mac下可以使用。</p>
+
+<p>示例准备
+在介绍FIS的主要功能前，需要先准备一个示例项目。可以从Github上获取。</p>
+
+<p>$ git clone https://github.com/hefangshi/fis-quickstart-demo.git
+本地预览
+首先我们可以通过 fis server start 命令启动FIS的本地调试服务器功能对构建发布的项目进行预览调试</p>
+
+<p>$ fis server start
+注意</p>
+
+<p>如果8080端口被占用，可以通过 fis server start -p [port] 指定新的端口。</p>
+
+<p>如果没有java、php环境，可以通过 fis server start –type node 启动Node版fis server。</p>
+
+<p>命令执行后内置服务器会一直运行，可以通过 fis server stop 命令关闭内置服务器。</p>
+
+<p>本地调试服务器启动成功后，就会自动打开 http://127.0.0.1:8080 ，但是此时服务器内没有任何内容。我们还需要通过FIS发布DEMO项目才能进行预览</p>
+
+<p>$ cd fis-quickstart-demo #进入DEMO目录
+$ fis release #编译并发布DEMO
+fis release 命令会将编译后的项目发布至本地调试服务器，再次刷新浏览器页面，我们就可以到fis-quickstart-demo项目的主页了。</p>
+
+<p>资源压缩
+资源压缩一直是前端项目优化中非常重要的一环，使用FIS我们无需任何配置，只需要一个命令就可以完成压缩工作。</p>
+
+<p>$ fis release –optimize
+如果觉得参数输入比较麻烦，实际上也支持参数缩写，更多的参数可以参考 fis release -h 或命令行。</p>
+
+<p>$ fis release -o
+FIS构建并不会修改源代码目录中的内容，而是拥有独立的产出的目录，FIS默认的产出目构录可以通过 fis server open打开，你也可以通过 fis release -d path/to/output 指定你希望的输出目录，详情可以参考FAQ</p>
+
+<p>查看一下网站的静态资源，我们会发现脚本、样式、图片资源都已经压缩完成。无需额外的插件和配置编写，一条命令就完成了压缩工作，是不是非常方便快捷？</p>
+
+<p>FIS默认会调整所有资源引用的相对路径为绝对路径，如果只是单纯的希望对项目的脚本、样式、图片进行压缩，不希望对资源引用地址做调整，可以直接使用基于FIS封装的spt。</p>
+
+<p>添加文件版本
+FIS能够根据静态资源的内容自动生成文件版本，自动更新资源引用路径，解决缓存更新问题，告别手动更新时间戳。</p>
+
+<p>我们通过开启 –md5 参数，为项目中的静态资源添加md5版本号</p>
+
+<p>$ fis release –optimize –md5 # fis release -om
+刷新页面，我们可以看到所有资源均加上了md5版本号</p>
+
+<p><img src="/img/md5_0102c44.png" alt="" /></p>
+
+<p>还是喜欢时间戳？没问题，FIS也可以满足你的需求，点击这里</p>
+
+<p>资源合并
+设置打包
+FIS可以通过pack来进行资源文件的合并，比如我们需要将DEMO中的公共库文件打包在一起，可以修改fis-conf.js配置，加入pack配置</p>
+
+<p>fis.config.set(‘pack’, {
+    ‘pkg/lib.js’: [
+        ‘/lib/mod.js’,
+        ‘/modules/underscore/<strong>.js’,
+        ‘/modules/backbone/</strong>.js’,
+        ‘/modules/jquery/<strong>.js’,
+        ‘/modules/vendor/</strong>.js’,
+        ‘/modules/common/**.js’
+    ]
+});
+设置完pack后，FIS默认只会进行文件打包，不会对页面中的静态资源引用进行替换，我们可以通过引入后端静态资源管理来加载打包模块。不过也可以利用fis-postpackager-simple插件，可以自动将页面中独立的资源引用替换为打包资源。</p>
+
+<p>插件安装
+FIS的编译系统拥有一个使用简单、扩展方便的插件体系，这套插件体系保证了FIS编译工具的灵活性和生命力。这里我们简单介绍一下FIS插件的安装方法，更加详细的插件系统介绍可以查看配置API modules。</p>
+
+<p>插件的安装分为两步，首先我们需要通过npm包管理工具进行插件安装</p>
+
+<p>$ npm install -g fis-postpackager-simple
+fis-postpackager-simple插件是提供给纯前端应用的打包合并插件，其他定制解决方案，如fis-plus、yogurt等不需要这个插件，需要查看各自的文档了解使用方式。</p>
+
+<p>插件安装到本地后，我们还需要通过项目配置文件开启插件，修改项目根目录下的fis-conf.js配置，开启fis-postpackager-simple插件</p>
+
+<p>$ cd fis-quickstart-demo
+$ vi fis-conf.js #vi是linux下的文本编辑器，windows用户可以选用任意文本编辑器对fis-conf.js文件进行编辑。
+//file : fis-conf.js
+fis.config.set(‘modules.postpackager’, ‘simple’);
+应用打包
+为了开发调试时更加方便 fis release 默认不会合并资源，在指定了 –pack 参数后，FIS才会进行打包合并处理。</p>
+
+<p>$ fis release –optimize –md5 –pack # fis release -omp
+再次浏览我们可以发现原有的基础类库引用已经被替换为了 lib.js ，关于fis-postpackager-simple插件更多的静态资源处理策略和使用方法，请参考fis-postpackager-simple。</p>
+
+<p>资源合并</p>
+
+<p>自动打包
+利用simple插件，我们还可以按页面进行自动合并，将没有通过pack设置打包的零散资源自动合并起来。</p>
+
+<p>//file : fis-conf.js
+//开启autoCombine可以将零散资源进行自动打包
+fis.config.set(‘settings.postpackager.simple.autoCombine’, true);
+再次运行FIS构建项目</p>
+
+<p>$ fis release -omp
+我们会发现剩余的零散资源已经被自动合并了。</p>
+
+<p>人工干预合并</p>
+
+<p>合并图片
+通过上述几个步骤，我们已经成功将脚本资源和样式表资源进行了合并，但是为了进一步的减少HTTP连接数，我们还可以对引用的图片资源进行进一步的合并。</p>
+
+<p>用于图片合并的插件csssprites已经在FIS中内置了，因此无需安装，只需要在fis-conf.js的配置中开启即可</p>
+
+<p>//为所有样式资源开启csssprites
+fis.config.set(‘roadmap.path’, [{
+    reg: ‘**.css’,
+    useSprite: true
+}]);
+//设置csssprites的合并间距
+fis.config.set(‘settings.spriter.csssprites.margin’, 20);
+使用csssprites合并的图片需要在图片路径处添加query标识，示例项目中已经预先添加，更详细的使用方法可以参考使用文档</p>
+
+<p>再次运行FIS构建项目</p>
+
+<p>$ fis release -omp
+刷新一下，添加几个待办项，我们会发现所有待办项的图片都合并在了一张图片中。</p>
+
+<p>人工干预合并</p>
+
+<p>辅助开发
+语言扩展
+使用FIS可以方便的将各种异构语言转换为前端语言，比如说可以将CoffeeScript编译为JavaScript、Less编译为CSS、前端模板预编译等等，并且可以做到各种异构语言无缝混用，我们以Less为例演示如何使用FIS来扩展前端开发语言。</p>
+
+<p>更多的语言扩展类插件可以查看更多插件</p>
+
+<p>插件安装
+$ npm install -g fis-parser-less
+开启插件
+//file: fis-conf.js</p>
+
+<p>//后缀名的less的文件使用fis-parser-less编译
+//modules.parser.less表示设置后缀名为less的文件的parser，第二个less表示使用fis-parser-less进行编译
+fis.config.set(‘modules.parser.less’, ‘less’);
+//将less文件编译为css
+fis.config.set(‘roadmap.ext.less’, ‘css’);
+快速试用
+在fis-conf.js同目录编写一个LESS文件</p>
+
+<p>body {
+    .container {
+        width: 980px;
+    }
+}
+使用发布到output目录中</p>
+
+<p>$ fis release -wd output
+可以看到在output目录中，原有的less文件已经被编译为了css文件</p>
+
+<p>body .container {
+  width: 980px;
+}
+由于我们添加了 -w 参数，你还可以随意修改LESS文件，FIS将会自动监听文件修改，自动编译发布CSS文件</p>
+
+<p>自动化
+文件监视
+通过文件监视功能，我们可以要求FIS在项目文件出现修改时，自动增量构建项目文件。并且增量构建是考虑了各种嵌入关系的，比如a.css文件内嵌了b.css文件，那么当b.css文件修改时，FIS会自动重新构建a.css和b.css两个文件。</p>
+
+<p>可以使用快速入门中的fis-quickstart-demo试试看，首先开启文件监听功能</p>
+
+<p>fis release –watch #fis release -w
+随意修改项目内容，返回页面刷新即可查看到相应的变化。</p>
+
+<p>自动刷新
+我们只需要在文件监视的参数基础上添加 –live 或 -L 参数即可实现在项目文件发生修改后，自动刷新页面的功能，大幅提高页面制作效率。</p>
+
+<p>fis release –watch –live #fis release -wL
+随意修改项目内容，页面将会应用修改并自动刷新。</p>
+
+<p>要求浏览器环境支持WebSocket。</p>
+
+<p>快速部署
+通过配置我们可以快速的将FIS的编译结果上传至指定的文件夹甚至远程服务器与后端联调，结合文件监视、自动刷新功能我们可以做到修改文件后自动更新远程服务器内容，并刷新调试页面。详细配置可以参见deploy。</p>
+
+<p>更多的辅助开发能力可以参考命令行。</p>
+
+<h2>命令行</h2>
+<p>三条命令，满足你的所有需求</p>
+
+<p>执行 fis –help 让我们来看一下fis命令的相关帮助：</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>Usage: fis &lt;command&gt;
+
+Commands:
+
+  release     build and deploy your project
+  install     install components and demos
+  server      launch a php-cgi server
+
+Options:
+
+  -h, --help     output usage information
+  -v, --version  output the version number
+  --no-color     disable colored output
+</code></pre>
+</div>
+
+<p>正如你所见，使用fis你需要——也只需要——记住三条命令：</p>
+
+<ul>
+  <li>fis release： 编译并发布你的项目,它的参数囊括了前端开发所需的各种基础功能
+    <ul>
+      <li>–watch 或 -w，支持对项目进行增量编译，监听文件变化再触发编译</li>
+      <li>–live 或 -L，支持编译后自动刷新浏览器。Liveload功能需要浏览器支持Web Socket功能，例如Chrome、Firefox、Safari等浏览器。</li>
+      <li>
+        <table>
+          <tbody>
+            <tr>
+              <td>–dest [path</td>
+              <td>name] 或 -d ，来指定编译后的代码部署路径，支持发布到 本地目录、本地调试服务器目录、远程机器目录(需要配置)，它与–watch参数配合使用，可以让你的代码保存就上传！而且–dest值支持逗号分隔，这也就意味着，你 一次编译可以同时发布到本地以及多台远程机器上！</td>
+            </tr>
+          </tbody>
+        </table>
+      </li>
+      <li>–lint 或 -l ，支持在编译的时候根据项目配置自动代码检查</li>
+      <li>–test 或 -t ，支持在编译的时候对代码进行自动化测试</li>
+      <li>–pack 或 -p，对产出文件根据项目配置进行打包</li>
+      <li>–optimize 或 -o，对js、css、html进行压缩</li>
+      <li>–domains 或 -D，为资源添加domain域名</li>
+    </ul>
+  </li>
+  <li>fis install：安装fis仓库提供的各种 组件，框架，库，样例项目，甚至配置文件 等模块
+    <ul>
+      <li>从fis代码仓库下载-&gt;解压到当前目录。<img src="/img/install.png" alt="" /></li>
+      <li></li>
+    </ul>
+  </li>
+  <li>fis server：启动一个 1.8M 大小的内置调试服务器，它采用php-java-bridge技术实现， 依赖java、php-cgi外部环境 ，可以 完美支持运行php程序 哦。</li>
+</ul>
+
+<p>你将看到fis的自动化工具对 html、js、css各自扩展了三种语言能力：</p>
+
+<ul>
+  <li>资源定位：获取任何开发中所使用资源的线上路径；
+    <ul>
+      <li>资源定位能力，可以有效的分离开发路径与部署路径之间的关系，工程师不再关心资源部署到线上之后去了哪里，变成了什么名字，这些都可以通过配置来指定。而工程师只需要使用相对路径来定位自己的开发资源即可。这样的好处是 资源可以发布到任何静态资源服务器的任何路径上而不用担心线上运行时找不到它们，而且 代码 具有很强的可移植性，甚至可以从一个产品线移植到另一个产品线而不用担心线上部署不一致的问题。</li>
+    </ul>
+  </li>
+  <li>内容嵌入：把一个文件的内容(文本)或者base64编码(图片)嵌入到另一个文件中；
+    <ul>
+      <li>内容嵌入可以为工程师提供诸如图片base64嵌入到css、js里，前端模板编译到js文件中，将js、css、html拆分成几个文件最后合并到一起的能力。有了这项能力，可以有效的减少http请求数，提升工程的可维护性。fis不建议用户使用内容嵌入能力作为组件化拆分的手段，因为下面这个能力会更适合组件化开发。</li>
+    </ul>
+  </li>
+  <li>依赖声明：在一个文本文件内标记对其他资源的依赖关系；
+    <ul>
+      <li>依赖声明，为工程师提供了声明依赖关系的编译接口。fis在执行编译的过程中，会扫描这些编译标记，从而建立一张静态资源关系表，它会被产出为一份 map.json 文件，这份文件详细记录了项目内的静态资源开发路径、线上路径、资源类型以及 依赖关系 和 资源打包信息，这样，使用fis作为编译工具的产品线，就可以将这张表提交给后端或者前端框架去运行时根据组件使用情况来按需加载资源或者资源所在的包，从而提升前端页面运行性能。</li>
+    </ul>
+  </li>
+</ul>
+
+<p>有了这三种语言能力，你的团队前端工业化水平将有很大的提升，因为：</p>
+
+<p>ok，回到刚刚的firstblood示例项目，进入到output目录，你将看到：</p>
+
+<p>所有的资源，除了html都加了md5戳
+多了一个map.json文件，里面记录了当前项目下的静态资源信息。
+编辑器打开index.html文件，你将看到更多惊喜。
+接下来，我们使用install命令安装一个配置文件，用于 调整文件编译后的部署路径 ：</p>
+
+<p>$ fis install firstblood-conf
+此时firstblood项目目录下会多出一个fis-conf.js文件，让我们看一下里面的内容：</p>
+
+<p>fis.config.merge({
+    roadmap : {
+        domain : {
+            //所有css文件添加http://localhost:8080作为域名
+            ‘<strong>.css’ : ‘http://localhost:8080’
+        },
+        path : [
+            {
+                //所有的js文件
+                reg : ‘</strong>.js’,
+                //发布到/static/js/xxx目录下
+                release : ‘/static/js$&amp;’
+            },
+            {
+                //所有的css文件
+                reg : ‘<em>*.css’,
+                //发布到/static/css/xxx目录下
+                release : ‘/static/css$&amp;’
+            },
+            {
+                //所有image目录下的.png，.gif文件
+                reg : /^\/images\/(.</em>.(?:png|gif))/i,
+                //发布到/static/pic/xxx目录下
+                release : ‘/static/pic/$1’
+            }
+        ]
+    }
+});
+删除一下output目录，再次执行编译命令：</p>
+
+<p>$ fis release –md5 –domains –dest ./output
+就可以看到，fis调整了编译产出的目录结构。编辑output目录下的index.html，还会发现，fis将所有引用资源的地方也都调整为了发布路径，所有css也自动添加了域名！</p>
+
+<p>fis release命令还有强大的自动上传功能，这篇文档不会详细介绍此功能的使用方式，但小编可以先发个截图表示一下。截图中显示的是我在windows下编译了firstblood项目，然后自动同步到我的linux测试机上的截图。之后我修改了index.html文件，它又帮我秒传上去了，嚯嚯！</p>
+
+<p>自动上传功能</p>
+
+<p>当你学习到这里时，恭喜你，你已掌握了F.I.S自动化/辅助开发工具的大部分功能，下面一条命令，会给你带来更爽的开发体验。</p>
+
+<p>fis server <command /> [options]
+难度等级：★★☆☆☆</p>
+
+<p>考虑到工程师需要在后端程序没开始的时候就能写点东西看看效果，或者离开公司在别处与妹子把酒言欢时突然来了灵感要写码，没有一个小巧的调试服务器怎么能行？！fis团队将本地调试服务器作为一项重要功能来开发，赋予工程师无处不在的写码调试能力。不要小看这个调试服务器，它是特别定制的，使用php-java-bridge技术实现，完美支持运行php程序，可以比较真实 的模拟产品线线上运行环境。</p>
+
+<p>fis的调试服务器依赖于用户本地的 jre 和 php-cgi 环境，所以：</p>
+
+<p>如果没有jre环境，请移步 这里 下载
+如果没有php-cgi环境的，请移步 这里 下载
+请把java、php-cgi命令添加到环境变量中
+搞定环境后，让我们来启动调试服务器看看：</p>
+
+<p>$ fis server start
+checking java support : version 1.6.0
+checking php-cgi support : version 5.2.11
+starting fis-server on port : 8080
+不需要再使用调试服务器时，可以通过 fis server stop 关闭</p>
+
+<p>服务器启动之后，它会自动检查环境，最后告诉你它监听了8080端口，这个时候，你的浏览器应该打开了一个调试服务器根目录的浏览页面，地址是 http://localhost:8080/。</p>
+
+<p>在刚刚的firstblood项目中执行命令：</p>
+
+<p>$ fis release –md5 –optimize –watch
+现在，fis已经将编译好的代码发布到调试服务器中啦，刷新浏览器，你会看到我们的firstblood示例项目的运行效果。此时，你修改项目文件都将自动编译并发布到调试服务器目录下，看看页面源代码，你会发现更多惊喜！顺便恭喜你，至此你已完全掌握了fis的基本用法，你可以借助fis这个利器去挑战大型商业产品开发了！</p>
+
+  </div>
+
+</article>
+
+      </div>
+    </div>
+
+    <footer class="site-footer">
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">前端花园</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li><a href="mailto:gemeiwangji789@qq.com">gemeiwangji789@qq.com</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col footer-col-2">
+        <ul class="social-media-list">
+          
+          <li>
+            <a href="https://github.com/BETH-zhang"><span class="icon icon--github"><svg viewBox="0 0 16 16"><path fill="#828282" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761 c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32 c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472 c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037 C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65 c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261 c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082 c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129 c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/></svg>
+</span><span class="username">BETH-zhang</span></a>
+
+          </li>
+          
+
+          
+        </ul>
+      </div>
+
+      <div class="footer-col footer-col-3">
+        <p>在前端的道路上风景更加绚丽多姿</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+
+
+  </body>
+
+</html>
