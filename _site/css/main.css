@@ -513,13 +513,13 @@ pre {
 .light .show {
   display: block; }
 
-.light .h2 {
+.light .h3 {
   cursor: pointer;
   border: 1px solid #f2f2f2; }
 
-.light .h2:hover {
+.light .h3:hover {
   background: #f2f2f2; }
 
-.light .h2-show {
+.light .h3-show {
   color: #d14;
   font-size: 18px; }

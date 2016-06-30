@@ -5,8 +5,8 @@
     <description>在前端的道路上风景更加绚丽多姿</description>
     <link>https://github.com/BETH-zhang/</link>
     <atom:link href="https://github.com/BETH-zhang/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Thu, 30 Jun 2016 15:41:33 +0800</pubDate>
-    <lastBuildDate>Thu, 30 Jun 2016 15:41:33 +0800</lastBuildDate>
+    <pubDate>Thu, 30 Jun 2016 18:19:25 +0800</pubDate>
+    <lastBuildDate>Thu, 30 Jun 2016 18:19:25 +0800</lastBuildDate>
     <generator>Jekyll v3.1.6</generator>
     
       <item>
@@ -334,17 +334,13 @@ fis所有的插件配置都支持定义一个 数组或者逗号分隔的字符�
 
 &lt;/div&gt;
 
-&lt;script type=&quot;text/javascript&quot; src=&quot;/js/H5ComponentApiList.js&quot;&gt;&lt;/script&gt;
-
 &lt;h2 id=&quot;section-5&quot;&gt;插件运行配置&lt;/h2&gt;
 
-&lt;h3 id=&quot;settings&quot;&gt;配置项 settings&lt;/h3&gt;
+&lt;div id=&quot;api-list-plugin-run&quot; class=&quot;light&quot;&gt;&lt;/div&gt;
 
-&lt;p&gt;解释：插件的运行配置节点。
-值类型：Object
-默认值：无
-说明：插件要工作，偶尔也需要配置数据，比如fis内置的fis-optimizer-uglify-js、fis-optimizer-clean-css，它们的配置都是fis直接传递的，具体细节可以查看相应源码。配置节点具有很强的规律性，请参考下面的例子，小编就不一一枚举了。
-用法：&lt;/p&gt;
+&lt;div style=&quot;display:none;&quot;&gt;
+
+&lt;div id=&quot;settings&quot;&gt;
 
 &lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;nx&quot;&gt;fis&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;set&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;settings.optimizer.uglify-js.output.max_line_len&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;500&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
 &lt;span class=&quot;nx&quot;&gt;fis&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;set&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;settings.optimizer.clean-css.keepBreaks&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
@@ -368,19 +364,17 @@ fis所有的插件配置都支持定义一个 数组或者逗号分隔的字符�
     &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
 &lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
+&lt;/div&gt;
+
+&lt;/div&gt;
+
 &lt;h2 id=&quot;section-6&quot;&gt;内置插件运行配置&lt;/h2&gt;
 
-&lt;h3 id=&quot;postprocessorjswrapper&quot;&gt;postprocessor.jswrapper&lt;/h3&gt;
+&lt;div id=&quot;api-list-in-plugin&quot; class=&quot;light&quot;&gt;&lt;/div&gt;
 
-&lt;p&gt;项目：https://github.com/fis-dev/fis-postprocessor-jswrapper
-解释：用于自动包装js代码的插件。
-值类型：Object
-默认值：无
-选项：
-type：包装方式。可选值目前只有 ‘amd’，amd包装结构请参考 这里，非amd包装结构参考 这里
-“template”：使用模板来定义包装结构，对template属性的设置优先级高于type属性。
-wrapAll：是否包装所有js文件。默认是false，只对标记为 isMod 的文件进行包装
-用法：&lt;/p&gt;
+&lt;div style=&quot;display:none;&quot;&gt;
+
+&lt;div id=&quot;postprocessor-jswrapper&quot;&gt;
 
 &lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;nx&quot;&gt;fis&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;set&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;settings.postprocessor.jswrapper.template&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;try{ ${content} }catch(e){e.message+=&quot;${id}&quot;;throw e;}&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
 &lt;span class=&quot;err&quot;&gt;或者&lt;/span&gt;
@@ -395,17 +389,8 @@ wrapAll：是否包装所有js文件。默认是false，只对标记为 isMod �
     &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
 &lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
-&lt;h3 id=&quot;optimizeruglify-js&quot;&gt;optimizer.uglify-js&lt;/h3&gt;
-
-&lt;p&gt;项目：https://github.com/fis-dev/fis-optimizer-uglify-js
-解释：uglify-js压缩器配置。fis-optimizer-uglify-js 插件内置了 uglify-js 包，并调用了它的 minify 接口，把配置选项直接传递过去。因此，fis的配置完全等价于uglify-js的minify函数所需的配置
-值类型：Object
-默认值：无
-选项：
-mangle：混淆控制，参看uglify-js文档 mangle 部分
-output：输出控制，参看uglify-js文档 codegen 部分
-compress：优化参数，参看uglify-js文档 compress 部分
-用法：&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&quot;optimizer-uglify-js&quot;&gt;
 
 &lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;c1&quot;&gt;//配置字符串全部转换为ascii字符&lt;/span&gt;
 &lt;span class=&quot;nx&quot;&gt;fis&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;set&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;settings.optimizer.uglify-js.output.ascii_only&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
@@ -424,14 +409,8 @@ compress：优化参数，参看uglify-js文档 compress 部分
     &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
 &lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
-&lt;h3 id=&quot;optimizerclean-css&quot;&gt;optimizer.clean-css&lt;/h3&gt;
-
-&lt;p&gt;项目：https://github.com/fis-dev/fis-optimizer-clean-css
-解释：clean-css压缩器配置。fis-optimizer-clean-css 插件调用 clean-css 的压缩接口进行压缩，fis负责把 settings.optimizer.clean-css 配置节点的数据传递给压缩器，因此，这里的配置完全等价于clean-css的运行配置。
-值类型：Object
-默认值：无
-选项：参看clean-css的 文档
-用法：&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&quot;optimizer-clean-css&quot;&gt;
 
 &lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;c1&quot;&gt;//配置压缩css时保留换行&lt;/span&gt;
 &lt;span class=&quot;nx&quot;&gt;fis&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;set&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;settings.optimizer.clean-css.keepBreaks&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
@@ -448,15 +427,8 @@ compress：优化参数，参看uglify-js文档 compress 部分
     &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
 &lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
-&lt;h3 id=&quot;optimizerpng-compressor&quot;&gt;optimizer.png-compressor&lt;/h3&gt;
-
-&lt;p&gt;项目：https://github.com/fis-dev/fis-optimizer-png-compressor
-解释：png图片压缩器运行配置。fis团队将 pngquant 和 pngcrush 两个优秀的png图片压缩工具移植为nodejs的原生扩展（node-pngcrush与node-pngquant-native），相比同类型工具采用进程调用的方式更高性能，压缩速度更快。
-值类型：Object
-默认值：无
-选项：
-type：选择压缩器类型，默认是 ‘pngcrush’，可选值为 ‘pngquant’，pngquant会将所有 png24 的图片压缩为 png8，压缩率极高，但alpha通道信息会有损失。
-用法：&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&quot;optimizer-png-compressor&quot;&gt;
 
 &lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;c1&quot;&gt;//使用pngquant进行压缩，png图片压缩后均为png8&lt;/span&gt;
 &lt;span class=&quot;nx&quot;&gt;fis&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;set&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;settings.optimizer.png-compressor.type&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;pngquant&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
@@ -473,29 +445,8 @@ type：选择压缩器类型，默认是 ‘pngcrush’，可选值为 ‘pngqua
     &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
 &lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
-&lt;h3 id=&quot;spritercsssprites&quot;&gt;spriter.csssprites&lt;/h3&gt;
-
-&lt;p&gt;项目：https://github.com/fis-dev/fis-spriter-csssprites
-解释：csssprite处理运行配置，以css文件为单位，对其引用的png、gif、jpg、jpeg等图片进行csssprite合并处理。@zhangyuanwei 同学将常用图片处理库的c++版本移植为nodejs的原生扩展，得到npm包 node-images，fis团队在此基础上进行包装，开发出了这款十分易用的csssprite插件。
-值类型：Object
-默认值：&lt;/p&gt;
-
-&lt;p&gt;{
-    margin       : 3,
-    layout       : ‘linear’,
-    width_limit  : 10240,
-    height_limit : 10240
-}
-选项：&lt;/p&gt;
-
-&lt;p&gt;margin：图之间的边距，单位像素。
-layout：布局算法，默认是 ‘linear’，图片垂直布局，水平方向无需 遮盖处理 。可选项还有 matrix，图片矩阵布局，面积最小化，但需要提供额外的dom控制水平方向图片的遮盖处理
-注意：使用csssprite需要满足以下条件&lt;/p&gt;
-
-&lt;p&gt;使用release命令时，添加 -p 或者 –pack 参数。由于csssprite处理需要消耗一定的计算资源，并且开发过程中并不需要时刻做图片合并，因此fis将其定义为打包处理流程，启动csssprite处理需要指定–pack参数。
-只有 打包的css文件 或者 roadmap.path 中 useSprite 属性标记为 true 的文件才会进行csssprite处理，因此请合理安排要进行csssprite处理的文件，尽量对合并后的文件做处理。
-在css中引用图片时，只要加上 ?__sprite 这个query标记就可以使用csssprite了。详情请参考fis-spriter-csssprites插件的 使用文档。
-用法：&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&quot;spriter-csssprites&quot;&gt;
 
 &lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;c1&quot;&gt;//使用矩阵布局&lt;/span&gt;
 &lt;span class=&quot;nx&quot;&gt;fis&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;set&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;settings.spriter.csssprites.layout&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;matrix&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
@@ -512,43 +463,19 @@ layout：布局算法，默认是 ‘linear’，图片垂直布局，水平方�
     &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
 &lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
+&lt;/div&gt;
+
+&lt;/div&gt;
+
 &lt;h2 id=&quot;section-7&quot;&gt;目录规范与域名配置&lt;/h2&gt;
 
 &lt;h2 id=&quot;roadmap&quot;&gt;配置项 roadmap&lt;/h2&gt;
 
-&lt;h3 id=&quot;roadmappath&quot;&gt;roadmap.path&lt;/h3&gt;
+&lt;div id=&quot;api-list-roadmap&quot; class=&quot;light&quot;&gt;&lt;/div&gt;
 
-&lt;p&gt;解释：定制项目文件属性，包括但不限于 产出路径，访问url，资源id，默认依赖，文件类型。
-值类型：Array
-默认值：无
-说明：roadmap.path配置是fis编译系中非常核心的机制，使用它可以控制文件编译后发布的路径或访问的url、操纵文件属性、为fis产出的资源表添加扩展信息，它的 实现原理 也很简单：当fis创建一个内部的 file对象 时，会利用roadmap.path来匹配文件路径，如果命中，则将当前规则下的属性及其值赋给file对象，从而影响file对象的相关信息(发布路径、访问url、资源表属性等)。roadmap.path是fis系统中资源定位的核心能力，具有非常重要的意义。由于fis自动化工具接管了js、css和类html语言的 资源定位能力，因此，用户在开发时只需使用相对路径对资源进行引用，fis编译时会根据roadmap.path的配置调整引用内容，并将代码产出到配置指定的位置，一切都配合的非常完美！
-支持的配置项：
-reg：用于匹配文件路径的正则(RegExp)或通配(String)。文件路径是相对项目根目录的路径，以 / 开头。
-release：设置文件的产出路径。默认是文件相对项目根目录的路径，以 / 开头。该值可以设置为 false ，表示为不产出（unreleasable）文件。
-url：指定文件的资源定位路径，以 / 开头。默认是 release 的值，url可以与发布路径 release 不一致。
-query：指定文件的资源定位路径之后的query，比如’?t=123124132’。
-id：指定文件的资源id。默认是 namespace + subpath 的值。
-charset：指定文本文件的输出编码。默认是 utf8，可以制定为 gbk 或 gb2312等。
-isHtmlLike：指定对文件进行html相关的 语言能力扩展
-isJsLike：指定对文件进行js相关的 语言能力扩展
-isCssLike：指定对文件进行css相关的 语言能力扩展
-useCompile：指定文件是否经过fis的编译处理，如果为false，则该文件不会做任何编译处理。
-useHash：指定文件产出后是否添加md5戳。默认只有js、css、图片文件会添加。
-useDomain：指定文件引用处是否添加域名。
-useCache：指定文件编译过程中是否创建缓存，默认值是 true。
-useMap：指定fis在打包阶段是否将文件加入到map.json中索引。默认只有isJsLike、isCssLike、isMod的文件会加入表中
-useParser：指定文件是否经过parser插件处理。默认为true，值为 false 时才会关闭。
-usePreprocessor：指定文件是否经过preprocessor插件处理。默认为true，值为 false 时才会关闭。
-useStandard：指定文件是否经过内置的三种语言标准化流程处理。默认为true，值为 false 时才会关闭。
-usePostprocessor：指定文件是否经过postprocessor插件处理。默认为true，值为 false 时才会关闭。
-useLint：指定文件是否经过lint插件处理。默认为true，值为 false 时才会关闭。
-useTest：指定文件是否经过test插件处理。默认为true，值为 false 时才会关闭。
-useOptimizer：指定文件是否经过optimizer插件处理
-useSprite：指定文件是否进行csssprite处理。默认是 false，即不对单个文件进行csssprite操作的，而只对合并后的文件进行。fis release中使用 –pack 参数即可触发csssprite操作。
-isMod：标记文件为组件化文件。被标记成组件化的文件会入map.json表。并且会对js文件进行组件化包装。
-extras：在map.json中的附加数据，用于扩展map.json表的功能。
-requires：默认依赖的资源id表，类型为Array。
-用法：&lt;/p&gt;
+&lt;div style=&quot;display:none;&quot;&gt;
+
+&lt;div id=&quot;roadmap-path&quot;&gt;
 
 &lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;nx&quot;&gt;fis&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;merge&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;
     &lt;span class=&quot;na&quot;&gt;roadmap&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
@@ -607,13 +534,8 @@ requires：默认依赖的资源id表，类型为Array。
     &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
 &lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
-&lt;h3 id=&quot;roadmapext&quot;&gt;roadmap.ext&lt;/h3&gt;
-
-&lt;p&gt;解释：指定后缀名与标准化语言的映射关系。
-值类型：Object
-默认值：无
-说明：fis允许在前端开发中使用less、coffee、utc等非标准语言，并能利用插件将它们编译成标准的js、css语言。这个过程是由modules.parser配置的插件处理的。编译之后，less会变成css文件，那么，后续对于css的处理应该同样可以适用于less的生成文件，因此，这个时候需要通过配置告诉fis，less文件会编译为css文件，并在后续的处理过程中当做css文件对待。
-用法：&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&quot;roadmap-ext&quot;&gt;
 
 &lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;c1&quot;&gt;//fis-conf.js&lt;/span&gt;
 &lt;span class=&quot;nx&quot;&gt;fis&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;merge&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;
@@ -632,14 +554,9 @@ requires：默认依赖的资源id表，类型为Array。
     &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
 &lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
-&lt;h3 id=&quot;roadmapdomain&quot;&gt;roadmap.domain&lt;/h3&gt;
+&lt;/div&gt;
+&lt;div id=&quot;roadmap-domain&quot;&gt;
 
-&lt;p&gt;解释：设置静态资源的域名前缀。
-值类型：Object | string
-默认值：无
-说明：fis扩展了html、js、css的三种语言能力，并支持对资源的定位，定位包括 开发路径与发布路径的映射关系 以及 静态资源服务器域名设置。roadmap.domain节点就是用于控制该能力的配置。
-注意：domain的值如果不是特殊需要，请 不要以”/”结尾。
-用法：&lt;/p&gt;
 
 &lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;c1&quot;&gt;//fis-conf.js&lt;/span&gt;
 &lt;span class=&quot;c1&quot;&gt;//用法一&lt;/span&gt;
@@ -661,17 +578,13 @@ requires：默认依赖的资源id表，类型为Array。
     &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
 &lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
-&lt;p&gt;编译时使用fis release的 –domains 参数来控制是否添加domain&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;fis release --domains --dest ../output ### roadmap.domain.image
+编译时使用fis release的 --domains 参数来控制是否添加domain
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;fis release --domains --dest ../output
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
-
-&lt;p&gt;解释：设置图片资源的域名前缀。
-值类型：Array | string
-默认值：无
-说明：由于使用配置roadmap.domain.ext方式来配置图片资源太麻烦，fis提供了image字段，对于符合 project.fileType.image 规则的文件，设置相应domain配置。
-用法：&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&quot;roadmap-domain-image&quot;&gt; 
 
 &lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;c1&quot;&gt;//fis-conf.js&lt;/span&gt;
 &lt;span class=&quot;nx&quot;&gt;fis&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;merge&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;
@@ -683,21 +596,19 @@ requires：默认依赖的资源id表，类型为Array。
     &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
 &lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
-&lt;p&gt;编译时使用fis release的 –domains 参数来控制是否添加domain&lt;/p&gt;
+编译时使用fis release的 --domains 参数来控制是否添加domain
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;fis release --domains --dest ../output
-&lt;/code&gt;&lt;/pre&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;fis release --domains --dest ../output&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;
+
 &lt;/div&gt;
 
 &lt;h2 id=&quot;section-8&quot;&gt;部署配置&lt;/h2&gt;
 
-&lt;h3 id=&quot;deploy&quot;&gt;配置项 deploy&lt;/h3&gt;
+&lt;div id=&quot;api-list-deploy&quot; class=&quot;light&quot;&gt;&lt;/div&gt;
 
-&lt;p&gt;解释：设置项目的发布方式。
-值类型：Object
-默认值：无
-说明：当使用 fis release 命令时，参数 –dest &lt;name&gt; 可以指定项目发布配置。deploy配置是一个key-value的object对象，--dest参数的值如果与配置的key相同，则执行该配置的部署设置。fis支持使用post请求向http服务器发送文件，服务器端可以使用php、java等后端逻辑进行接收，fis-command-release插件中提供了一个这样的 php版示例，用户可以直接部署此文件于接收端服务器上。
-用法：&lt;/name&gt;&lt;/p&gt;
+&lt;div style=&quot;display:none;&quot;&gt;
+&lt;div id=&quot;deploy&quot;&gt;
 
 &lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;c1&quot;&gt;//fis-conf.js&lt;/span&gt;
 &lt;span class=&quot;nx&quot;&gt;fis&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;merge&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;
@@ -749,22 +660,31 @@ requires：默认依赖的资源id表，类型为Array。
     &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
 &lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
-&lt;p&gt;小贴士：&lt;/p&gt;
+&lt;ul&gt;
+    &lt;li&gt;小贴士：&lt;/li&gt;
 
-&lt;p&gt;–dest参数 支持使用逗号（,）分割多个发布配置，比如上面的例子，我们可以使用fis release –dest remote,plugin 命令在一次编译中同时发布多个目标。&lt;/p&gt;
+&lt;li&gt;--dest参数 支持使用逗号（,）分割多个发布配置，比如上面的例子，我们可以使用fis release --dest remote,plugin 命令在一次编译中同时发布多个目标。&lt;/li&gt;
 
-&lt;p&gt;subOnly参数 默认上传from整个目录到测试机。添加subOnly参数仅上传from目录下文件。&lt;/p&gt;
+&lt;li&gt;subOnly参数 默认上传from整个目录到测试机。添加subOnly参数仅上传from目录下文件。&lt;/li&gt;
 
-&lt;p&gt;replace替换多个字符串 需要replace替换多个字符串，可以使用正则的方式。例如：&lt;/p&gt;
-
-&lt;p&gt;replace : {
-    from : /www.a.com|www.b.com/,
+&lt;li&gt;replace替换多个字符串 需要replace替换多个字符串，可以使用正则的方式。例如：&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
+replace : {
+    from : /www\.a\.com|www\.b\.com/,
     to : function(m){
-        if(m === ‘www.a.com’) return ‘www.x.com’;
-        if(m === ‘www.b.com’) return ‘www.y.com’;
+        if(m === &#39;www.a.com&#39;) return &#39;www.x.com&#39;;
+        if(m === &#39;www.b.com&#39;) return &#39;www.y.com&#39;;
     }
 }
-deploy 扩展&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;/div&gt;
+
+
+&lt;/div&gt;
+
+&lt;h2 id=&quot;deploy-&quot;&gt;deploy 扩展&lt;/h2&gt;
 
 &lt;p&gt;通过 deploy扩展 能力，用户可以自定义 fis 的产出功能，更方便的实现自动化部署功能。目前官方提供的 deploy扩展 有&lt;/p&gt;
 
@@ -797,18 +717,17 @@ ftp&lt;/p&gt;
     &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
 &lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
-&lt;h1 id=&quot;outputoutputtargz&quot;&gt;发布至output/output.tar.gz&lt;/h1&gt;
-&lt;p&gt;fis release -d publish&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;# 发布至output/output.tar.gz
+fis release -d publish
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
 
 &lt;h2 id=&quot;section-9&quot;&gt;打包配置&lt;/h2&gt;
 
-&lt;h3 id=&quot;pack&quot;&gt;配置项 pack&lt;/h3&gt;
+&lt;div id=&quot;api-list-pack&quot; class=&quot;light&quot;&gt;&lt;/div&gt;
 
-&lt;p&gt;解释：配置要打包合并的文件。
-值类型：Object
-默认值：无
-说明：fis内置的 打包策略 与传统的打包概念不同，fis的打包实际上是在建立一个资源表，并将其描述并产出为一份map.json文件，用户应该围绕着这份描述文件来设计前后端运行框架，从而实现运行时判断打包输出策略的架构。
-用法：&lt;/p&gt;
+&lt;div style=&quot;display:none;&quot;&gt;
+&lt;div id=&quot;pack&quot;&gt;
 
 &lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;c1&quot;&gt;//fis-conf.js&lt;/span&gt;
 &lt;span class=&quot;nx&quot;&gt;fis&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;merge&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;
@@ -822,13 +741,12 @@ ftp&lt;/p&gt;
     &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
 &lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
-&lt;p&gt;输出结果：使用命令&lt;/p&gt;
+输出结果：使用命令 
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
+    fis release --pack --md5 --dest ./output 
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+编译项目，然后到output目录下查看产出的map.json内容得到：
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;fis release --pack --md5 --dest ./output 
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;编译项目，然后到output目录下查看产出的map.json内容得到：&lt;/p&gt;
 
 &lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
     &lt;span class=&quot;s2&quot;&gt;&quot;res&quot;&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
@@ -886,6 +804,11 @@ ftp&lt;/p&gt;
         &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
     &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
 &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;script type=&quot;text/javascript&quot; src=&quot;/js/H5ComponentApiList.js&quot;&gt;&lt;/script&gt;
 
 </description>
         <pubDate>Thu, 30 Jun 2016 00:00:00 +0800</pubDate>
