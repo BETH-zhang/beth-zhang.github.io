@@ -5,9 +5,1424 @@
     <description>在前端的道路上风景更加绚丽多姿</description>
     <link>https://github.com/BETH-zhang/</link>
     <atom:link href="https://github.com/BETH-zhang/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Mon, 27 Jun 2016 15:39:01 +0800</pubDate>
-    <lastBuildDate>Mon, 27 Jun 2016 15:39:01 +0800</lastBuildDate>
+    <pubDate>Thu, 30 Jun 2016 15:41:33 +0800</pubDate>
+    <lastBuildDate>Thu, 30 Jun 2016 15:41:33 +0800</lastBuildDate>
     <generator>Jekyll v3.1.6</generator>
+    
+      <item>
+        <title>Fis配置api</title>
+        <description>&lt;h2 id=&quot;section&quot;&gt;零配置&lt;/h2&gt;
+
+&lt;p&gt;不使用任何配置，fis将支持：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;使用 fis install &lt;name&gt; 命令安装fis仓库提供的各种 组件、框架、示例、素材、配置等 开发资源。&lt;/name&gt;&lt;/li&gt;
+  &lt;li&gt;使用 fis server start 命令启动一个本地调试服务器，完美支持php后端程序&lt;/li&gt;
+  &lt;li&gt;使用 fis release –dest ./output –md5 命令为所有静态资源文件（js、css、图片、flash等）添加md5戳，并修改文件中的引用路径&lt;/li&gt;
+  &lt;li&gt;使用 fis release –dest ./output –optimize 命令对js、css、html、htm文件进行压缩（后续还会加上对图片的自动压缩）&lt;/li&gt;
+  &lt;li&gt;编译中对 js、 css 以及 类html ( html, htm, xhtml, tpl, php, jsp, asp ) 文件分别支持三种扩展语言能力：
+    &lt;ul&gt;
+      &lt;li&gt;资源定位：获取任何开发中所使用资源的线上路径；&lt;/li&gt;
+      &lt;li&gt;内容嵌入：把一个文件的内容(文本)或者base64编码(图片)嵌入到另一个文件中；&lt;/li&gt;
+      &lt;li&gt;依赖声明：在一个文本文件内标记对其他文件的依赖关系；&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;以上功能可满足传统前端开发所需的基本要求&lt;/p&gt;
+
+&lt;h2 id=&quot;section-1&quot;&gt;使用配置文件&lt;/h2&gt;
+
+&lt;p&gt;在项目目录下新建一个 fis-conf.js 文件，我们可以对fis的编译系统做各种定制化配置。配置fis系统的接口是：&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;fis.config.set(key, value); 或者
+
+fis.config.merge({...}); 由于fis自动化工具采用nodejs作为平台，因此其配置文件也是js书写的。fis变量是全局注册，config属性是fis系统的配置对象实例，merge或set方法用以合并配置数据。
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&quot;section-2&quot;&gt;内置的默认配置&lt;/h3&gt;
+
+&lt;p&gt;由于fis系统是完全插件化的，因此fis.config对象会有一些内置配置用以为用户提供零配置下的基本功能，所以配置文件中使用fis.config.merge 或者 fis.config.set 接口来追加用户配置。而内部初始化的配置数是：&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;nx&quot;&gt;fis&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;init&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;project&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;na&quot;&gt;charset&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;utf8&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+        &lt;span class=&quot;na&quot;&gt;md5Length&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;7&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;script type=&quot;text/javascript&quot; src=&quot;/js/H5ComponentBase.js&quot;&gt;&lt;/script&gt;
+
+&lt;h2 id=&quot;section-3&quot;&gt;项目配置&lt;/h2&gt;
+
+&lt;p&gt;配置项 project&lt;/p&gt;
+
+&lt;div style=&quot;display:none;&quot;&gt;
+
+&lt;div id=&quot;charset&quot;&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;nx&quot;&gt;fis&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;set&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;project.charset&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;gbk&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;err&quot;&gt;或者&lt;/span&gt;
+
+&lt;span class=&quot;nx&quot;&gt;fis&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;merge&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;project&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;charset&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;gbk&#39;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;/div&gt;
+&lt;div id=&quot;md5Length&quot;&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;nx&quot;&gt;fis&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;set&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;project.md5Length&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;8&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;err&quot;&gt;或者&lt;/span&gt;
+
+&lt;span class=&quot;nx&quot;&gt;fis&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;merge&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;project&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;md5Length&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;8&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;/div&gt;
+&lt;div id=&quot;md5Connector&quot;&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;nx&quot;&gt;fis&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;set&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;project.md5Connector &#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;.&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;err&quot;&gt;或者&lt;/span&gt;
+
+&lt;span class=&quot;nx&quot;&gt;fis&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;merge&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;project&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;md5Connector&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;.&#39;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;/div&gt;
+&lt;div id=&quot;include&quot;&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;nx&quot;&gt;fis&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;set&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;project.include&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;src/**&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;err&quot;&gt;或者&lt;/span&gt;
+
+&lt;span class=&quot;nx&quot;&gt;fis&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;merge&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;project&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;include&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;src/**&#39;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
+&lt;span class=&quot;err&quot;&gt;或者&lt;/span&gt;
+
+&lt;span class=&quot;nx&quot;&gt;fis&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;set&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;project.include&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;src/**&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;sr&quot;&gt;/^&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\/&lt;/span&gt;&lt;span class=&quot;sr&quot;&gt;vendor&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\/&lt;/span&gt;&lt;span class=&quot;sr&quot;&gt;/i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]);&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;/div&gt;
+&lt;div id=&quot;exclude&quot;&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;nx&quot;&gt;fis&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;set&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;project.exclude&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;sr&quot;&gt;/^&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\/&lt;/span&gt;&lt;span class=&quot;sr&quot;&gt;_build&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\/&lt;/span&gt;&lt;span class=&quot;sr&quot;&gt;/i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;err&quot;&gt;或者&lt;/span&gt;
+
+&lt;span class=&quot;nx&quot;&gt;fis&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;merge&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;project&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;exclude&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;sr&quot;&gt;/^&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\/&lt;/span&gt;&lt;span class=&quot;sr&quot;&gt;_build&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\/&lt;/span&gt;&lt;span class=&quot;sr&quot;&gt;/i&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
+&lt;span class=&quot;err&quot;&gt;或者&lt;/span&gt;
+
+&lt;span class=&quot;nx&quot;&gt;fis&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;set&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;project.exclude&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;dist/**&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;sr&quot;&gt;/^&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\/&lt;/span&gt;&lt;span class=&quot;sr&quot;&gt;_build&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\/&lt;/span&gt;&lt;span class=&quot;sr&quot;&gt;/i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]);&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;/div&gt;
+&lt;div id=&quot;fileType-text&quot;&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;nx&quot;&gt;fis&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;set&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;project.fileType.text&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;tpl, js, css&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;err&quot;&gt;或者&lt;/span&gt;
+
+&lt;span class=&quot;nx&quot;&gt;fis&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;merge&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;project&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;na&quot;&gt;fileType&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;na&quot;&gt;text&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;tpl, js, css&#39;&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;/div&gt;
+&lt;div id=&quot;fileType-image&quot;&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;nx&quot;&gt;fis&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;set&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;project.fileType.image&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;swf, cur, ico&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;err&quot;&gt;或者&lt;/span&gt;
+
+&lt;span class=&quot;nx&quot;&gt;fis&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;merge&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;project&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;na&quot;&gt;fileType&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;na&quot;&gt;image&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;swf, cur, ico&#39;&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;/div&gt;
+&lt;div id=&quot;watch-exclude&quot;&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;nx&quot;&gt;fis&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;set&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;project.watch.exclude&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;node_modules&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;err&quot;&gt;或者&lt;/span&gt;
+
+&lt;span class=&quot;nx&quot;&gt;fis&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;set&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;project.watch.exclude&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;node_modules&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;sr&quot;&gt;/docs/&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]);&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;/div&gt;
+&lt;div id=&quot;watch-usePolling&quot;&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;nx&quot;&gt;fis&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;set&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;project.watch.usePolling&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;/div&gt;
+
+&lt;/div&gt;
+
+&lt;div id=&quot;api-list-project&quot; class=&quot;light&quot;&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;section-4&quot;&gt;插件配置&lt;/h2&gt;
+
+&lt;p&gt;配置项 modules&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;fis系统有非常灵活的插件扩展能力，详细内容请参看 &lt;a href=&quot;http://fex.baidu.com/fis-site/docs/more/fis-base.html&quot;&gt;运行原理&lt;/a&gt;，&lt;a href=&quot;http://fex.baidu.com/fis-site/docs/more/how-plugin-works.html&quot;&gt;插件调用机制&lt;/a&gt;，&lt;a href=&quot;http://fex.baidu.com/fis-site/docs/more/extension-point.html&quot;&gt;插件扩展点列表&lt;/a&gt;等文档。
+fis所有的插件配置都支持定义一个 数组或者逗号分隔的字符串序列 来依次处理文件内容。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;div id=&quot;api-list-plugin&quot; class=&quot;light&quot;&gt;&lt;/div&gt;
+
+&lt;div style=&quot;display:none;&quot;&gt;
+
+&lt;div id=&quot;parser&quot;&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;c1&quot;&gt;//fis-conf.js&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;fis&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;merge&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;modules&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;na&quot;&gt;parser&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;c1&quot;&gt;//coffee后缀的文件使用fis-parser-coffee-script插件编译&lt;/span&gt;
+            &lt;span class=&quot;na&quot;&gt;coffee&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;coffee-script&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+            &lt;span class=&quot;c1&quot;&gt;//less后缀的文件使用fis-parser-less插件编译&lt;/span&gt;
+            &lt;span class=&quot;c1&quot;&gt;//处理器支持数组，或者逗号分隔的字符串配置&lt;/span&gt;
+            &lt;span class=&quot;na&quot;&gt;less&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;less&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt;
+            &lt;span class=&quot;c1&quot;&gt;//md后缀的文件使用fis-parser-marked插件编译&lt;/span&gt;
+            &lt;span class=&quot;na&quot;&gt;md&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;marked&#39;&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;roadmap&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;na&quot;&gt;ext&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;c1&quot;&gt;//less后缀的文件将输出为css后缀&lt;/span&gt;
+            &lt;span class=&quot;c1&quot;&gt;//并且在parser之后的其他处理流程中被当做css文件处理&lt;/span&gt;
+            &lt;span class=&quot;na&quot;&gt;less&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;css&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+            &lt;span class=&quot;c1&quot;&gt;//coffee后缀的文件将输出为js文件&lt;/span&gt;
+            &lt;span class=&quot;c1&quot;&gt;//并且在parser之后的其他处理流程中被当做js文件处理&lt;/span&gt;
+            &lt;span class=&quot;na&quot;&gt;coffee&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;js&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+            &lt;span class=&quot;c1&quot;&gt;//md后缀的文件将输出为html文件&lt;/span&gt;
+            &lt;span class=&quot;c1&quot;&gt;//并且在parser之后的其他处理流程中被当做html文件处理&lt;/span&gt;
+            &lt;span class=&quot;na&quot;&gt;md&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;html&#39;&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;/div&gt;
+&lt;div id=&quot;preprocessor&quot;&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;nx&quot;&gt;fis&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;set&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;modules.preprocessor.css&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;image-set&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;err&quot;&gt;或者&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;//fis-conf.js&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;fis&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;merge&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;modules&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;na&quot;&gt;preprocessor&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;c1&quot;&gt;//css后缀文件会经过fis-preprocessor-image-set插件的预处理&lt;/span&gt;
+            &lt;span class=&quot;na&quot;&gt;css&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;image-set&#39;&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;/div&gt;
+&lt;div id=&quot;postprocessor&quot;&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;err&quot;&gt;类似&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;modules&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;preprocessor&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;/div&gt;
+&lt;div id=&quot;lint&quot;&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;nx&quot;&gt;fis&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;set&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;modules.lint.js&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;jshint&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;err&quot;&gt;或者&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;//fis-conf.js&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;fis&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;merge&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;modules&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;na&quot;&gt;lint&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;c1&quot;&gt;//js后缀文件会经过fis-lint-jshint插件的代码校验检查&lt;/span&gt;
+            &lt;span class=&quot;na&quot;&gt;js&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;jshint&#39;&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;/div&gt;
+&lt;div id=&quot;test&quot;&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;nx&quot;&gt;fis&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;set&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;modules.test.js&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;phantomjs&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;err&quot;&gt;或者&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;//fis-conf.js&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;fis&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;merge&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;modules&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;na&quot;&gt;test&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;c1&quot;&gt;//js后缀文件会经过fis-test-phantomjs插件的测试&lt;/span&gt;
+            &lt;span class=&quot;na&quot;&gt;js&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;phantomjs&#39;&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;/div&gt;
+&lt;div id=&quot;optimizer&quot;&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;nx&quot;&gt;fis&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;set&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;modules.optimizer.js&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;uglify-js&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;err&quot;&gt;或者&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;//fis-conf.js&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;fis&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;merge&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;modules&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;na&quot;&gt;optimizer&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;c1&quot;&gt;//js后缀文件会经过fis-optimizer-uglify-js插件的压缩优化&lt;/span&gt;
+            &lt;span class=&quot;na&quot;&gt;js&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;uglify-js&#39;&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;/div&gt;
+&lt;div id=&quot;prepackager&quot;&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;nx&quot;&gt;fis&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;set&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;modules.prepackager&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;oo, xx&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;err&quot;&gt;或者&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;//fis-conf.js&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;fis&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;merge&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;modules&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;c1&quot;&gt;//打包前调用fis-prepackager-oo和fis-prepackager-xx插件进行处理&lt;/span&gt;
+        &lt;span class=&quot;na&quot;&gt;prepackager&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;oo, xx&#39;&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;/div&gt;
+&lt;div id=&quot;packager&quot;&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;nx&quot;&gt;fis&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;set&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;modules.packager&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;your_packager&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;err&quot;&gt;或者&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;//fis-conf.js&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;fis&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;merge&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;modules&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;c1&quot;&gt;//打包调用fis-packager-your_packager插件进行处理&lt;/span&gt;
+        &lt;span class=&quot;na&quot;&gt;packager&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;your_packager&#39;&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;/div&gt;
+&lt;div id=&quot;spriter&quot;&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;nx&quot;&gt;fis&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;set&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;modules.spriter&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;your_spriter&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;err&quot;&gt;或者&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;//fis-conf.js&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;fis&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;merge&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;modules&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;c1&quot;&gt;//打包后调用fis-spriter-your_spriter插件进行css sprites化处理&lt;/span&gt;
+        &lt;span class=&quot;na&quot;&gt;spriter&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;your_spriter&#39;&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;/div&gt;
+&lt;div id=&quot;postpackager&quot;&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;nx&quot;&gt;fis&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;set&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;modules.postpackager&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;your_postpackager&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;err&quot;&gt;或者&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;//fis-conf.js&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;fis&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;merge&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;modules&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;c1&quot;&gt;//打包后调用fis-postpackager-your_postpackager插件进行处理&lt;/span&gt;
+        &lt;span class=&quot;na&quot;&gt;postpackager&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;your_postpackager&#39;&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;/div&gt;
+
+&lt;/div&gt;
+
+&lt;script type=&quot;text/javascript&quot; src=&quot;/js/H5ComponentApiList.js&quot;&gt;&lt;/script&gt;
+
+&lt;h2 id=&quot;section-5&quot;&gt;插件运行配置&lt;/h2&gt;
+
+&lt;h3 id=&quot;settings&quot;&gt;配置项 settings&lt;/h3&gt;
+
+&lt;p&gt;解释：插件的运行配置节点。
+值类型：Object
+默认值：无
+说明：插件要工作，偶尔也需要配置数据，比如fis内置的fis-optimizer-uglify-js、fis-optimizer-clean-css，它们的配置都是fis直接传递的，具体细节可以查看相应源码。配置节点具有很强的规律性，请参考下面的例子，小编就不一一枚举了。
+用法：&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;nx&quot;&gt;fis&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;set&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;settings.optimizer.uglify-js.output.max_line_len&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;500&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;fis&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;set&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;settings.optimizer.clean-css.keepBreaks&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;err&quot;&gt;或者&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;//fis-conf.js&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;fis&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;merge&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;settings&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;na&quot;&gt;optimizer&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;c1&quot;&gt;//fis-optimizer-uglify-js插件的配置数据&lt;/span&gt;
+            &lt;span class=&quot;s1&quot;&gt;&#39;uglify-js&#39;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+                &lt;span class=&quot;na&quot;&gt;output&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+                    &lt;span class=&quot;na&quot;&gt;max_line_len&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;500&lt;/span&gt;
+                &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+            &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
+            &lt;span class=&quot;c1&quot;&gt;//fis-optimizer-clean-css插件的配置数据&lt;/span&gt;
+            &lt;span class=&quot;s1&quot;&gt;&#39;clean-css&#39;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+                &lt;span class=&quot;na&quot;&gt;keepBreaks&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;
+            &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;h2 id=&quot;section-6&quot;&gt;内置插件运行配置&lt;/h2&gt;
+
+&lt;h3 id=&quot;postprocessorjswrapper&quot;&gt;postprocessor.jswrapper&lt;/h3&gt;
+
+&lt;p&gt;项目：https://github.com/fis-dev/fis-postprocessor-jswrapper
+解释：用于自动包装js代码的插件。
+值类型：Object
+默认值：无
+选项：
+type：包装方式。可选值目前只有 ‘amd’，amd包装结构请参考 这里，非amd包装结构参考 这里
+“template”：使用模板来定义包装结构，对template属性的设置优先级高于type属性。
+wrapAll：是否包装所有js文件。默认是false，只对标记为 isMod 的文件进行包装
+用法：&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;nx&quot;&gt;fis&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;set&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;settings.postprocessor.jswrapper.template&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;try{ ${content} }catch(e){e.message+=&quot;${id}&quot;;throw e;}&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;err&quot;&gt;或者&lt;/span&gt;
+
+&lt;span class=&quot;nx&quot;&gt;fis&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;merge&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;settings&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;na&quot;&gt;postprocessor&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;na&quot;&gt;jswrapper&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+                &lt;span class=&quot;na&quot;&gt;template&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;try{ ${content} }catch(e){ e.message += &quot;${id}&quot;; throw e; }&#39;&lt;/span&gt;
+            &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;h3 id=&quot;optimizeruglify-js&quot;&gt;optimizer.uglify-js&lt;/h3&gt;
+
+&lt;p&gt;项目：https://github.com/fis-dev/fis-optimizer-uglify-js
+解释：uglify-js压缩器配置。fis-optimizer-uglify-js 插件内置了 uglify-js 包，并调用了它的 minify 接口，把配置选项直接传递过去。因此，fis的配置完全等价于uglify-js的minify函数所需的配置
+值类型：Object
+默认值：无
+选项：
+mangle：混淆控制，参看uglify-js文档 mangle 部分
+output：输出控制，参看uglify-js文档 codegen 部分
+compress：优化参数，参看uglify-js文档 compress 部分
+用法：&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;c1&quot;&gt;//配置字符串全部转换为ascii字符&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;fis&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;set&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;settings.optimizer.uglify-js.output.ascii_only&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;err&quot;&gt;或者&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;//配置字符串全部转换为ascii字符&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;fis&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;merge&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;settings&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;na&quot;&gt;optimizer&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;s1&quot;&gt;&#39;uglify-js&#39;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+                &lt;span class=&quot;na&quot;&gt;output&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+                    &lt;span class=&quot;na&quot;&gt;ascii_only&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;
+                &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+            &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;h3 id=&quot;optimizerclean-css&quot;&gt;optimizer.clean-css&lt;/h3&gt;
+
+&lt;p&gt;项目：https://github.com/fis-dev/fis-optimizer-clean-css
+解释：clean-css压缩器配置。fis-optimizer-clean-css 插件调用 clean-css 的压缩接口进行压缩，fis负责把 settings.optimizer.clean-css 配置节点的数据传递给压缩器，因此，这里的配置完全等价于clean-css的运行配置。
+值类型：Object
+默认值：无
+选项：参看clean-css的 文档
+用法：&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;c1&quot;&gt;//配置压缩css时保留换行&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;fis&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;set&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;settings.optimizer.clean-css.keepBreaks&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;err&quot;&gt;或者&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;//配置压缩css时保留换行&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;fis&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;merge&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;settings&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;na&quot;&gt;optimizer&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;s1&quot;&gt;&#39;clean-css&#39;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+                &lt;span class=&quot;na&quot;&gt;keepBreaks&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;
+            &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;h3 id=&quot;optimizerpng-compressor&quot;&gt;optimizer.png-compressor&lt;/h3&gt;
+
+&lt;p&gt;项目：https://github.com/fis-dev/fis-optimizer-png-compressor
+解释：png图片压缩器运行配置。fis团队将 pngquant 和 pngcrush 两个优秀的png图片压缩工具移植为nodejs的原生扩展（node-pngcrush与node-pngquant-native），相比同类型工具采用进程调用的方式更高性能，压缩速度更快。
+值类型：Object
+默认值：无
+选项：
+type：选择压缩器类型，默认是 ‘pngcrush’，可选值为 ‘pngquant’，pngquant会将所有 png24 的图片压缩为 png8，压缩率极高，但alpha通道信息会有损失。
+用法：&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;c1&quot;&gt;//使用pngquant进行压缩，png图片压缩后均为png8&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;fis&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;set&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;settings.optimizer.png-compressor.type&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;pngquant&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;err&quot;&gt;或者&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;//使用pngquant进行压缩，png图片压缩后均为png8&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;fis&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;merge&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;settings&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;na&quot;&gt;optimizer&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;s1&quot;&gt;&#39;png-compressor&#39;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+                &lt;span class=&quot;na&quot;&gt;type&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;pngquant&#39;&lt;/span&gt;
+            &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;h3 id=&quot;spritercsssprites&quot;&gt;spriter.csssprites&lt;/h3&gt;
+
+&lt;p&gt;项目：https://github.com/fis-dev/fis-spriter-csssprites
+解释：csssprite处理运行配置，以css文件为单位，对其引用的png、gif、jpg、jpeg等图片进行csssprite合并处理。@zhangyuanwei 同学将常用图片处理库的c++版本移植为nodejs的原生扩展，得到npm包 node-images，fis团队在此基础上进行包装，开发出了这款十分易用的csssprite插件。
+值类型：Object
+默认值：&lt;/p&gt;
+
+&lt;p&gt;{
+    margin       : 3,
+    layout       : ‘linear’,
+    width_limit  : 10240,
+    height_limit : 10240
+}
+选项：&lt;/p&gt;
+
+&lt;p&gt;margin：图之间的边距，单位像素。
+layout：布局算法，默认是 ‘linear’，图片垂直布局，水平方向无需 遮盖处理 。可选项还有 matrix，图片矩阵布局，面积最小化，但需要提供额外的dom控制水平方向图片的遮盖处理
+注意：使用csssprite需要满足以下条件&lt;/p&gt;
+
+&lt;p&gt;使用release命令时，添加 -p 或者 –pack 参数。由于csssprite处理需要消耗一定的计算资源，并且开发过程中并不需要时刻做图片合并，因此fis将其定义为打包处理流程，启动csssprite处理需要指定–pack参数。
+只有 打包的css文件 或者 roadmap.path 中 useSprite 属性标记为 true 的文件才会进行csssprite处理，因此请合理安排要进行csssprite处理的文件，尽量对合并后的文件做处理。
+在css中引用图片时，只要加上 ?__sprite 这个query标记就可以使用csssprite了。详情请参考fis-spriter-csssprites插件的 使用文档。
+用法：&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;c1&quot;&gt;//使用矩阵布局&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;fis&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;set&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;settings.spriter.csssprites.layout&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;matrix&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;err&quot;&gt;或者&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;//使用矩阵布局&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;fis&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;merge&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;settings&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;na&quot;&gt;spriter&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;na&quot;&gt;csssprites&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+                &lt;span class=&quot;na&quot;&gt;layout&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;matrix&#39;&lt;/span&gt;
+            &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;h2 id=&quot;section-7&quot;&gt;目录规范与域名配置&lt;/h2&gt;
+
+&lt;h2 id=&quot;roadmap&quot;&gt;配置项 roadmap&lt;/h2&gt;
+
+&lt;h3 id=&quot;roadmappath&quot;&gt;roadmap.path&lt;/h3&gt;
+
+&lt;p&gt;解释：定制项目文件属性，包括但不限于 产出路径，访问url，资源id，默认依赖，文件类型。
+值类型：Array
+默认值：无
+说明：roadmap.path配置是fis编译系中非常核心的机制，使用它可以控制文件编译后发布的路径或访问的url、操纵文件属性、为fis产出的资源表添加扩展信息，它的 实现原理 也很简单：当fis创建一个内部的 file对象 时，会利用roadmap.path来匹配文件路径，如果命中，则将当前规则下的属性及其值赋给file对象，从而影响file对象的相关信息(发布路径、访问url、资源表属性等)。roadmap.path是fis系统中资源定位的核心能力，具有非常重要的意义。由于fis自动化工具接管了js、css和类html语言的 资源定位能力，因此，用户在开发时只需使用相对路径对资源进行引用，fis编译时会根据roadmap.path的配置调整引用内容，并将代码产出到配置指定的位置，一切都配合的非常完美！
+支持的配置项：
+reg：用于匹配文件路径的正则(RegExp)或通配(String)。文件路径是相对项目根目录的路径，以 / 开头。
+release：设置文件的产出路径。默认是文件相对项目根目录的路径，以 / 开头。该值可以设置为 false ，表示为不产出（unreleasable）文件。
+url：指定文件的资源定位路径，以 / 开头。默认是 release 的值，url可以与发布路径 release 不一致。
+query：指定文件的资源定位路径之后的query，比如’?t=123124132’。
+id：指定文件的资源id。默认是 namespace + subpath 的值。
+charset：指定文本文件的输出编码。默认是 utf8，可以制定为 gbk 或 gb2312等。
+isHtmlLike：指定对文件进行html相关的 语言能力扩展
+isJsLike：指定对文件进行js相关的 语言能力扩展
+isCssLike：指定对文件进行css相关的 语言能力扩展
+useCompile：指定文件是否经过fis的编译处理，如果为false，则该文件不会做任何编译处理。
+useHash：指定文件产出后是否添加md5戳。默认只有js、css、图片文件会添加。
+useDomain：指定文件引用处是否添加域名。
+useCache：指定文件编译过程中是否创建缓存，默认值是 true。
+useMap：指定fis在打包阶段是否将文件加入到map.json中索引。默认只有isJsLike、isCssLike、isMod的文件会加入表中
+useParser：指定文件是否经过parser插件处理。默认为true，值为 false 时才会关闭。
+usePreprocessor：指定文件是否经过preprocessor插件处理。默认为true，值为 false 时才会关闭。
+useStandard：指定文件是否经过内置的三种语言标准化流程处理。默认为true，值为 false 时才会关闭。
+usePostprocessor：指定文件是否经过postprocessor插件处理。默认为true，值为 false 时才会关闭。
+useLint：指定文件是否经过lint插件处理。默认为true，值为 false 时才会关闭。
+useTest：指定文件是否经过test插件处理。默认为true，值为 false 时才会关闭。
+useOptimizer：指定文件是否经过optimizer插件处理
+useSprite：指定文件是否进行csssprite处理。默认是 false，即不对单个文件进行csssprite操作的，而只对合并后的文件进行。fis release中使用 –pack 参数即可触发csssprite操作。
+isMod：标记文件为组件化文件。被标记成组件化的文件会入map.json表。并且会对js文件进行组件化包装。
+extras：在map.json中的附加数据，用于扩展map.json表的功能。
+requires：默认依赖的资源id表，类型为Array。
+用法：&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;nx&quot;&gt;fis&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;merge&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;roadmap&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;na&quot;&gt;path&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;
+            &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+                &lt;span class=&quot;c1&quot;&gt;//所有widget目录下的js文件&lt;/span&gt;
+                &lt;span class=&quot;na&quot;&gt;reg&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;widget/**.js&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+                &lt;span class=&quot;c1&quot;&gt;//是模块化的js文件（标记为这种值的文件，会进行amd或者闭包包装）&lt;/span&gt;
+                &lt;span class=&quot;na&quot;&gt;isMod&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+                &lt;span class=&quot;c1&quot;&gt;//默认依赖lib.js&lt;/span&gt;
+                &lt;span class=&quot;na&quot;&gt;requires&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;lib.js&#39;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;],&lt;/span&gt;
+                &lt;span class=&quot;c1&quot;&gt;//向产出的map.json文件里附加一些信息&lt;/span&gt;
+                &lt;span class=&quot;na&quot;&gt;extras&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;say&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;123&#39;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
+                &lt;span class=&quot;c1&quot;&gt;//编译后产出到 /static/widget/xxx 目录下&lt;/span&gt;
+                &lt;span class=&quot;na&quot;&gt;release&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;/static$&amp;amp;&#39;&lt;/span&gt;
+            &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
+            &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+                &lt;span class=&quot;c1&quot;&gt;//所有的js文件&lt;/span&gt;
+                &lt;span class=&quot;na&quot;&gt;reg&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;**.js&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+                &lt;span class=&quot;c1&quot;&gt;//发布到/static/js/xxx目录下&lt;/span&gt;
+                &lt;span class=&quot;na&quot;&gt;release&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;/static/js$&amp;amp;&#39;&lt;/span&gt;
+            &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
+            &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+                &lt;span class=&quot;c1&quot;&gt;//所有的ico文件&lt;/span&gt;
+                &lt;span class=&quot;na&quot;&gt;reg&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;**.ico&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+                &lt;span class=&quot;c1&quot;&gt;//发布的时候即使加了--md5参数也不要生成带md5戳的文件&lt;/span&gt;
+                &lt;span class=&quot;na&quot;&gt;useHash&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;false&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+                &lt;span class=&quot;c1&quot;&gt;//发布到/static/xxx目录下&lt;/span&gt;
+                &lt;span class=&quot;na&quot;&gt;release&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;/static$&amp;amp;&#39;&lt;/span&gt;
+            &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
+            &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+                &lt;span class=&quot;c1&quot;&gt;//所有image目录下的.png，.gif文件&lt;/span&gt;
+                &lt;span class=&quot;na&quot;&gt;reg&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;sr&quot;&gt;/^&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\/&lt;/span&gt;&lt;span class=&quot;sr&quot;&gt;images&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\/(&lt;/span&gt;&lt;span class=&quot;sr&quot;&gt;.*&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\.(?:&lt;/span&gt;&lt;span class=&quot;sr&quot;&gt;png|gif&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;))&lt;/span&gt;&lt;span class=&quot;sr&quot;&gt;/i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+                &lt;span class=&quot;c1&quot;&gt;//访问这些图片的url是 &#39;/m/xxxx?log_id=123&#39;&lt;/span&gt;
+                &lt;span class=&quot;na&quot;&gt;url&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;/m/$1?log_id=123&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+                &lt;span class=&quot;c1&quot;&gt;//发布到/static/pic/xxx目录下&lt;/span&gt;
+                &lt;span class=&quot;na&quot;&gt;release&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;/static/pic/$1&#39;&lt;/span&gt;
+            &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
+            &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+                &lt;span class=&quot;c1&quot;&gt;//所有template目录下的.php文件&lt;/span&gt;
+                &lt;span class=&quot;na&quot;&gt;reg&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;sr&quot;&gt;/^&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\/&lt;/span&gt;&lt;span class=&quot;sr&quot;&gt;template&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\/(&lt;/span&gt;&lt;span class=&quot;sr&quot;&gt;.*&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\.&lt;/span&gt;&lt;span class=&quot;sr&quot;&gt;php&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;sr&quot;&gt;/i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+                &lt;span class=&quot;c1&quot;&gt;//是类html文件，会进行html语言能力扩展&lt;/span&gt;
+                &lt;span class=&quot;na&quot;&gt;isHtmlLike&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+                &lt;span class=&quot;c1&quot;&gt;//发布为gbk编码文件&lt;/span&gt;
+                &lt;span class=&quot;na&quot;&gt;charset&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;gbk&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+                &lt;span class=&quot;c1&quot;&gt;//发布到/php/template/xxx目录下&lt;/span&gt;
+                &lt;span class=&quot;na&quot;&gt;release&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;/php/template/$1&#39;&lt;/span&gt;
+            &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
+            &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+                &lt;span class=&quot;c1&quot;&gt;//前面规则未匹配到的其他文件&lt;/span&gt;
+                &lt;span class=&quot;na&quot;&gt;reg&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;sr&quot;&gt;/.*/&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+                &lt;span class=&quot;c1&quot;&gt;//编译的时候不要产出了&lt;/span&gt;
+                &lt;span class=&quot;na&quot;&gt;release&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;false&lt;/span&gt;
+            &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;h3 id=&quot;roadmapext&quot;&gt;roadmap.ext&lt;/h3&gt;
+
+&lt;p&gt;解释：指定后缀名与标准化语言的映射关系。
+值类型：Object
+默认值：无
+说明：fis允许在前端开发中使用less、coffee、utc等非标准语言，并能利用插件将它们编译成标准的js、css语言。这个过程是由modules.parser配置的插件处理的。编译之后，less会变成css文件，那么，后续对于css的处理应该同样可以适用于less的生成文件，因此，这个时候需要通过配置告诉fis，less文件会编译为css文件，并在后续的处理过程中当做css文件对待。
+用法：&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;c1&quot;&gt;//fis-conf.js&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;fis&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;merge&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;roadmap&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;na&quot;&gt;ext&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;c1&quot;&gt;//less后缀的文件将输出为css后缀&lt;/span&gt;
+            &lt;span class=&quot;c1&quot;&gt;//并且在parser之后的其他处理流程中被当做css文件处理&lt;/span&gt;
+            &lt;span class=&quot;na&quot;&gt;less&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;css&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+            &lt;span class=&quot;c1&quot;&gt;//coffee后缀的文件将输出为js文件&lt;/span&gt;
+            &lt;span class=&quot;c1&quot;&gt;//并且在parser之后的其他处理流程中被当做js文件处理&lt;/span&gt;
+            &lt;span class=&quot;na&quot;&gt;coffee&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;js&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+            &lt;span class=&quot;c1&quot;&gt;//md后缀的文件将输出为html文件&lt;/span&gt;
+            &lt;span class=&quot;c1&quot;&gt;//并且在parser之后的其他处理流程中被当做html文件处理&lt;/span&gt;
+            &lt;span class=&quot;na&quot;&gt;md&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;html&#39;&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;h3 id=&quot;roadmapdomain&quot;&gt;roadmap.domain&lt;/h3&gt;
+
+&lt;p&gt;解释：设置静态资源的域名前缀。
+值类型：Object | string
+默认值：无
+说明：fis扩展了html、js、css的三种语言能力，并支持对资源的定位，定位包括 开发路径与发布路径的映射关系 以及 静态资源服务器域名设置。roadmap.domain节点就是用于控制该能力的配置。
+注意：domain的值如果不是特殊需要，请 不要以”/”结尾。
+用法：&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;c1&quot;&gt;//fis-conf.js&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;//用法一&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;fis&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;merge&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;roadmap&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;c1&quot;&gt;//所有静态资源文件都使用 http://s1.example.com 或者 http://s2.example.com 作为域名&lt;/span&gt;
+        &lt;span class=&quot;na&quot;&gt;domain&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;http://s1.example.com, http://s2.example.com&#39;&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;//用法二&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;fis&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;merge&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;roadmap&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;na&quot;&gt;domain&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;c1&quot;&gt;//widget目录下的所有css文件使用 http://css1.example.com 作为域名&lt;/span&gt;
+            &lt;span class=&quot;s1&quot;&gt;&#39;widget/**.css&#39;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;http://css1.example.com&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+            &lt;span class=&quot;c1&quot;&gt;//所有的js文件使用 http://js1.example.com 或者  http://js2.example.com 作为域名&lt;/span&gt;
+            &lt;span class=&quot;s1&quot;&gt;&#39;**.js&#39;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;http://js1.example.com&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;http://js2.example.com&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;编译时使用fis release的 –domains 参数来控制是否添加domain&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;fis release --domains --dest ../output ### roadmap.domain.image
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;解释：设置图片资源的域名前缀。
+值类型：Array | string
+默认值：无
+说明：由于使用配置roadmap.domain.ext方式来配置图片资源太麻烦，fis提供了image字段，对于符合 project.fileType.image 规则的文件，设置相应domain配置。
+用法：&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;c1&quot;&gt;//fis-conf.js&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;fis&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;merge&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;roadmap&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;na&quot;&gt;domain&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;c1&quot;&gt;//所有图片文件，使用 http://img.example.com 作为域名&lt;/span&gt;
+            &lt;span class=&quot;s1&quot;&gt;&#39;image&#39;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;http://img.example.com&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;编译时使用fis release的 –domains 参数来控制是否添加domain&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;fis release --domains --dest ../output
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&quot;section-8&quot;&gt;部署配置&lt;/h2&gt;
+
+&lt;h3 id=&quot;deploy&quot;&gt;配置项 deploy&lt;/h3&gt;
+
+&lt;p&gt;解释：设置项目的发布方式。
+值类型：Object
+默认值：无
+说明：当使用 fis release 命令时，参数 –dest &lt;name&gt; 可以指定项目发布配置。deploy配置是一个key-value的object对象，--dest参数的值如果与配置的key相同，则执行该配置的部署设置。fis支持使用post请求向http服务器发送文件，服务器端可以使用php、java等后端逻辑进行接收，fis-command-release插件中提供了一个这样的 php版示例，用户可以直接部署此文件于接收端服务器上。
+用法：&lt;/name&gt;&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;c1&quot;&gt;//fis-conf.js&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;fis&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;merge&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;deploy&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;c1&quot;&gt;//使用fis release --dest remote来使用这个配置&lt;/span&gt;
+        &lt;span class=&quot;na&quot;&gt;remote&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;c1&quot;&gt;//如果配置了receiver，fis会把文件逐个post到接收端上&lt;/span&gt;
+            &lt;span class=&quot;na&quot;&gt;receiver&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;http://www.example.com/path/to/receiver.php&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+            &lt;span class=&quot;c1&quot;&gt;//从产出的结果的static目录下找文件&lt;/span&gt;
+            &lt;span class=&quot;na&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;/static&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+            &lt;span class=&quot;c1&quot;&gt;//保存到远端机器的/home/fis/www/static目录下&lt;/span&gt;
+            &lt;span class=&quot;c1&quot;&gt;//这个参数会跟随post请求一起发送&lt;/span&gt;
+            &lt;span class=&quot;na&quot;&gt;to&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;/home/fis/www/&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+            &lt;span class=&quot;c1&quot;&gt;//通配或正则过滤文件，表示只上传所有的js文件&lt;/span&gt;
+            &lt;span class=&quot;na&quot;&gt;include&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;**.js&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+            &lt;span class=&quot;c1&quot;&gt;//widget目录下的那些文件就不要发布了&lt;/span&gt;
+            &lt;span class=&quot;na&quot;&gt;exclude&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;sr&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\/&lt;/span&gt;&lt;span class=&quot;sr&quot;&gt;widget&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\/&lt;/span&gt;&lt;span class=&quot;sr&quot;&gt;/i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+            &lt;span class=&quot;c1&quot;&gt;//支持对文件进行字符串替换&lt;/span&gt;
+            &lt;span class=&quot;na&quot;&gt;replace&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+                &lt;span class=&quot;na&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;http://www.online.com&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+                &lt;span class=&quot;na&quot;&gt;to&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;http://www.offline.com&#39;&lt;/span&gt;
+            &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
+        &lt;span class=&quot;c1&quot;&gt;//名字随便取的，没有特殊含义&lt;/span&gt;
+        &lt;span class=&quot;na&quot;&gt;local&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;c1&quot;&gt;//from参数省略，表示从发布后的根目录开始上传&lt;/span&gt;
+            &lt;span class=&quot;c1&quot;&gt;//发布到当前项目的上一级的output目录中&lt;/span&gt;
+            &lt;span class=&quot;na&quot;&gt;to&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;../output&#39;&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
+        &lt;span class=&quot;c1&quot;&gt;//也可以是一个数组&lt;/span&gt;
+        &lt;span class=&quot;na&quot;&gt;remote2&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;
+            &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+                &lt;span class=&quot;c1&quot;&gt;//将static目录上传到/home/fis/www/webroot下&lt;/span&gt;
+                &lt;span class=&quot;c1&quot;&gt;//上传文件路径为/home/fis/www/webroot/static/xxxx&lt;/span&gt;
+                &lt;span class=&quot;na&quot;&gt;receiver&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;http://www.example.com/path/to/receiver.php&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+                &lt;span class=&quot;na&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;/static&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+                &lt;span class=&quot;na&quot;&gt;to&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;/home/fis/www/webroot&#39;&lt;/span&gt;
+            &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
+            &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+                &lt;span class=&quot;c1&quot;&gt;//将template目录内的文件（不包括template一级）&lt;/span&gt;
+                &lt;span class=&quot;c1&quot;&gt;//上传到/home/fis/www/tpl下&lt;/span&gt;
+                &lt;span class=&quot;c1&quot;&gt;//上传文件路径为/home/fis/www/tpl/xxxx&lt;/span&gt;
+                &lt;span class=&quot;na&quot;&gt;receiver&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;http://www.example.com/path/to/receiver.php&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+                &lt;span class=&quot;na&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;/template&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+                &lt;span class=&quot;na&quot;&gt;to&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;/home/fis/www/tpl&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+                &lt;span class=&quot;na&quot;&gt;subOnly&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;
+            &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;小贴士：&lt;/p&gt;
+
+&lt;p&gt;–dest参数 支持使用逗号（,）分割多个发布配置，比如上面的例子，我们可以使用fis release –dest remote,plugin 命令在一次编译中同时发布多个目标。&lt;/p&gt;
+
+&lt;p&gt;subOnly参数 默认上传from整个目录到测试机。添加subOnly参数仅上传from目录下文件。&lt;/p&gt;
+
+&lt;p&gt;replace替换多个字符串 需要replace替换多个字符串，可以使用正则的方式。例如：&lt;/p&gt;
+
+&lt;p&gt;replace : {
+    from : /www.a.com|www.b.com/,
+    to : function(m){
+        if(m === ‘www.a.com’) return ‘www.x.com’;
+        if(m === ‘www.b.com’) return ‘www.y.com’;
+    }
+}
+deploy 扩展&lt;/p&gt;
+
+&lt;p&gt;通过 deploy扩展 能力，用户可以自定义 fis 的产出功能，更方便的实现自动化部署功能。目前官方提供的 deploy扩展 有&lt;/p&gt;
+
+&lt;p&gt;tar
+git
+bcs&lt;/p&gt;
+
+&lt;p&gt;此外还有社区贡献的如&lt;/p&gt;
+
+&lt;p&gt;aliyun
+zip
+ftp&lt;/p&gt;
+
+&lt;p&gt;使用 deploy扩展 的方法与使用 fis 插件的方法类似&lt;/p&gt;
+
+&lt;p&gt;用法：&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;c1&quot;&gt;// 设置开启deploy扩展，可以输入数组来开启多个扩展&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;fis&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;set&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;modules.deploy&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;tar&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;// 为指定扩展设置发布配置&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;fis&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;set&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;settings.deploy.tar&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;publish&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;na&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;/&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+        &lt;span class=&quot;na&quot;&gt;to&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;/&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+        &lt;span class=&quot;na&quot;&gt;gzip&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+        &lt;span class=&quot;na&quot;&gt;level&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;//压缩质量 0-9，越大压缩比越高&lt;/span&gt;
+        &lt;span class=&quot;na&quot;&gt;memLevel&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;6&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;//压缩使用的内存量 1-9， 越大占用内存越多，执行速度越快&lt;/span&gt;
+        &lt;span class=&quot;na&quot;&gt;file&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;./output/output.tar.gz&#39;&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;h1 id=&quot;outputoutputtargz&quot;&gt;发布至output/output.tar.gz&lt;/h1&gt;
+&lt;p&gt;fis release -d publish&lt;/p&gt;
+
+&lt;h2 id=&quot;section-9&quot;&gt;打包配置&lt;/h2&gt;
+
+&lt;h3 id=&quot;pack&quot;&gt;配置项 pack&lt;/h3&gt;
+
+&lt;p&gt;解释：配置要打包合并的文件。
+值类型：Object
+默认值：无
+说明：fis内置的 打包策略 与传统的打包概念不同，fis的打包实际上是在建立一个资源表，并将其描述并产出为一份map.json文件，用户应该围绕着这份描述文件来设计前后端运行框架，从而实现运行时判断打包输出策略的架构。
+用法：&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;c1&quot;&gt;//fis-conf.js&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;fis&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;merge&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;pack&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;c1&quot;&gt;//打包所有的demo.js, script.js文件&lt;/span&gt;
+        &lt;span class=&quot;c1&quot;&gt;//将内容输出为static/pkg/aio.js文件&lt;/span&gt;
+        &lt;span class=&quot;s1&quot;&gt;&#39;pkg/aio.js&#39;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;**/demo.js&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;sr&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\/&lt;/span&gt;&lt;span class=&quot;sr&quot;&gt;script&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\.&lt;/span&gt;&lt;span class=&quot;sr&quot;&gt;js$/i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt;
+        &lt;span class=&quot;c1&quot;&gt;//打包所有的css文件&lt;/span&gt;
+        &lt;span class=&quot;c1&quot;&gt;//将内容输出为static/pkg/aio.css文件&lt;/span&gt;
+        &lt;span class=&quot;s1&quot;&gt;&#39;pkg/aio.css&#39;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;**.css&#39;&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;输出结果：使用命令&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;fis release --pack --md5 --dest ./output 
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;编译项目，然后到output目录下查看产出的map.json内容得到：&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;s2&quot;&gt;&quot;res&quot;&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;s2&quot;&gt;&quot;demo.css&quot;&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;s2&quot;&gt;&quot;uri&quot;&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;/static/css/demo_7defa41.css&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+            &lt;span class=&quot;s2&quot;&gt;&quot;type&quot;&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;css&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+            &lt;span class=&quot;s2&quot;&gt;&quot;pkg&quot;&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;p1&quot;&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
+        &lt;span class=&quot;s2&quot;&gt;&quot;demo.js&quot;&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;s2&quot;&gt;&quot;uri&quot;&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;/static/js/demo_33c5143.js&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+            &lt;span class=&quot;s2&quot;&gt;&quot;type&quot;&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;js&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+            &lt;span class=&quot;s2&quot;&gt;&quot;deps&quot;&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;
+                &lt;span class=&quot;s2&quot;&gt;&quot;demo.css&quot;&lt;/span&gt;
+            &lt;span class=&quot;p&quot;&gt;],&lt;/span&gt;
+            &lt;span class=&quot;s2&quot;&gt;&quot;pkg&quot;&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;p0&quot;&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
+        &lt;span class=&quot;s2&quot;&gt;&quot;index.html&quot;&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;s2&quot;&gt;&quot;uri&quot;&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;/index.html&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+            &lt;span class=&quot;s2&quot;&gt;&quot;type&quot;&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;html&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+            &lt;span class=&quot;s2&quot;&gt;&quot;deps&quot;&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;
+                &lt;span class=&quot;s2&quot;&gt;&quot;demo.js&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+                &lt;span class=&quot;s2&quot;&gt;&quot;demo.css&quot;&lt;/span&gt;
+            &lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
+        &lt;span class=&quot;s2&quot;&gt;&quot;script.js&quot;&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;s2&quot;&gt;&quot;uri&quot;&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;/static/js/script_32300bf.js&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+            &lt;span class=&quot;s2&quot;&gt;&quot;type&quot;&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;js&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+            &lt;span class=&quot;s2&quot;&gt;&quot;pkg&quot;&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;p0&quot;&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
+        &lt;span class=&quot;s2&quot;&gt;&quot;style.css&quot;&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;s2&quot;&gt;&quot;uri&quot;&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;/static/css/style_837b297.css&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+            &lt;span class=&quot;s2&quot;&gt;&quot;type&quot;&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;css&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+            &lt;span class=&quot;s2&quot;&gt;&quot;pkg&quot;&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;p1&quot;&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
+    &lt;span class=&quot;s2&quot;&gt;&quot;pkg&quot;&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;s2&quot;&gt;&quot;p0&quot;&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;s2&quot;&gt;&quot;uri&quot;&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;/static/pkg/aio_5bb04ef.js&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+            &lt;span class=&quot;s2&quot;&gt;&quot;type&quot;&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;js&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+            &lt;span class=&quot;s2&quot;&gt;&quot;has&quot;&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;
+                &lt;span class=&quot;s2&quot;&gt;&quot;demo.js&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+                &lt;span class=&quot;s2&quot;&gt;&quot;script.js&quot;&lt;/span&gt;
+            &lt;span class=&quot;p&quot;&gt;],&lt;/span&gt;
+            &lt;span class=&quot;s2&quot;&gt;&quot;deps&quot;&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;
+                &lt;span class=&quot;s2&quot;&gt;&quot;demo.css&quot;&lt;/span&gt;
+            &lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
+        &lt;span class=&quot;s2&quot;&gt;&quot;p1&quot;&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;s2&quot;&gt;&quot;uri&quot;&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;/static/pkg/aio_cdf8bd3.css&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+            &lt;span class=&quot;s2&quot;&gt;&quot;type&quot;&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;css&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+            &lt;span class=&quot;s2&quot;&gt;&quot;has&quot;&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;
+                &lt;span class=&quot;s2&quot;&gt;&quot;demo.css&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+                &lt;span class=&quot;s2&quot;&gt;&quot;style.css&quot;&lt;/span&gt;
+            &lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+</description>
+        <pubDate>Thu, 30 Jun 2016 00:00:00 +0800</pubDate>
+        <link>https://github.com/BETH-zhang/2016/06/30/FIS%E9%85%8D%E7%BD%AEAPI.html</link>
+        <guid isPermaLink="true">https://github.com/BETH-zhang/2016/06/30/FIS%E9%85%8D%E7%BD%AEAPI.html</guid>
+        
+        
+      </item>
+    
+      <item>
+        <title>Git Tips</title>
+        <description>&lt;blockquote&gt;
+  &lt;p&gt;pezy edited this page on 30 Mar · 16 revisions&lt;br /&gt;
+https://github.com/pezy/blog.wiki.git
+ Clone in Desktop
+ 参考资料&lt;a href=&quot;http://gitref.org/&quot;&gt;Git参考手册&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&quot;how-to-set-proxy-in-windows-git&quot;&gt;How to set proxy in windows git?&lt;/h2&gt;
+
+&lt;p&gt;use git config -l can show all the configuration of your git.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;set
+    git config --global http.proxy http://10.22.98.21:8080
+remove
+    git config --global (or --system or --local) --unset http.proxy
+remove all
+    git config --global (or --system or --local) --unset-all http.proxy
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&quot;git&quot;&gt;git如何回滚？&lt;/h2&gt;
+
+&lt;p&gt;刚才一次误操作仍然心有余悸，本想图省事直接在网页上为blog的post branch增加一个文件夹和一个markdown文档，结果不知怎么搞得合并到主gh-pages分支上去了。结果主分支一下子空了许多。立刻掏出命令行，找回之。&lt;/p&gt;
+
+&lt;p&gt;首先需要知道的是，你想回滚到哪一个提交版本？&lt;br /&gt;
+    commits list&lt;/p&gt;
+
+&lt;p&gt;如图所示，右边那串字符就是你的commits id了。复制你要回滚的版本id。 然后输入以下命令：&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;git reset --hard &amp;lt;tag/branch/commit id&amp;gt; 你会长舒一口气，至少硬盘上看，文件都回来了。 然后你将这些修改重新commit覆盖服务器端版本即可。
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;需要注意的是：本地branch为A，服务器端branch为B，请问如何正确的push?&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;git push origin A:B 这个冒号，可以理解为to的意思，from A to B.
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&quot;forkreporepo&quot;&gt;Fork的repo拉取并合并主repo的步骤&lt;/h2&gt;
+
+&lt;p&gt;首先要先确定一下是否建立了主repo的远程源：&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;git remote -v 如果里面只能看到你自己的两个源(fetch 和 push)，那就需要添加主repo的源：
+
+git remote add upstream URL
+git remote -v 然后你就能看到upstream了。
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;如果想与主repo合并：&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;git fetch upstream
+git merge upstream/master
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&quot;repo&quot;&gt;如何引入别人的repo&lt;/h2&gt;
+
+&lt;p&gt;Github 上常常有很多非常好的工具，如检测内存泄漏的，单元测试的。如何将这些工具引入到自己的 repo 目录里呢？&lt;/p&gt;
+
+&lt;p&gt;下面以 Cache 为例：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;添加submodule：&lt;/p&gt;
+
+    &lt;p&gt;git submodule add git@github.com:philsquared/Catch.git&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;更新submodule：&lt;/p&gt;
+
+    &lt;p&gt;# should init
+  git submodule update –init
+  git submodule update&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;查看状态：&lt;/p&gt;
+
+    &lt;p&gt;git submodule status&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;更改URL&lt;/p&gt;
+
+    &lt;p&gt;# Modify your .gitmodule file to use the new URL
+  git submodule sync&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;pull-requestcommit&quot;&gt;发起一个pull request，我只想提交某一个commit怎么办？&lt;/h2&gt;
+
+&lt;p&gt;情景浮现：Cpp-Primer之前的章节被发现有Bug，可是我正在进行第七章的撰写，我不希望把这个半成品发给 @Mooophy，只想pull request给他Bug的修改。&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;# 新建一个branch来缓存origin repo
+git checkout -b upstream origin/master
+# 只截取某一个commit，cherry-pick，真是个好名字
+git cherry-pick &amp;lt;SHA hash of commit&amp;gt;
+# 推送到origin repo就行了
+git push origin upstream 当然，这几步其实都是在自己的fork内&quot;演练&quot;。你还需要在Github上点一下 pull request 按钮。然后万事大吉啦。
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&quot;section&quot;&gt;删除远程分支&lt;/h2&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;git push origin :del_branch_name
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&quot;section-1&quot;&gt;该死的行尾空白，能否忽略？&lt;/h2&gt;
+
+&lt;p&gt;由于经常在Windows和Mac上切换，两个系统的行尾空白符却不同意，造成很多不必要的diff，去掉这该死的差别：&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;git stripspace &amp;lt; README.md
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&quot;commit&quot;&gt;完了，这个不该commit的，能取消吗？&lt;/h2&gt;
+
+&lt;p&gt;有时候会出现不想commit的东西给commit了，尤其是喜欢用git commit -am的人。如何会退？&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;git reset --soft HEAD~1
+# 可以重新调整
+# 如果你想直接用上次的log，可以这样：
+git commit -c ORIG_HEAD
+# 如果你连log都要改，请使用常规的commit
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&quot;section-2&quot;&gt;修改远程地址&lt;/h2&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;git remote set-url origin git://new.url.here
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&quot;section-3&quot;&gt;快速查看冲突列表&lt;/h2&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;git diff --name-only --diff-filter=U
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&quot;section-4&quot;&gt;快速回滚到某历史版本&lt;/h2&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;git reset --hard &amp;lt;old-commit-id&amp;gt;
+git push -f origin branch Using this is dangerous in a collaborative environment: you&#39;re rewriting history.
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&quot;diff&quot;&gt;查看提交历史中的 diff&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;看单个文件的全部 diff:&lt;/p&gt;
+
+    &lt;p&gt;git log –full-diff -p your_file_path&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;看最后两个历史 Commits 的 diff:&lt;/p&gt;
+
+    &lt;p&gt;git log -p -2&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;see more at: http://git-scm.com/book/en/v2/Git-Basics-Viewing-the-Commit-History&lt;/p&gt;
+
+&lt;h2 id=&quot;windows--unixlinux--diff&quot;&gt;如何处理 Windows 平台与 Unix/Linux 平台换行符的不一致带来的大量 diff?&lt;/h2&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;git config --global core.autocrlf input
+# Configure Git on OS X or Linux to properly handle line endings
+
+git config --global core.autocrlf true
+# Configure Git on Windows to properly handle line endings 参考：https://help.github.com/articles/dealing-with-line-endings/#platform-all
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&quot;gitignore--add&quot;&gt;如何将 .gitignore 里写过的后缀文件，强制 add?&lt;/h2&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;git add --force my/ignore/file.foo 远程有多个分支，我想将本地切换到远程的某一个分支该怎么做？
+
+git checkout -b test origin/test
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+</description>
+        <pubDate>Wed, 29 Jun 2016 00:00:00 +0800</pubDate>
+        <link>https://github.com/BETH-zhang/2016/06/29/Git-Tips.html</link>
+        <guid isPermaLink="true">https://github.com/BETH-zhang/2016/06/29/Git-Tips.html</guid>
+        
+        
+      </item>
+    
+      <item>
+        <title>2015年50+ css 工具、框架、库合集</title>
+        <description>&lt;p&gt;#2015年50+ CSS 工具、框架、库合集&lt;/p&gt;
+
+&lt;p&gt;CSS动画工具 &amp;amp; 库&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;ol&gt;
+      &lt;li&gt;Animate Plus
+一个可以帮你创建CSS属性和SVG属性的JavaScript动画库。&lt;/li&gt;
+    &lt;/ol&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;ol&gt;
+      &lt;li&gt;Rocket
+一个创建WEB动画的简单的工具。&lt;/li&gt;
+    &lt;/ol&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;ol&gt;
+      &lt;li&gt;Tuesday
+新奇CSS动画库。&lt;/li&gt;
+    &lt;/ol&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;ol&gt;
+      &lt;li&gt;Shift.css
+创建定时CSS动画的简单框架。&lt;/li&gt;
+    &lt;/ol&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;ol&gt;
+      &lt;li&gt;MOTION UI
+用于创建灵活的CSS过渡和动画的SASS库。&lt;/li&gt;
+    &lt;/ol&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;ol&gt;
+      &lt;li&gt;Transformicons
+使用SVG和CSS的动画图标、符号、按钮。&lt;/li&gt;
+    &lt;/ol&gt;
+  &lt;/li&gt;
+  &lt;li&gt;CSS实用程序和工具
+    &lt;ol&gt;
+      &lt;li&gt;sanitize.css
+让浏览器渲染元素一致，并允许您以当前最佳实践的方式，即装即用。&lt;/li&gt;
+    &lt;/ol&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;ol&gt;
+      &lt;li&gt;CSS Stats
+CSS状态统计可视化工具。&lt;/li&gt;
+    &lt;/ol&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;ol&gt;
+      &lt;li&gt;cssfmt
+自动格式化CSS源代码的工具。&lt;/li&gt;
+    &lt;/ol&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;ol&gt;
+      &lt;li&gt;PurifyCSS
+很方便的检测你的应用使用了那些CSS选择器的工具，并创建一个未被使用的CSS的文件。&lt;/li&gt;
+    &lt;/ol&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Flexbox工具
+    &lt;ol&gt;
+      &lt;li&gt;Flexbox in 5 Minutes
+CSS 的 flexbox属性主要特性的互动之旅。&lt;/li&gt;
+    &lt;/ol&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;ol&gt;
+      &lt;li&gt;Flexbugs
+Flexbox常见问题及狂浏览器解决方案&lt;/li&gt;
+    &lt;/ol&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;ol&gt;
+      &lt;li&gt;cssPlus
+基于 Flexbox 的稳健、快速、跨浏览器的布局脚手架。&lt;/li&gt;
+    &lt;/ol&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;ol&gt;
+      &lt;li&gt;Sketch Flex Layout
+允许CSS Flexbox布局的Sketch 插件&lt;/li&gt;
+    &lt;/ol&gt;
+  &lt;/li&gt;
+  &lt;li&gt;CSS工具包
+    &lt;ol&gt;
+      &lt;li&gt;CSSGram
+重塑Instagram过滤器的微型CSS库。&lt;/li&gt;
+    &lt;/ol&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;ol&gt;
+      &lt;li&gt;Flickity
+创建画廊与轮播图的CSS库。&lt;/li&gt;
+    &lt;/ol&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;ol&gt;
+      &lt;li&gt;Marx&lt;/li&gt;
+    &lt;/ol&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;ol&gt;
+      &lt;li&gt;Pushy
+使用CSS转换和过渡效果的响应式导航菜单。&lt;/li&gt;
+    &lt;/ol&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;ol&gt;
+      &lt;li&gt;Rucksack
+CSS 工具包&lt;/li&gt;
+    &lt;/ol&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;ol&gt;
+      &lt;li&gt;Drop
+用于创建下拉菜单和其他浮动元素的库。&lt;/li&gt;
+    &lt;/ol&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;ol&gt;
+      &lt;li&gt;Tufte CSS
+使用Edward Tufte的理念展示文章的工具&lt;/li&gt;
+    &lt;/ol&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;ol&gt;
+      &lt;li&gt;Gradify
+CSS渐变占位符图像&lt;/li&gt;
+    &lt;/ol&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;ol&gt;
+      &lt;li&gt;Stretchy
+表单元素大小自动调整&lt;/li&gt;
+    &lt;/ol&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;ol&gt;
+      &lt;li&gt;CSSketch
+开源的Sketch的CSS插件&lt;/li&gt;
+    &lt;/ol&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;ol&gt;
+      &lt;li&gt;SassyFlags
+为你的网站添加旗帜的简单库&lt;/li&gt;
+    &lt;/ol&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;ol&gt;
+      &lt;li&gt;ai2html
+把Illustrator文档转为HTML和CSS的开源工具&lt;/li&gt;
+    &lt;/ol&gt;
+  &lt;/li&gt;
+  &lt;li&gt;CSS工具包
+    &lt;ol&gt;
+      &lt;li&gt;Crayon.css
+CSS颜色变量名与16进制对应列表。&lt;/li&gt;
+    &lt;/ol&gt;
+  &lt;/li&gt;
+  &lt;li&gt;响应的网页框架和用户界面工具包
+    &lt;ol&gt;
+      &lt;li&gt;Juiced
+Flexbox CSS 框架&lt;/li&gt;
+    &lt;/ol&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;ol&gt;
+      &lt;li&gt;Primer
+CSS工具包与指南&lt;/li&gt;
+    &lt;/ol&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;ol&gt;
+      &lt;li&gt;Neutron
+创建灵化、简洁网页布局的SASS框架。&lt;/li&gt;
+    &lt;/ol&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;ol&gt;
+      &lt;li&gt;Basscss
+基本元素类型和不可改变的实用程序的轻量级集合。&lt;/li&gt;
+    &lt;/ol&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;ol&gt;
+      &lt;li&gt;flexible.gs
+灵活的响应式栅格布局CSS框架&lt;/li&gt;
+    &lt;/ol&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;ol&gt;
+      &lt;li&gt;Rin&lt;/li&gt;
+    &lt;/ol&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;ol&gt;
+      &lt;li&gt;Wee
+用于创建复杂逻辑、响应式的轻量级前端框架。&lt;/li&gt;
+    &lt;/ol&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;ol&gt;
+      &lt;li&gt;Scooter
+SCSS框架和UI库&lt;/li&gt;
+    &lt;/ol&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;ol&gt;
+      &lt;li&gt;spaceBase
+基于SASS的响应式CSS框架&lt;/li&gt;
+    &lt;/ol&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;ol&gt;
+      &lt;li&gt;Decorator
+HTML, CSS, and JavaScrip 前端框架&lt;/li&gt;
+    &lt;/ol&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;ol&gt;
+      &lt;li&gt;Rebar
+Sass/Stylus 栅格布局框架&lt;/li&gt;
+    &lt;/ol&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;ol&gt;
+      &lt;li&gt;Concise CSS
+使用SASS的轻量级易用框架&lt;/li&gt;
+    &lt;/ol&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;ol&gt;
+      &lt;li&gt;Workbench
+加快开发速度的前端样板&lt;/li&gt;
+    &lt;/ol&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;ol&gt;
+      &lt;li&gt;Lost
+SCSS 或 Stylus 栅格布局&lt;/li&gt;
+    &lt;/ol&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;ol&gt;
+      &lt;li&gt;minigrid()
+只有2KB的零依赖栅格布局&lt;/li&gt;
+    &lt;/ol&gt;
+  &lt;/li&gt;
+  &lt;li&gt;材料设计框架
+    &lt;ol&gt;
+      &lt;li&gt;Material
+HTML5 UI 框架&lt;/li&gt;
+    &lt;/ol&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;ol&gt;
+      &lt;li&gt;LumX
+基于 AngularJS &amp;amp; Material Design 的框架&lt;/li&gt;
+    &lt;/ol&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;ol&gt;
+      &lt;li&gt;MUI
+轻量级WEB框架&lt;/li&gt;
+    &lt;/ol&gt;
+  &lt;/li&gt;
+  &lt;li&gt;基于Web的CSS工具和应用程序
+    &lt;ol&gt;
+      &lt;li&gt;CSS Gradient Animator
+动态生成gradients的WEB工具&lt;/li&gt;
+    &lt;/ol&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;ol&gt;
+      &lt;li&gt;CIRCULUS.SVG
+SVG圆形菜单生成器&lt;/li&gt;
+    &lt;/ol&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;ol&gt;
+      &lt;li&gt;CSS Ruler&lt;/li&gt;
+    &lt;/ol&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;ol&gt;
+      &lt;li&gt;SVGOMG
+优化和配置SVGO的WEB应用&lt;/li&gt;
+    &lt;/ol&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;ol&gt;
+      &lt;li&gt;Blend
+生成简单漂亮CSS3 gradients的工具&lt;/li&gt;
+    &lt;/ol&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;ol&gt;
+      &lt;li&gt;Filter Blend
+CSS的混合模式和过滤器生成器&lt;/li&gt;
+    &lt;/ol&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;ol&gt;
+      &lt;li&gt;SVG Path Builder App
+使用GUI快速创建SVG path&lt;/li&gt;
+    &lt;/ol&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;ol&gt;
+      &lt;li&gt;.resizr
+测试  CSS media queries 的轻量级应用&lt;/li&gt;
+    &lt;/ol&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;ol&gt;
+      &lt;li&gt;css2sass
+把CSS代码转成SASS的应用&lt;/li&gt;
+    &lt;/ol&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+</description>
+        <pubDate>Wed, 29 Jun 2016 00:00:00 +0800</pubDate>
+        <link>https://github.com/BETH-zhang/2016/06/29/2015%E5%B9%B450+-CSS-%E5%B7%A5%E5%85%B7-%E6%A1%86%E6%9E%B6-%E5%BA%93%E5%90%88%E9%9B%86.html</link>
+        <guid isPermaLink="true">https://github.com/BETH-zhang/2016/06/29/2015%E5%B9%B450+-CSS-%E5%B7%A5%E5%85%B7-%E6%A1%86%E6%9E%B6-%E5%BA%93%E5%90%88%E9%9B%86.html</guid>
+        
+        
+      </item>
     
       <item>
         <title>Fis的简单入门</title>
@@ -106,26 +1521,48 @@ FIS能够根据静态资源的内容自动生成文件版本，自动更新资�
 
 &lt;p&gt;&lt;img src=&quot;/img/md5_0102c44.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;还是喜欢时间戳？没问题，FIS也可以满足你的需求，点击这里&lt;/p&gt;
+&lt;p&gt;还是喜欢时间戳？没问题，FIS也可以满足你的需求&lt;/p&gt;
 
-&lt;p&gt;资源合并
-设置打包
-FIS可以通过pack来进行资源文件的合并，比如我们需要将DEMO中的公共库文件打包在一起，可以修改fis-conf.js配置，加入pack配置&lt;/p&gt;
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;nx&quot;&gt;fis&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;set&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;roadmap.path&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;na&quot;&gt;reg&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;sr&quot;&gt;/.*&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\.(&lt;/span&gt;&lt;span class=&quot;sr&quot;&gt;js|css&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;sr&quot;&gt;$/&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+        &lt;span class=&quot;na&quot;&gt;query&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;?t=${timestamp}&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+        &lt;span class=&quot;c1&quot;&gt;//useSprite: true&lt;/span&gt;
+        &lt;span class=&quot;na&quot;&gt;useHash&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;false&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;na&quot;&gt;reg&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;**.html&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+        &lt;span class=&quot;na&quot;&gt;useCache&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;false&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;]);&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
-&lt;p&gt;fis.config.set(‘pack’, {
-    ‘pkg/lib.js’: [
-        ‘/lib/mod.js’,
-        ‘/modules/underscore/&lt;strong&gt;.js’,
-        ‘/modules/backbone/&lt;/strong&gt;.js’,
-        ‘/modules/jquery/&lt;strong&gt;.js’,
-        ‘/modules/vendor/&lt;/strong&gt;.js’,
-        ‘/modules/common/**.js’
-    ]
-});
-设置完pack后，FIS默认只会进行文件打包，不会对页面中的静态资源引用进行替换，我们可以通过引入后端静态资源管理来加载打包模块。不过也可以利用fis-postpackager-simple插件，可以自动将页面中独立的资源引用替换为打包资源。&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;fis release --md5 -d output 
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
 
-&lt;p&gt;插件安装
-FIS的编译系统拥有一个使用简单、扩展方便的插件体系，这套插件体系保证了FIS编译工具的灵活性和生命力。这里我们简单介绍一下FIS插件的安装方法，更加详细的插件系统介绍可以查看配置API modules。&lt;/p&gt;
+&lt;h2&gt;资源合并&lt;/h2&gt;
+&lt;h3&gt;设置打包&lt;/h3&gt;
+&lt;p&gt;FIS可以通过pack来进行资源文件的合并，比如我们需要将DEMO中的公共库文件打包在一起，可以修改fis-conf.js配置，加入pack配置&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;nx&quot;&gt;fis&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;set&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;pack&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;s1&quot;&gt;&#39;pkg/lib.js&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;
+        &lt;span class=&quot;s1&quot;&gt;&#39;/lib/mod.js&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+        &lt;span class=&quot;s1&quot;&gt;&#39;/modules/underscore/**.js&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+        &lt;span class=&quot;s1&quot;&gt;&#39;/modules/backbone/**.js&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+        &lt;span class=&quot;s1&quot;&gt;&#39;/modules/jquery/**.js&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+        &lt;span class=&quot;s1&quot;&gt;&#39;/modules/vendor/**.js&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+        &lt;span class=&quot;s1&quot;&gt;&#39;/modules/common/**.js&#39;&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;设置完pack后，FIS默认只会进行文件打包，不会对页面中的静态资源引用进行替换，我们可以通过引入后端静态资源管理来加载打包模块。不过也可以利用fis-postpackager-simple插件，可以自动将页面中独立的资源引用替换为打包资源。&lt;/p&gt;
+
+&lt;h3&gt;插件安装&lt;/h3&gt;
+&lt;p&gt;FIS的编译系统拥有一个使用简单、扩展方便的插件体系，这套插件体系保证了FIS编译工具的灵活性和生命力。这里我们简单介绍一下FIS插件的安装方法，更加详细的插件系统介绍可以查看配置API modules。&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;所有fis插件介绍：
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
 
 &lt;p&gt;插件的安装分为两步，首先我们需要通过npm包管理工具进行插件安装&lt;/p&gt;
 
@@ -144,7 +1581,7 @@ fis.config.set(‘modules.postpackager’, ‘simple’);
 &lt;p&gt;$ fis release –optimize –md5 –pack # fis release -omp
 再次浏览我们可以发现原有的基础类库引用已经被替换为了 lib.js ，关于fis-postpackager-simple插件更多的静态资源处理策略和使用方法，请参考fis-postpackager-simple。&lt;/p&gt;
 
-&lt;p&gt;资源合并&lt;/p&gt;
+&lt;h3&gt;资源合并&lt;/h3&gt;
 
 &lt;p&gt;自动打包
 利用simple插件，我们还可以按页面进行自动合并，将没有通过pack设置打包的零散资源自动合并起来。&lt;/p&gt;
@@ -310,54 +1747,48 @@ Options:
   &lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;有了这三种语言能力，你的团队前端工业化水平将有很大的提升，因为：&lt;/p&gt;
-
-&lt;p&gt;ok，回到刚刚的firstblood示例项目，进入到output目录，你将看到：&lt;/p&gt;
-
 &lt;p&gt;所有的资源，除了html都加了md5戳
-多了一个map.json文件，里面记录了当前项目下的静态资源信息。
-编辑器打开index.html文件，你将看到更多惊喜。
-接下来，我们使用install命令安装一个配置文件，用于 调整文件编译后的部署路径 ：&lt;/p&gt;
+多了一个map.json文件，里面记录了当前项目下的静态资源信息。&lt;/p&gt;
 
-&lt;p&gt;$ fis install firstblood-conf
-此时firstblood项目目录下会多出一个fis-conf.js文件，让我们看一下里面的内容：&lt;/p&gt;
+&lt;h3&gt;fis-conf.js文件，让我们看一下里面的内容：&lt;/h3&gt;
 
-&lt;p&gt;fis.config.merge({
-    roadmap : {
-        domain : {
-            //所有css文件添加http://localhost:8080作为域名
-            ‘&lt;strong&gt;.css’ : ‘http://localhost:8080’
-        },
-        path : [
-            {
-                //所有的js文件
-                reg : ‘&lt;/strong&gt;.js’,
-                //发布到/static/js/xxx目录下
-                release : ‘/static/js$&amp;amp;’
-            },
-            {
-                //所有的css文件
-                reg : ‘&lt;em&gt;*.css’,
-                //发布到/static/css/xxx目录下
-                release : ‘/static/css$&amp;amp;’
-            },
-            {
-                //所有image目录下的.png，.gif文件
-                reg : /^\/images\/(.&lt;/em&gt;.(?:png|gif))/i,
-                //发布到/static/pic/xxx目录下
-                release : ‘/static/pic/$1’
-            }
-        ]
-    }
-});
-删除一下output目录，再次执行编译命令：&lt;/p&gt;
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;nx&quot;&gt;fis&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;merge&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;roadmap&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;na&quot;&gt;domain&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;c1&quot;&gt;//所有css文件添加http://localhost:8080作为域名&lt;/span&gt;
+            &lt;span class=&quot;s1&quot;&gt;&#39;**.css&#39;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;http://localhost:8080&#39;&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
+        &lt;span class=&quot;na&quot;&gt;path&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;
+            &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+                &lt;span class=&quot;c1&quot;&gt;//所有的js文件&lt;/span&gt;
+                &lt;span class=&quot;na&quot;&gt;reg&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;**.js&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+                &lt;span class=&quot;c1&quot;&gt;//发布到/static/js/xxx目录下&lt;/span&gt;
+                &lt;span class=&quot;na&quot;&gt;release&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;/static/js$&amp;amp;&#39;&lt;/span&gt;
+            &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
+            &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+                &lt;span class=&quot;c1&quot;&gt;//所有的css文件&lt;/span&gt;
+                &lt;span class=&quot;na&quot;&gt;reg&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;**.css&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+                &lt;span class=&quot;c1&quot;&gt;//发布到/static/css/xxx目录下&lt;/span&gt;
+                &lt;span class=&quot;na&quot;&gt;release&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;/static/css$&amp;amp;&#39;&lt;/span&gt;
+            &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
+            &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+                &lt;span class=&quot;c1&quot;&gt;//所有image目录下的.png，.gif文件&lt;/span&gt;
+                &lt;span class=&quot;na&quot;&gt;reg&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;sr&quot;&gt;/^&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\/&lt;/span&gt;&lt;span class=&quot;sr&quot;&gt;images&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\/(&lt;/span&gt;&lt;span class=&quot;sr&quot;&gt;.*&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\.(?:&lt;/span&gt;&lt;span class=&quot;sr&quot;&gt;png|gif&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;))&lt;/span&gt;&lt;span class=&quot;sr&quot;&gt;/i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+                &lt;span class=&quot;c1&quot;&gt;//发布到/static/pic/xxx目录下&lt;/span&gt;
+                &lt;span class=&quot;na&quot;&gt;release&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;/static/pic/$1&#39;&lt;/span&gt;
+            &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;删除一下output目录，再次执行编译命令：&lt;/p&gt;
 
 &lt;p&gt;$ fis release –md5 –domains –dest ./output
 就可以看到，fis调整了编译产出的目录结构。编辑output目录下的index.html，还会发现，fis将所有引用资源的地方也都调整为了发布路径，所有css也自动添加了域名！&lt;/p&gt;
 
 &lt;p&gt;fis release命令还有强大的自动上传功能，这篇文档不会详细介绍此功能的使用方式，但小编可以先发个截图表示一下。截图中显示的是我在windows下编译了firstblood项目，然后自动同步到我的linux测试机上的截图。之后我修改了index.html文件，它又帮我秒传上去了，嚯嚯！&lt;/p&gt;
 
-&lt;p&gt;自动上传功能&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/img/deploy.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;当你学习到这里时，恭喜你，你已掌握了F.I.S自动化/辅助开发工具的大部分功能，下面一条命令，会给你带来更爽的开发体验。&lt;/p&gt;
 
@@ -897,23 +2328,120 @@ starting fis-server on port : 8080
                 &quot;博客:汤姆大叔的博客&quot;: &quot;javascript:;&quot;,
             },
             &quot;《深入理解Bootstrap》、《JavaScript启示录》、《JavaScript设计模式》等多本前端书籍翻译作者&quot;
+        ],[
+            &quot;小鱼&quot;,
+            img,
+            &quot;&quot;,
+            {
+                &quot;博客:sofish&quot;: &quot;javascript:;&quot;,
+                &quot;Github:sofish&quot;: &quot;javascript:;&quot;
+            },
+            &quot;百姓网一牛&quot;
+        ],[
+            &quot;vilic&quot;,
+            img,
+            &quot;&quot;,
+            {
+                &quot;博客:vilic&quot;: &quot;javascript:;&quot;,
+            },
+            &quot;年轻一牛&quot;
+        ],[
+            &quot;彬Go&quot;,
+            img,
+            &quot;&quot;,
+            {
+                &quot;博客:彬Go&quot;: &quot;javascript:;&quot;,
+            },
+            &quot;人人网一牛&quot;
+        ],[
+            &quot;PuterJam&quot;,
+            img,
+            &quot;&quot;,
+            {
+                &quot;博客:PuterJam’s Blog&quot;: &quot;javascript:;&quot;,
+            },
+            &quot;腾讯一牛&quot;
+        ],[
+            &quot;css森林&quot;,
+            img,
+            &quot;&quot;,
+            {
+                &quot;博客:cssforest&quot;: &quot;javascript:;&quot;,
+            },
+            &quot;前端博客&quot;
+        ],[
+            &quot;99css&quot;,
+            img,
+            &quot;&quot;,
+            {
+                &quot;博客:99css&quot;: &quot;javascript:;&quot;,
+                &quot;Github:ytzong&quot;: &quot;javascript:;&quot;
+            },
+            &quot;腾讯一牛&quot;
+        ],[
+            &quot;秦歌&quot;,
+            img,
+            &quot;&quot;,
+            {
+                &quot;博客:Kaven&quot;: &quot;javascript:;&quot;,
+                &quot;Github:kavenyan&quot;: &quot;javascript:;&quot;
+            },
+            &quot;js语言精粹译者&quot;
+        ],[
+            &quot;linxz&quot;,
+            img,
+            &quot;&quot;,
+            {
+                &quot;博客:linxz&quot;: &quot;javascript:;&quot;,
+            },
+            &quot;css那些事儿的作者&quot;
+        ],[
+            &quot;米随随&quot;,
+            img,
+            &quot;&quot;,
+            {
+                &quot;博客:米随随&quot;: &quot;javascript:;&quot;,
+            },
+            &quot;腾讯ISUX&quot;
+        ],[
+            &quot;飘飘&quot;,
+            img,
+            &quot;&quot;,
+            {
+                &quot;博客:飘飘&quot;: &quot;javascript:;&quot;,
+            },
+            &quot;腾讯一牛&quot;
+        ],[
+            &quot;Along&quot;,
+            img,
+            &quot;Opera&quot;,
+            {
+                &quot;博客:Along’s Blog&quot;: &quot;javascript:;&quot;,
+                &quot;Github: newwave&quot;: &quot;javascript:;&quot;
+            },
+            &quot;欧朋一牛&quot;
+        ],[
+            &quot;安记&quot;,
+            img,
+            &quot;去哪网&quot;,
+            {
+                &quot;博客:cssha&quot;: &quot;javascript:;&quot;,
+                &quot;微博：hanan321&quot;: &quot;javascript:;&quot;,
+                &quot;Github: hanan198501&quot;: &quot;javascript:;&quot;
+            },
+            &quot;去哪网一牛&quot;
+        ],[
+            &quot;余弦&quot;,
+            img,
+            &quot;去哪网&quot;,
+            {
+                &quot;博客:EVILCOS 余弦&quot;: &quot;javascript:;&quot;,
+                &quot;微博：evilcos&quot;: &quot;javascript:;&quot;,
+                &quot;Github: 知道创宇&quot;: &quot;javascript:;&quot;
+            },
+            &quot;安全（黑客）、架构、团队的各种观点与分享&quot;
         ]
     ];
-
-// ID  博客  微博  Github  公司  关键字 
-// 小鱼  sofish  @sofish #   #   百姓网一牛
-// vilic   vilic   #   #   #   年轻一牛
-// 彬Go 彬Go #   #   #   人人网一牛
-// PuterJam    PuterJam’s Blog #   #   #   腾讯一牛
-// css森林   cssforest   #   #   #   前端博客
-// 99css   99css   @ytzong #   #   腾讯一牛
-// 秦歌  Kaven   #   @kavenyan   #   js语言精粹译者
-// linxz   linxz   #   #   #   css那些事儿的作者
-// 米随随 米随随 #   #   #   腾讯ISUX 一牛
-// 飘飘  飘飘  #   #   #   腾讯一牛
-// Along   Along’s Blog    @newwave    #   #   Opera 欧朋一牛
-// 安记  cssha   @hanan321   hanan198501 #   去哪网一牛
-// 余弦  EVILCOS 余弦  evilcos 知道创宇    安全（黑客）、架构、团队的各种观点与分享
 
     $(&#39;#frontend-ox&#39;).append(new H5ComponentPeopleList(&#39;peoplelist&#39;, {
         type: &#39;peoplelist&#39;,

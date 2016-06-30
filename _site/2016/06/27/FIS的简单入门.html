@@ -159,26 +159,48 @@ FIS能够根据静态资源的内容自动生成文件版本，自动更新资�
 
 <p><img src="/img/md5_0102c44.png" alt="" /></p>
 
-<p>还是喜欢时间戳？没问题，FIS也可以满足你的需求，点击这里</p>
+<p>还是喜欢时间戳？没问题，FIS也可以满足你的需求</p>
 
-<p>资源合并
-设置打包
-FIS可以通过pack来进行资源文件的合并，比如我们需要将DEMO中的公共库文件打包在一起，可以修改fis-conf.js配置，加入pack配置</p>
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">fis</span><span class="p">.</span><span class="nx">config</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="s1">'roadmap.path'</span><span class="p">,</span> <span class="p">[</span>
+    <span class="p">{</span>
+        <span class="na">reg</span><span class="p">:</span> <span class="sr">/.*</span><span class="se">\.(</span><span class="sr">js|css</span><span class="se">)</span><span class="sr">$/</span><span class="p">,</span>
+        <span class="na">query</span><span class="p">:</span> <span class="s1">'?t=${timestamp}'</span><span class="p">,</span>
+        <span class="c1">//useSprite: true</span>
+        <span class="na">useHash</span><span class="p">:</span> <span class="kc">false</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+        <span class="na">reg</span><span class="p">:</span> <span class="s1">'**.html'</span><span class="p">,</span>
+        <span class="na">useCache</span><span class="p">:</span> <span class="kc">false</span>
+    <span class="p">}</span>
+<span class="p">]);</span></code></pre></figure>
 
-<p>fis.config.set(‘pack’, {
-    ‘pkg/lib.js’: [
-        ‘/lib/mod.js’,
-        ‘/modules/underscore/<strong>.js’,
-        ‘/modules/backbone/</strong>.js’,
-        ‘/modules/jquery/<strong>.js’,
-        ‘/modules/vendor/</strong>.js’,
-        ‘/modules/common/**.js’
-    ]
-});
-设置完pack后，FIS默认只会进行文件打包，不会对页面中的静态资源引用进行替换，我们可以通过引入后端静态资源管理来加载打包模块。不过也可以利用fis-postpackager-simple插件，可以自动将页面中独立的资源引用替换为打包资源。</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>fis release --md5 -d output 
+</code></pre>
+</div>
 
-<p>插件安装
-FIS的编译系统拥有一个使用简单、扩展方便的插件体系，这套插件体系保证了FIS编译工具的灵活性和生命力。这里我们简单介绍一下FIS插件的安装方法，更加详细的插件系统介绍可以查看配置API modules。</p>
+<h2>资源合并</h2>
+<h3>设置打包</h3>
+<p>FIS可以通过pack来进行资源文件的合并，比如我们需要将DEMO中的公共库文件打包在一起，可以修改fis-conf.js配置，加入pack配置</p>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">fis</span><span class="p">.</span><span class="nx">config</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="s1">'pack'</span><span class="p">,</span> <span class="p">{</span>
+    <span class="s1">'pkg/lib.js'</span><span class="p">:</span> <span class="p">[</span>
+        <span class="s1">'/lib/mod.js'</span><span class="p">,</span>
+        <span class="s1">'/modules/underscore/**.js'</span><span class="p">,</span>
+        <span class="s1">'/modules/backbone/**.js'</span><span class="p">,</span>
+        <span class="s1">'/modules/jquery/**.js'</span><span class="p">,</span>
+        <span class="s1">'/modules/vendor/**.js'</span><span class="p">,</span>
+        <span class="s1">'/modules/common/**.js'</span>
+    <span class="p">]</span>
+<span class="p">});</span></code></pre></figure>
+
+<p>设置完pack后，FIS默认只会进行文件打包，不会对页面中的静态资源引用进行替换，我们可以通过引入后端静态资源管理来加载打包模块。不过也可以利用fis-postpackager-simple插件，可以自动将页面中独立的资源引用替换为打包资源。</p>
+
+<h3>插件安装</h3>
+<p>FIS的编译系统拥有一个使用简单、扩展方便的插件体系，这套插件体系保证了FIS编译工具的灵活性和生命力。这里我们简单介绍一下FIS插件的安装方法，更加详细的插件系统介绍可以查看配置API modules。</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>所有fis插件介绍：
+</code></pre>
+</div>
 
 <p>插件的安装分为两步，首先我们需要通过npm包管理工具进行插件安装</p>
 
@@ -197,7 +219,7 @@ fis.config.set(‘modules.postpackager’, ‘simple’);
 <p>$ fis release –optimize –md5 –pack # fis release -omp
 再次浏览我们可以发现原有的基础类库引用已经被替换为了 lib.js ，关于fis-postpackager-simple插件更多的静态资源处理策略和使用方法，请参考fis-postpackager-simple。</p>
 
-<p>资源合并</p>
+<h3>资源合并</h3>
 
 <p>自动打包
 利用simple插件，我们还可以按页面进行自动合并，将没有通过pack设置打包的零散资源自动合并起来。</p>
@@ -363,54 +385,48 @@ Options:
   </li>
 </ul>
 
-<p>有了这三种语言能力，你的团队前端工业化水平将有很大的提升，因为：</p>
-
-<p>ok，回到刚刚的firstblood示例项目，进入到output目录，你将看到：</p>
-
 <p>所有的资源，除了html都加了md5戳
-多了一个map.json文件，里面记录了当前项目下的静态资源信息。
-编辑器打开index.html文件，你将看到更多惊喜。
-接下来，我们使用install命令安装一个配置文件，用于 调整文件编译后的部署路径 ：</p>
+多了一个map.json文件，里面记录了当前项目下的静态资源信息。</p>
 
-<p>$ fis install firstblood-conf
-此时firstblood项目目录下会多出一个fis-conf.js文件，让我们看一下里面的内容：</p>
+<h3>fis-conf.js文件，让我们看一下里面的内容：</h3>
 
-<p>fis.config.merge({
-    roadmap : {
-        domain : {
-            //所有css文件添加http://localhost:8080作为域名
-            ‘<strong>.css’ : ‘http://localhost:8080’
-        },
-        path : [
-            {
-                //所有的js文件
-                reg : ‘</strong>.js’,
-                //发布到/static/js/xxx目录下
-                release : ‘/static/js$&amp;’
-            },
-            {
-                //所有的css文件
-                reg : ‘<em>*.css’,
-                //发布到/static/css/xxx目录下
-                release : ‘/static/css$&amp;’
-            },
-            {
-                //所有image目录下的.png，.gif文件
-                reg : /^\/images\/(.</em>.(?:png|gif))/i,
-                //发布到/static/pic/xxx目录下
-                release : ‘/static/pic/$1’
-            }
-        ]
-    }
-});
-删除一下output目录，再次执行编译命令：</p>
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">fis</span><span class="p">.</span><span class="nx">config</span><span class="p">.</span><span class="nx">merge</span><span class="p">({</span>
+    <span class="na">roadmap</span> <span class="p">:</span> <span class="p">{</span>
+        <span class="na">domain</span> <span class="p">:</span> <span class="p">{</span>
+            <span class="c1">//所有css文件添加http://localhost:8080作为域名</span>
+            <span class="s1">'**.css'</span> <span class="p">:</span> <span class="s1">'http://localhost:8080'</span>
+        <span class="p">},</span>
+        <span class="na">path</span> <span class="p">:</span> <span class="p">[</span>
+            <span class="p">{</span>
+                <span class="c1">//所有的js文件</span>
+                <span class="na">reg</span> <span class="p">:</span> <span class="s1">'**.js'</span><span class="p">,</span>
+                <span class="c1">//发布到/static/js/xxx目录下</span>
+                <span class="na">release</span> <span class="p">:</span> <span class="s1">'/static/js$&amp;'</span>
+            <span class="p">},</span>
+            <span class="p">{</span>
+                <span class="c1">//所有的css文件</span>
+                <span class="na">reg</span> <span class="p">:</span> <span class="s1">'**.css'</span><span class="p">,</span>
+                <span class="c1">//发布到/static/css/xxx目录下</span>
+                <span class="na">release</span> <span class="p">:</span> <span class="s1">'/static/css$&amp;'</span>
+            <span class="p">},</span>
+            <span class="p">{</span>
+                <span class="c1">//所有image目录下的.png，.gif文件</span>
+                <span class="na">reg</span> <span class="p">:</span> <span class="sr">/^</span><span class="se">\/</span><span class="sr">images</span><span class="se">\/(</span><span class="sr">.*</span><span class="se">\.(?:</span><span class="sr">png|gif</span><span class="se">))</span><span class="sr">/i</span><span class="p">,</span>
+                <span class="c1">//发布到/static/pic/xxx目录下</span>
+                <span class="na">release</span> <span class="p">:</span> <span class="s1">'/static/pic/$1'</span>
+            <span class="p">}</span>
+        <span class="p">]</span>
+    <span class="p">}</span>
+<span class="p">});</span></code></pre></figure>
+
+<p>删除一下output目录，再次执行编译命令：</p>
 
 <p>$ fis release –md5 –domains –dest ./output
 就可以看到，fis调整了编译产出的目录结构。编辑output目录下的index.html，还会发现，fis将所有引用资源的地方也都调整为了发布路径，所有css也自动添加了域名！</p>
 
 <p>fis release命令还有强大的自动上传功能，这篇文档不会详细介绍此功能的使用方式，但小编可以先发个截图表示一下。截图中显示的是我在windows下编译了firstblood项目，然后自动同步到我的linux测试机上的截图。之后我修改了index.html文件，它又帮我秒传上去了，嚯嚯！</p>
 
-<p>自动上传功能</p>
+<p><img src="/img/deploy.png" alt="" /></p>
 
 <p>当你学习到这里时，恭喜你，你已掌握了F.I.S自动化/辅助开发工具的大部分功能，下面一条命令，会给你带来更爽的开发体验。</p>
 

@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Git Tips</title>
+  <meta name="description" content="  pezy edited this page on 30 Mar · 16 revisionshttps://github.com/pezy/blog.wiki.git Clone in Desktop 参考资料Git参考手册">
+
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="canonical" href="https://github.com/BETH-zhang/2016/06/29/Git-Tips.html">
+  <link rel="alternate" type="application/rss+xml" title="前端花园" href="https://github.com/BETH-zhang/feed.xml">
+  <link type="image/x-icon" rel="shortcut icon" href="https://raw.githubusercontent.com/BETH-zhang/Frontend-Garden/gh-pages/_includes/favicon.ico">
+  <script type="text/javascript" src="/js/jquery.min.js"></script>
+</head>
+
+
+  <body>
+
+    <header class="site-header">
+
+  <div class="wrapper">
+
+    <a class="site-title" href="/">前端花园</a>
+
+    <nav class="site-nav">
+      <a href="#" class="menu-icon">
+        <svg viewBox="0 0 18 15">
+          <path fill="#424242" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#424242" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484 h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#424242" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+        </svg>
+      </a>
+
+      <div class="trigger">
+        
+          
+          <a class="page-link" href="/about/">About</a>
+          
+        
+          
+        
+          
+        
+          
+        
+      </div>
+    </nav>
+
+  </div>
+
+</header>
+
+
+    <div class="page-content">
+      <div class="wrapper">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title" itemprop="name headline">Git Tips</h1>
+    <p class="post-meta"><a href="https://github.com/BETH-zhang" target="_blank"/><img class="post-avatar" src="https://avatars3.githubusercontent.com/u/19342035?v=3&s=40"/></a><time datetime="2016-06-29T00:00:00+08:00" itemprop="datePublished">Jun 29, 2016</time></p>
+  </header>
+
+  <div class="post-content" itemprop="articleBody">
+    <blockquote>
+  <p>pezy edited this page on 30 Mar · 16 revisions<br />
+https://github.com/pezy/blog.wiki.git
+ Clone in Desktop
+ 参考资料<a href="http://gitref.org/">Git参考手册</a></p>
+</blockquote>
+
+<h2 id="how-to-set-proxy-in-windows-git">How to set proxy in windows git?</h2>
+
+<p>use git config -l can show all the configuration of your git.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>set
+    git config --global http.proxy http://10.22.98.21:8080
+remove
+    git config --global (or --system or --local) --unset http.proxy
+remove all
+    git config --global (or --system or --local) --unset-all http.proxy
+</code></pre>
+</div>
+
+<h2 id="git">git如何回滚？</h2>
+
+<p>刚才一次误操作仍然心有余悸，本想图省事直接在网页上为blog的post branch增加一个文件夹和一个markdown文档，结果不知怎么搞得合并到主gh-pages分支上去了。结果主分支一下子空了许多。立刻掏出命令行，找回之。</p>
+
+<p>首先需要知道的是，你想回滚到哪一个提交版本？<br />
+    commits list</p>
+
+<p>如图所示，右边那串字符就是你的commits id了。复制你要回滚的版本id。 然后输入以下命令：</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>git reset --hard &lt;tag/branch/commit id&gt; 你会长舒一口气，至少硬盘上看，文件都回来了。 然后你将这些修改重新commit覆盖服务器端版本即可。
+</code></pre>
+</div>
+
+<p>需要注意的是：本地branch为A，服务器端branch为B，请问如何正确的push?</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>git push origin A:B 这个冒号，可以理解为to的意思，from A to B.
+</code></pre>
+</div>
+
+<h2 id="forkreporepo">Fork的repo拉取并合并主repo的步骤</h2>
+
+<p>首先要先确定一下是否建立了主repo的远程源：</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>git remote -v 如果里面只能看到你自己的两个源(fetch 和 push)，那就需要添加主repo的源：
+
+git remote add upstream URL
+git remote -v 然后你就能看到upstream了。
+</code></pre>
+</div>
+
+<p>如果想与主repo合并：</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>git fetch upstream
+git merge upstream/master
+</code></pre>
+</div>
+
+<h2 id="repo">如何引入别人的repo</h2>
+
+<p>Github 上常常有很多非常好的工具，如检测内存泄漏的，单元测试的。如何将这些工具引入到自己的 repo 目录里呢？</p>
+
+<p>下面以 Cache 为例：</p>
+
+<ul>
+  <li>
+    <p>添加submodule：</p>
+
+    <p>git submodule add git@github.com:philsquared/Catch.git</p>
+  </li>
+  <li>
+    <p>更新submodule：</p>
+
+    <p># should init
+  git submodule update –init
+  git submodule update</p>
+  </li>
+  <li>
+    <p>查看状态：</p>
+
+    <p>git submodule status</p>
+  </li>
+  <li>
+    <p>更改URL</p>
+
+    <p># Modify your .gitmodule file to use the new URL
+  git submodule sync</p>
+  </li>
+</ul>
+
+<h2 id="pull-requestcommit">发起一个pull request，我只想提交某一个commit怎么办？</h2>
+
+<p>情景浮现：Cpp-Primer之前的章节被发现有Bug，可是我正在进行第七章的撰写，我不希望把这个半成品发给 @Mooophy，只想pull request给他Bug的修改。</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code># 新建一个branch来缓存origin repo
+git checkout -b upstream origin/master
+# 只截取某一个commit，cherry-pick，真是个好名字
+git cherry-pick &lt;SHA hash of commit&gt;
+# 推送到origin repo就行了
+git push origin upstream 当然，这几步其实都是在自己的fork内"演练"。你还需要在Github上点一下 pull request 按钮。然后万事大吉啦。
+</code></pre>
+</div>
+
+<h2 id="section">删除远程分支</h2>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>git push origin :del_branch_name
+</code></pre>
+</div>
+
+<h2 id="section-1">该死的行尾空白，能否忽略？</h2>
+
+<p>由于经常在Windows和Mac上切换，两个系统的行尾空白符却不同意，造成很多不必要的diff，去掉这该死的差别：</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>git stripspace &lt; README.md
+</code></pre>
+</div>
+
+<h2 id="commit">完了，这个不该commit的，能取消吗？</h2>
+
+<p>有时候会出现不想commit的东西给commit了，尤其是喜欢用git commit -am的人。如何会退？</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>git reset --soft HEAD~1
+# 可以重新调整
+# 如果你想直接用上次的log，可以这样：
+git commit -c ORIG_HEAD
+# 如果你连log都要改，请使用常规的commit
+</code></pre>
+</div>
+
+<h2 id="section-2">修改远程地址</h2>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>git remote set-url origin git://new.url.here
+</code></pre>
+</div>
+
+<h2 id="section-3">快速查看冲突列表</h2>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>git diff --name-only --diff-filter=U
+</code></pre>
+</div>
+
+<h2 id="section-4">快速回滚到某历史版本</h2>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>git reset --hard &lt;old-commit-id&gt;
+git push -f origin branch Using this is dangerous in a collaborative environment: you're rewriting history.
+</code></pre>
+</div>
+
+<h2 id="diff">查看提交历史中的 diff</h2>
+
+<ul>
+  <li>
+    <p>看单个文件的全部 diff:</p>
+
+    <p>git log –full-diff -p your_file_path</p>
+  </li>
+  <li>
+    <p>看最后两个历史 Commits 的 diff:</p>
+
+    <p>git log -p -2</p>
+  </li>
+</ul>
+
+<p>see more at: http://git-scm.com/book/en/v2/Git-Basics-Viewing-the-Commit-History</p>
+
+<h2 id="windows--unixlinux--diff">如何处理 Windows 平台与 Unix/Linux 平台换行符的不一致带来的大量 diff?</h2>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>git config --global core.autocrlf input
+# Configure Git on OS X or Linux to properly handle line endings
+
+git config --global core.autocrlf true
+# Configure Git on Windows to properly handle line endings 参考：https://help.github.com/articles/dealing-with-line-endings/#platform-all
+</code></pre>
+</div>
+
+<h2 id="gitignore--add">如何将 .gitignore 里写过的后缀文件，强制 add?</h2>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>git add --force my/ignore/file.foo 远程有多个分支，我想将本地切换到远程的某一个分支该怎么做？
+
+git checkout -b test origin/test
+</code></pre>
+</div>
+
+  </div>
+
+</article>
+
+      </div>
+    </div>
+
+    <footer class="site-footer">
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">前端花园</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li><a href="mailto:gemeiwangji789@qq.com">gemeiwangji789@qq.com</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col footer-col-2">
+        <ul class="social-media-list">
+          
+          <li>
+            <a href="https://github.com/BETH-zhang"><span class="icon icon--github"><svg viewBox="0 0 16 16"><path fill="#828282" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761 c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32 c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472 c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037 C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65 c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261 c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082 c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129 c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/></svg>
+</span><span class="username">BETH-zhang</span></a>
+
+          </li>
+          
+
+          
+        </ul>
+      </div>
+
+      <div class="footer-col footer-col-3">
+        <p>在前端的道路上风景更加绚丽多姿</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+
+
+  </body>
+
+</html>

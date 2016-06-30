@@ -23,3 +23,32 @@
         padding-right: 5px;
     }
 }
+
+.light p .na{
+    display:inline-block;
+    margin-right:5px;
+    width:60px;
+    text-align:right;
+}
+
+.light .hide{
+    display: none;
+}
+
+.light .show{
+    display: block;
+}
+
+.light .h2{
+    cursor: pointer;
+    border: 1px solid #f2f2f2;
+}
+
+.light .h2:hover{
+    background: #f2f2f2;
+}
+
+.light .h2-show{
+    color: #d14;
+    font-size: 18px;
+}

@@ -28,7 +28,8 @@ body {
 h1, h2, h3, h4, h5, h6,
 p, blockquote, pre,
 ul, ol, dl, figure,
-.highlight {
+.highlight,
+.light {
   margin-bottom: 15px; }
 
 /**
@@ -338,145 +339,148 @@ pre {
 /**
  * Syntax highlighting styles
  */
-.highlight {
+.highlight, .light {
   background: #f8f8f8; }
-  .highlighter-rouge .highlight {
+  .highlighter-rouge .highlight, .highlighter-rouge .light {
     background: #f8f8f8; }
-  .highlight .c {
+  .highlight .c, .light .c {
     color: #8f5902;
     font-style: italic; }
-  .highlight .err {
+  .highlight .err, .light .err {
     color: #a40000;
     border: 1px solid #ef2929; }
-  .highlight .k {
+  .highlight .k, .light .k {
     color: #204a87;
     font-weight: bold; }
-  .highlight .o {
+  .highlight .o, .light .o {
     color: #ce5c00;
     font-weight: bold; }
-  .highlight .cm {
+  .highlight .cm, .light .cm {
     color: #998;
     font-style: italic; }
-  .highlight .cp {
+  .highlight .cp, .light .cp {
     color: #999;
     font-weight: bold; }
-  .highlight .c1 {
+  .highlight .c1, .light .c1 {
     color: #998;
     font-style: italic; }
-  .highlight .cs {
+  .highlight .cs, .light .cs {
     color: #999;
     font-weight: bold;
     font-style: italic; }
-  .highlight .gd {
+  .highlight .gd, .light .gd {
     color: #000;
     background-color: #fdd; }
-  .highlight .gd .x {
+  .highlight .gd .x, .light .gd .x {
     color: #000;
     background-color: #faa; }
-  .highlight .ge {
+  .highlight .ge, .light .ge {
     font-style: italic; }
-  .highlight .gr {
+  .highlight .gr, .light .gr {
     color: #a00; }
-  .highlight .gh {
+  .highlight .gh, .light .gh {
     color: #999; }
-  .highlight .gi {
+  .highlight .gi, .light .gi {
     color: #000;
     background-color: #dfd; }
-  .highlight .gi .x {
+  .highlight .gi .x, .light .gi .x {
     color: #000;
     background-color: #afa; }
-  .highlight .go {
+  .highlight .go, .light .go {
     color: #888; }
-  .highlight .gp {
+  .highlight .gp, .light .gp {
     color: #555; }
-  .highlight .gs {
+  .highlight .gs, .light .gs {
     font-weight: bold; }
-  .highlight .gu {
+  .highlight .gu, .light .gu {
     color: #aaa; }
-  .highlight .gt {
+  .highlight .gt, .light .gt {
     color: #a00; }
-  .highlight .kc {
+  .highlight .kc, .light .kc {
     font-weight: bold; }
-  .highlight .kd {
+  .highlight .kd, .light .kd {
     font-weight: bold; }
-  .highlight .kp {
+  .highlight .kp, .light .kp {
     font-weight: bold; }
-  .highlight .kr {
+  .highlight .kr, .light .kr {
     font-weight: bold; }
-  .highlight .kt {
+  .highlight .kt, .light .kt {
     color: #458;
     font-weight: bold; }
-  .highlight .m {
+  .highlight .m, .light .m {
     color: #099; }
-  .highlight .s {
+  .highlight .s, .light .s {
     color: #d14; }
-  .highlight .na {
+  .highlight .na, .light .na {
     color: #008080; }
-  .highlight .nb {
+  .highlight .nb, .light .nb {
     color: #0086B3; }
-  .highlight .nc {
+  .highlight .nc, .light .nc {
     color: #458;
     font-weight: bold; }
-  .highlight .no {
+  .highlight .no, .light .no {
     color: #008080; }
-  .highlight .ni {
+  .highlight .ni, .light .ni {
     color: #800080; }
-  .highlight .ne {
+  .highlight .ne, .light .ne {
     color: #900;
     font-weight: bold; }
-  .highlight .nf {
+  .highlight .nf, .light .nf {
     color: #900;
     font-weight: bold; }
-  .highlight .nn {
+  .highlight .nn, .light .nn {
     color: #555; }
-  .highlight .nt {
+  .highlight .nt, .light .nt {
     color: #000080; }
-  .highlight .nv {
+  .highlight .nv, .light .nv {
     color: #008080; }
-  .highlight .ow {
+  .highlight .ow, .light .ow {
     font-weight: bold; }
-  .highlight .w {
+  .highlight .w, .light .w {
     color: #bbb; }
-  .highlight .mf {
+  .highlight .mf, .light .mf {
     color: #099; }
-  .highlight .mh {
+  .highlight .mh, .light .mh {
     color: #099; }
-  .highlight .mi {
+  .highlight .mi, .light .mi {
     color: #099; }
-  .highlight .mo {
+  .highlight .mo, .light .mo {
     color: #099; }
-  .highlight .sb {
+  .highlight .sb, .light .sb {
     color: #d14; }
-  .highlight .sc {
+  .highlight .sc, .light .sc {
     color: #d14; }
-  .highlight .sd {
+  .highlight .sd, .light .sd {
     color: #d14; }
-  .highlight .s2 {
+  .highlight .s2, .light .s2 {
     color: #d14; }
-  .highlight .se {
+  .highlight .se, .light .se {
     color: #d14; }
-  .highlight .sh {
+  .highlight .sh, .light .sh {
     color: #d14; }
-  .highlight .si {
+  .highlight .si, .light .si {
     color: #d14; }
-  .highlight .sx {
+  .highlight .sx, .light .sx {
     color: #d14; }
-  .highlight .sr {
+  .highlight .sr, .light .sr {
     color: #009926; }
-  .highlight .s1 {
+  .highlight .s1, .light .s1 {
     color: #d14; }
-  .highlight .ss {
+  .highlight .ss, .light .ss {
     color: #990073; }
-  .highlight .bp {
+  .highlight .bp, .light .bp {
     color: #999; }
-  .highlight .vc {
+  .highlight .vc, .light .vc {
     color: #008080; }
-  .highlight .vg {
+  .highlight .vg, .light .vg {
     color: #008080; }
-  .highlight .vi {
+  .highlight .vi, .light .vi {
     color: #008080; }
-  .highlight .il {
+  .highlight .il, .light .il {
     color: #099; }
+
+.light {
+  background: none; }
 
 /* 基本图文组件样式 */
 .h5_component {
@@ -496,3 +500,26 @@ pre {
 #frontend-ox a {
   display: inline-block;
   padding-right: 5px; }
+
+.light p .na {
+  display: inline-block;
+  margin-right: 5px;
+  width: 60px;
+  text-align: right; }
+
+.light .hide {
+  display: none; }
+
+.light .show {
+  display: block; }
+
+.light .h2 {
+  cursor: pointer;
+  border: 1px solid #f2f2f2; }
+
+.light .h2:hover {
+  background: #f2f2f2; }
+
+.light .h2-show {
+  color: #d14;
+  font-size: 18px; }
