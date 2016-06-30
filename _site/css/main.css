@@ -336,6 +336,14 @@ pre {
       .post-content h4 {
         font-size: 18px; } }
 
+.return-top {
+  display: none;
+  position: fixed;
+  width: 60px;
+  height: 60px;
+  right: 30px;
+  bottom: 30px; }
+
 /**
  * Syntax highlighting styles
  */
