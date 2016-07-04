@@ -5,8 +5,8 @@
     <description>在前端的道路上风景更加绚丽多姿</description>
     <link>https://github.com/BETH-zhang/</link>
     <atom:link href="https://github.com/BETH-zhang/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Mon, 04 Jul 2016 19:31:45 +0800</pubDate>
-    <lastBuildDate>Mon, 04 Jul 2016 19:31:45 +0800</lastBuildDate>
+    <pubDate>Mon, 04 Jul 2016 19:37:22 +0800</pubDate>
+    <lastBuildDate>Mon, 04 Jul 2016 19:37:22 +0800</lastBuildDate>
     <generator>Jekyll v3.1.6</generator>
     
       <item>
@@ -265,73 +265,59 @@ $ git config --global alias.st status 5) 换行符设置成 false
 $ git config --global core.autocrlf false 6) 为了保险起见，设置成单分支提交
 
 $ git config --global push.default simple 7) 查看配置信息
+
+$ git config --list
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
-&lt;p&gt;$ git config –list
-git 操作
-操作前请保证有足够的权限进行相关操作。&lt;/p&gt;
+&lt;h1 id=&quot;git--1&quot;&gt;git 操作&lt;/h1&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;操作前请保证有足够的权限进行相关操作。&lt;/p&gt;
+&lt;/blockquote&gt;
 
 &lt;p&gt;1) clone 远程仓库，语法：git clone 远程仓库地址&lt;/p&gt;
 
-&lt;p&gt;比如：将 fanxing 项目 clone 到本地的 /d/fanxing_git/ 目录下&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ git clone 项目地址 2) 从远程仓库检出分支，语法：git checkout -b 本地分支名 远程分支名
 
-&lt;p&gt;$ cd /d/fanxing_git/
-$ git clone 项目地址
-2) 从远程仓库检出分支，语法：git checkout -b 本地分支名 远程分支名&lt;/p&gt;
+比如：将远程的 abc 分支检出到本地并切换到相应分支
+$ git checkout -b abc origin/abc 3) 删除本地分支，语法：git branch -d 本地分支名
 
-&lt;p&gt;比如：将远程的 abc 分支检出到本地并切换到相应分支&lt;/p&gt;
+$ git branch -d abc 如果用上面那一句删除不成功的话，可以尝试使用：
 
-&lt;p&gt;$ git checkout -b abc origin/abc
-3) 删除本地分支，语法：git branch -d 本地分支名&lt;/p&gt;
+$ git branch -D abc 4) 重命名本地分支，语法：git branch -m 原有分支名 新分支名
 
-&lt;p&gt;比如：删除本地的 abc 分支&lt;/p&gt;
+比如：将本地分支 abc 重命名为 xyz
+$ git branch -m abc xyz 5) push 分支，方法是切换到相应本地分支，再执行 git push origin
 
-&lt;p&gt;$ git branch -d abc
-如果用上面那一句删除不成功的话，可以尝试使用：&lt;/p&gt;
+比如：将本地分支 abc 推送到远程仓库的 origin/abc
 
-&lt;p&gt;$ git branch -D abc
-4) 重命名本地分支，语法：git branch -m 原有分支名 新分支名&lt;/p&gt;
+$ git checkout abc # 切换到 abc 分支
+$ git push origin 6) 查看修改，语法：
 
-&lt;p&gt;比如：将本地分支 abc 重命名为 xyz&lt;/p&gt;
-
-&lt;p&gt;$ git branch -m abc xyz
-5) push 分支，方法是切换到相应本地分支，再执行 git push origin&lt;/p&gt;
-
-&lt;p&gt;比如：将本地分支 abc 推送到远程仓库的 origin/abc&lt;/p&gt;
-
-&lt;p&gt;$ git checkout abc # 切换到 abc 分支
-$ git push origin
-6) 查看修改，语法：&lt;/p&gt;
-
-&lt;p&gt;$ git status -s # 查看有哪些文件发生了修改
+$ git status -s # 查看有哪些文件发生了修改
 $ git diff # 查看具体修改
 $ git diff 文件名 # 查看对应文件的具体修改
-$ git diff 分支名 文件名 # 查看相对对应分支中的对应文件的具体修改
-7) 查看日志，语法：&lt;/p&gt;
+$ git diff 分支名 文件名 # 查看相对对应分支中的对应文件的具体修改 7) 查看日志，语法：
 
-&lt;p&gt;$ git log
+$ git log
 $ git log -5 # 查看最近的 5 条日志
-$ git log -5 –graph # 以图的形式查看最近 5 条日志
-8) 代码回滚，语法：&lt;/p&gt;
+$ git log -5 --graph # 以图的形式查看最近 5 条日志 8) 代码回滚，语法：
 
-&lt;p&gt;$ git log # 查看一下日志
-$ git reset –hard 对应的标识值
-9) 还原指定文件，语法：&lt;/p&gt;
+$ git log # 查看一下日志
+$ git reset --hard 对应的标识值 9) 还原指定文件，语法：
 
-&lt;p&gt;$ git checkout 文件名
-10) 拉取远程版本库更新&lt;/p&gt;
+$ git checkout 文件名 10) 拉取远程版本库更新
 
-&lt;p&gt;$ git fetch origin # 将远程仓库更新取回本地
+$ git fetch origin # 将远程仓库更新取回本地
 $ git pull origin # 将远程仓库更新取回本地并合并
-$ git pull origin master 
-效果等同于&lt;/p&gt;
+$ git pull origin master  效果等同于
 
-&lt;p&gt;$ git fetch origin master
-$ git merge origin/master
-11) git add 撤销&lt;/p&gt;
+$ git fetch origin master
+$ git merge origin/master 11) git add 撤销
 
-&lt;p&gt;$ git reset head&lt;/p&gt;
+$ git reset head
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
 </description>
         <pubDate>Sun, 03 Jul 2016 00:00:00 +0800</pubDate>
         <link>https://github.com/BETH-zhang/2016/07/03/GIT%E5%B7%A5%E4%BD%9C%E6%B5%81.html</link>
