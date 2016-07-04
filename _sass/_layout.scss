@@ -175,10 +175,46 @@
     padding: $spacing-unit 0;
 }
 
-.page-heading {
-    font-size: 20px;
-    color: $grey-color-light;
+#page-heading {
+  display:none;    
+  overflow: hidden;
+  position: relative;
+  height: 80px;
+  min-height: 32px;
+  margin: 0 auto;
+  margin-bottom: 20px;
+  width: 550px;
 }
+
+.page-heading .icon {
+  position: absolute;
+  cursor: pointer;
+  opacity: .6;
+  display: inline-block;
+
+  -webkit-transition-property: -webkit-transform;
+  -moz-transition-property: -moz-transform;
+  -o-transition-property: -o-transform;
+  transition-property: transform;
+  -webkit-transition-duration: 0.8s;
+  -moz-transition-duration: 0.8s;
+  -o-transition-duration: 0.8s;
+  transition-duration: 0.8s;
+}
+
+.page-heading .icon{
+  background: #000;
+  color: #fff;
+  width: 40px;
+  height: 40px;
+  text-align: center;
+  line-height: 40px;
+  font-size: 30px;
+  border-radius: 5px;
+
+  box-shadow: inset 0 0px 10px #666;
+}
+
 
 .post-list {
     margin-left: 0;

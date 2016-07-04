@@ -52,3 +52,17 @@
     color: #d14;
     font-size: 18px;
 }
+
+.h5_component_githubapi .key{
+    padding: 2px;
+    background: #f2f2f2;
+    border-left: 3px solid #ccc;
+    padding-left: 10px;
+    font-weight: bolder;
+    color: $brand-color;
+}
+
+.h5_component_githubapi .value{
+    padding-left: 50px;
+    color: #2196f3;
+}

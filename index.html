@@ -4,7 +4,19 @@ layout: default
 
 <div class="home">
 
-  <h1 class="page-heading">欢迎来到我的秘密花园！</h1>
+  <h1 id="page-heading" class="page-heading">
+    <span class='icon icon-1'>欢</span>
+    <span class='icon icon-2'>迎</span>
+    <span class='icon icon-3'>来</span>
+    <span class='icon icon-4'>到</span>
+    <span class='icon icon-5'>我</span>
+    <span class='icon icon-6'>的</span>
+    <span class='icon icon-7'>秘</span>
+    <span class='icon icon-8'>密</span>
+    <span class='icon icon-9'>花</span>
+    <span class='icon icon-10'>园</span>
+    <span class='icon icon-11'>！</span>
+  </h1>
 
   <ul class="post-list">
     {% for post in site.posts %}
@@ -21,5 +33,6 @@ layout: default
   </ul>
 
   <!-- <p class="rss-subscribe">subscribe <a href="{{ "/feed.xml" | prepend: site.baseurl }}">via RSS</a></p> -->
+  <script type="text/javascript" src="{{ "js/spinning.js" | prepend: site.baseurl }}"></script>
 
 </div>

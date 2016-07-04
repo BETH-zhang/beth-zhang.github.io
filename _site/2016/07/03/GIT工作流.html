@@ -6,11 +6,11 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>淘宝镜像</title>
-  <meta name="description" content="http://npm.taobao.org/">
+  <title>Git工作流</title>
+  <meta name="description" content="git 配置  下面是 git 的一些配置和操作，在 Linux 系统的终端和 windows 下的 Git Bash 中都可以运行。">
 
   <link rel="stylesheet" href="/css/main.css">
-  <link rel="canonical" href="https://github.com/BETH-zhang/2016/06/23/%E6%B7%98%E5%AE%9D%E9%95%9C%E5%83%8F.html">
+  <link rel="canonical" href="https://github.com/BETH-zhang/2016/07/03/GIT%E5%B7%A5%E4%BD%9C%E6%B5%81.html">
   <link rel="alternate" type="application/rss+xml" title="前端花园" href="https://github.com/BETH-zhang/feed.xml">
   <link type="image/x-icon" rel="shortcut icon" href="https://raw.githubusercontent.com/BETH-zhang/Frontend-Garden/gh-pages/_includes/favicon.ico">
   <script type="text/javascript" src="/js/jquery.min.js"></script>
@@ -59,12 +59,101 @@
         <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
 
   <header class="post-header">
-    <h1 class="post-title" itemprop="name headline">淘宝镜像</h1>
-    <p class="post-meta"><a href="https://github.com/BETH-zhang" target="_blank"/><img class="post-avatar" src="https://avatars3.githubusercontent.com/u/19342035?v=3&s=40"/></a><time datetime="2016-06-23T00:00:00+08:00" itemprop="datePublished">Jun 23, 2016</time></p>
+    <h1 class="post-title" itemprop="name headline">Git工作流</h1>
+    <p class="post-meta"><a href="https://github.com/BETH-zhang" target="_blank"/><img class="post-avatar" src="https://avatars3.githubusercontent.com/u/19342035?v=3&s=40"/></a><time datetime="2016-07-03T00:00:00+08:00" itemprop="datePublished">Jul 3, 2016</time></p>
   </header>
 
   <div class="post-content" itemprop="articleBody">
-    <p>http://npm.taobao.org/</p>
+    <h1 id="git-">git 配置</h1>
+<blockquote>
+  <p>下面是 git 的一些配置和操作，在 Linux 系统的终端和 windows 下的 Git Bash 中都可以运行。</p>
+</blockquote>
+
+<p>1) 用户名和邮箱</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$ git config --global user.name "nameuser" # 用户名设置成了 ***
+$ git config --global user.email "email" 2) generate ssh key
+
+$ ssh-keygen -t rsa -C "email" 
+# Creates a new ssh key using the provided email 3) 编辑器
+
+$ git config --global core.editor vim # 如想进一步提升逼格就把 Vim 也啃了 4) alias 设置，操作变得更加简单
+
+$ git config --global alias.br branch # git br 即 git branch
+$ git config --global alias.ci commit
+$ git config --global alias.co checkout
+$ git config --global alias.st status 5) 换行符设置成 false
+
+$ git config --global core.autocrlf false 6) 为了保险起见，设置成单分支提交
+
+$ git config --global push.default simple 7) 查看配置信息
+</code></pre>
+</div>
+
+<p>$ git config –list
+git 操作
+操作前请保证有足够的权限进行相关操作。</p>
+
+<p>1) clone 远程仓库，语法：git clone 远程仓库地址</p>
+
+<p>比如：将 fanxing 项目 clone 到本地的 /d/fanxing_git/ 目录下</p>
+
+<p>$ cd /d/fanxing_git/
+$ git clone 项目地址
+2) 从远程仓库检出分支，语法：git checkout -b 本地分支名 远程分支名</p>
+
+<p>比如：将远程的 abc 分支检出到本地并切换到相应分支</p>
+
+<p>$ git checkout -b abc origin/abc
+3) 删除本地分支，语法：git branch -d 本地分支名</p>
+
+<p>比如：删除本地的 abc 分支</p>
+
+<p>$ git branch -d abc
+如果用上面那一句删除不成功的话，可以尝试使用：</p>
+
+<p>$ git branch -D abc
+4) 重命名本地分支，语法：git branch -m 原有分支名 新分支名</p>
+
+<p>比如：将本地分支 abc 重命名为 xyz</p>
+
+<p>$ git branch -m abc xyz
+5) push 分支，方法是切换到相应本地分支，再执行 git push origin</p>
+
+<p>比如：将本地分支 abc 推送到远程仓库的 origin/abc</p>
+
+<p>$ git checkout abc # 切换到 abc 分支
+$ git push origin
+6) 查看修改，语法：</p>
+
+<p>$ git status -s # 查看有哪些文件发生了修改
+$ git diff # 查看具体修改
+$ git diff 文件名 # 查看对应文件的具体修改
+$ git diff 分支名 文件名 # 查看相对对应分支中的对应文件的具体修改
+7) 查看日志，语法：</p>
+
+<p>$ git log
+$ git log -5 # 查看最近的 5 条日志
+$ git log -5 –graph # 以图的形式查看最近 5 条日志
+8) 代码回滚，语法：</p>
+
+<p>$ git log # 查看一下日志
+$ git reset –hard 对应的标识值
+9) 还原指定文件，语法：</p>
+
+<p>$ git checkout 文件名
+10) 拉取远程版本库更新</p>
+
+<p>$ git fetch origin # 将远程仓库更新取回本地
+$ git pull origin # 将远程仓库更新取回本地并合并
+$ git pull origin master 
+效果等同于</p>
+
+<p>$ git fetch origin master
+$ git merge origin/master
+11) git add 撤销</p>
+
+<p>$ git reset head</p>
 
   </div>
 
