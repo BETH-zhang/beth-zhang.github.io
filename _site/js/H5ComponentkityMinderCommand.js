@@ -41,6 +41,7 @@ var H5ComponentkityMinderCommand = function(name, cfg){
 				data: paramsArg
 			}) : '';
 			var mk_h4_2 = obj.state ? mk.execCommand('####', '说明状态') : '';
+			var mk_state_get = obj.state ? mk.execCommand('highlight', obj.state.get) : '';
 			var stateArg = [];
 			if(obj.state && obj.state.value){
 				for(k in obj.state.value){
@@ -67,6 +68,7 @@ var H5ComponentkityMinderCommand = function(name, cfg){
 				.append(mk_h4_1)
 				.append(mk_tb_1)
 				.append(mk_h4_2)
+				.append(mk_state_get)
 				.append(mk_tb_2)
 				.append(mk_h4_3)
 				.append(mk_returnValue)
