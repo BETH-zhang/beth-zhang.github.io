@@ -387,7 +387,7 @@ layout: post
             }
         },
         Note: {
-            intro: "指定方向移动当前视野",
+            intro: "设置节点的备注信息",
             command: "minder.execCommand('Note', note);",
             params: [{
                 param: 'note',
