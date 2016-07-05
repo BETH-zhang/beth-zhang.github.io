@@ -9,8 +9,8 @@ layout: post
 <div id="kityMinderCommand"></div>
 
 <script type="text/javascript" src="{{ "/js/H5ComponentBase.js" | prepend: site.baseurl }}"></script>
-<script type="text/javascript" src="{{ "/js/is.js" | prepend: site.vaseurl }}"></script>
-<script type="text/javascript" src="{{ "/js/mini_markdown.js" | prepend: site.vaseurl }}"></script>
+<script type="text/javascript" src="{{ "/js/is.js" | prepend: site.baseurl }}"></script>
+<script type="text/javascript" src="{{ "/js/mini_markdown.js" | prepend: site.baseurl }}"></script>
 <script type="text/javascript" src="{{ "/js/H5ComponentkityMinderCommand.js" | prepend: site.baseurl }}"></script>
 
 <script type="text/javascript">
