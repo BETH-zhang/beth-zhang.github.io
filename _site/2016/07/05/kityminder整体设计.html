@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Kityminder整体设计</title>
+  <meta name="description" content="Kity Minder 整体设计">
+
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="canonical" href="https://github.com/BETH-zhang/2016/07/05/kityminder%E6%95%B4%E4%BD%93%E8%AE%BE%E8%AE%A1.html">
+  <link rel="alternate" type="application/rss+xml" title="前端花园" href="https://github.com/BETH-zhang/feed.xml">
+  <link type="image/x-icon" rel="shortcut icon" href="https://raw.githubusercontent.com/BETH-zhang/Frontend-Garden/gh-pages/_includes/favicon.ico">
+  <script type="text/javascript" src="/js/jquery.min.js"></script>
+</head>
+
+
+  <body>
+
+    <header class="site-header">
+
+  <div class="wrapper">
+
+    <a class="site-title" href="/">前端花园</a>
+
+    <nav class="site-nav">
+      <a href="#" class="menu-icon">
+        <svg viewBox="0 0 18 15">
+          <path fill="#424242" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#424242" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484 h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#424242" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+        </svg>
+      </a>
+
+      <div class="trigger">
+        
+          
+          <a class="page-link" href="/about/">About</a>
+          
+        
+          
+        
+          
+        
+          
+        
+      </div>
+    </nav>
+
+  </div>
+
+</header>
+
+
+    <div class="page-content">
+      <div class="wrapper">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title" itemprop="name headline">Kityminder整体设计</h1>
+    <p class="post-meta"><a href="https://github.com/BETH-zhang" target="_blank"/><img class="post-avatar" src="https://avatars3.githubusercontent.com/u/19342035?v=3&s=40"/></a><time datetime="2016-07-05T00:00:00+08:00" itemprop="datePublished">Jul 5, 2016</time></p>
+  </header>
+
+  <div class="post-content" itemprop="articleBody">
+    <h1 id="kity-minder-">Kity Minder 整体设计</h1>
+
+<h2 id="namespace-kityminder"><code class="highlighter-rouge">namespace</code> KityMinder</h2>
+<p>暴露的命名空间，所有公开类都会放在该命名空间下。还会暴露一个简写的命名空间：KM。</p>
+
+<h2 id="abstract-command"><code class="highlighter-rouge">abstract</code> Command</h2>
+
+<p>表示一条在 KityMinder 上执行的命令，以class的方式定义，命令必须依附于模块，不允许单独存在。</p>
+
+<h2 id="section">命令定义结构：</h2>
+
+<div class="language-js highlighter-rouge"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">MyCommand</span> <span class="o">=</span> <span class="nx">kity</span><span class="p">.</span><span class="nx">createClass</span><span class="p">({</span>
+    <span class="na">base</span><span class="p">:</span> <span class="nx">Command</span><span class="p">,</span>
+
+    <span class="na">execute</span><span class="p">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">Minder</span> <span class="nx">minder</span> <span class="p">[,</span><span class="nx">args</span><span class="p">...]){},</span>
+    <span class="na">revert</span><span class="p">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">Minder</span> <span class="nx">minder</span><span class="p">){},</span>
+
+    <span class="c1">// 基类缺省实现：</span>
+    <span class="na">queryState</span><span class="p">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">Minder</span> <span class="nx">minder</span><span class="p">){},</span>
+    <span class="na">queryValue</span><span class="p">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">Minder</span> <span class="nx">minder</span><span class="p">){},</span>
+
+    <span class="c1">// 基类实现：</span>
+    <span class="na">setContentChanged</span><span class="p">:</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">bool</span> <span class="p">),</span>
+    <span class="na">isContentChanged</span><span class="p">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{},</span>
+
+    <span class="na">setSelectionChanged</span><span class="p">:</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">bool</span> <span class="p">)</span> <span class="p">{},</span>
+    <span class="na">isSelectionChanged</span><span class="p">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{}</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+
+<h3 id="method-executeminder-minder-args-"><code class="highlighter-rouge">method</code> execute(Minder minder [,args…] )</h3>
+<p>定义command执行时的一些操作，不可缺省</p>
+
+<h3 id="method-revertminder-minder"><code class="highlighter-rouge">method</code> revert(Minder minder)</h3>
+<p>定义revert操作，可缺省,如果没有则为不可revert</p>
+
+<h3 id="method-querystateminder-minder"><code class="highlighter-rouge">method</code> queryState(Minder minder)</h3>
+<p>todo:用于返回当前命令的state，分为</p>
+
+<ul>
+  <li>-1：不可执行</li>
+  <li>0：可执行</li>
+  <li>1：已执行</li>
+</ul>
+
+<p>可缺省，默认返回0</p>
+
+<h3 id="method-queryvalueminder-minder"><code class="highlighter-rouge">method</code> queryValue(Minder minder)</h3>
+<p>todo:用于返回当前命令的状态相关值，（例如：进度条的进度百分比值等）
+可缺省</p>
+
+<h3 id="method-iscontentchanged"><code class="highlighter-rouge">method</code> isContentChanged()</h3>
+<p>返回命令是否对内容产生影响（true/false）
+缺省为 true</p>
+
+<h3 id="method-iscontentchanged-1"><code class="highlighter-rouge">method</code> isContentChanged()</h3>
+<p>返回命令是否对选区产生影响（true/false）
+缺省为 false</p>
+
+<h2 id="module">Module</h2>
+<p>Module定义一个模块，表示控制脑图中一个功能的模块（布局、渲染、输入文字、图标叠加等）</p>
+
+<h3 id="section-1">模块定义</h3>
+<p>下面代码简单展示了模块的定义方式</p>
+
+<div class="language-js highlighter-rouge"><pre class="highlight"><code><span class="nx">KityMinder</span><span class="p">.</span><span class="nx">registerModule</span><span class="p">(</span><span class="s2">"ModuleName"</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// 此处可以进行命令的定义、设置模块常量、工具函数等</span>
+    <span class="k">return</span> <span class="p">{</span>
+
+        <span class="c1">// 模块可能使用到的配置项，提供一个默认值</span>
+        <span class="s2">"defaultOpitons"</span><span class="p">:</span> <span class="p">{</span>
+            
+        <span class="p">},</span>
+        
+        <span class="c1">// Minder 实例化的时候会调用 init 方法，this 指向正在实例化的 Minder 对象</span>
+        <span class="c1">// options 是 Minder 对象最终的配置（经过配置文件和用户设定改写）</span>
+        <span class="s2">"init"</span><span class="p">:</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">options</span> <span class="p">){</span>
+
+        <span class="p">},</span>
+        
+        <span class="c1">// 注册模块需要使用到的命令</span>
+        <span class="s2">"commands"</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">"mycommand"</span><span class="p">:</span> <span class="nx">CommandClass</span>
+        <span class="p">},</span>
+        
+        <span class="c1">// 模块需要关注的事件处理函数</span>
+        <span class="c1">// 处理函数中 this 指向事件发生的 Minder 对象</span>
+        <span class="c1">// e 参数为 MinderEvent 对象</span>
+        <span class="s2">"events"</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">"click"</span><span class="p">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">){</span>
+            
+            <span class="p">},</span>
+            <span class="s2">"keydown keyup"</span><span class="p">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">){</span>
+            
+            <span class="p">}</span>
+        <span class="p">},</span>
+        
+        <span class="c1">// Minder 被卸载的时候会调用 destroy 方法，模块自行回收自己的资源（事件由 Minder 自动回收）</span>
+        <span class="c1">// destroy 方法中的 this 指向 Minder 实例</span>
+        <span class="s2">"destroy"</span><span class="p">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+        
+        <span class="p">},</span>
+        
+        <span class="c1">// Minder 被重设是会调用 reset 方法，模块自行</span>
+        <span class="c1">// reset 方法中的 this 指向 Minder 实例</span>
+        <span class="s2">"reset"</span> <span class="p">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+        
+        <span class="p">}</span>
+
+    <span class="p">}</span>
+<span class="p">});</span>
+</code></pre>
+</div>
+
+<h2 id="mindernode">MinderNode</h2>
+
+<p>MinderNode 是 Kity Minder 需要展示和控制的树的一个节点。节点上提供了<em>树遍历</em>和<em>数据存取</em>的功能。并且提供对节点对应的渲染容器（Kity.Group）的访问</p>
+
+<p>节点上提供公开字段，任何模块可以读取和修改，这些字段会提供给 KityMinder 作为渲染的依据。</p>
+
+<p>公开的字段和存放的数据都会在导出、保存现场的时候被保留。</p>
+
+<p>MinderTreeNode 维护的树关系和数据只是作为一个脑图的结构和数据，不具有任何渲染和交互的能力。</p>
+
+<h3 id="section-2">树遍历</h3>
+
+<p>通过 6 个接口来进行树的访问和修改操作</p>
+
+<p><code class="highlighter-rouge">node.getParent()</code> 返回当前节点的父节点</p>
+
+<p><code class="highlighter-rouge">node.getChildren()</code> 返回当前节点的子节点</p>
+
+<p><code class="highlighter-rouge">node.getIndex()</code> 返回当前节点在父节点中的位置，如果没有父节点，返回 -1</p>
+
+<p><code class="highlighter-rouge">node.insertChild( node, index )</code> 插入一个子节点到当前节点上，插入的位置为 index</p>
+
+<p><code class="highlighter-rouge">node.removeChild( node | index )</code> 移除一个子节点或指定位置的子节点</p>
+
+<p><code class="highlighter-rouge">node.getChild( index )</code> 获得指定位置的子节点</p>
+
+<h3 id="section-3">数据存取</h3>
+
+<p><code class="highlighter-rouge">node.getData(name)</code> 获得指定字段的数据</p>
+
+<p><code class="highlighter-rouge">node.setData(name, value)</code> 设定指定字段的数据</p>
+
+<h3 id="section-4">公开字段</h3>
+
+<p><code class="highlighter-rouge">node.setData( "x", value )</code> 设置节点的 x 坐标</p>
+
+<p><code class="highlighter-rouge">node.setData( "y", value )</code> 设置节点的 y 坐标</p>
+
+<p><code class="highlighter-rouge">node.getData( "x", value )</code> 获取节点的 x 坐标</p>
+
+<p><code class="highlighter-rouge">node.getData( "y", value )</code> 获取节点的 y 坐标</p>
+
+<p><code class="highlighter-rouge">node.setData( "text", value )</code> 设置节点的文本</p>
+
+<p><code class="highlighter-rouge">node.getData( "text", value )</code> 获取节点的文本</p>
+
+<h3 id="section-5">渲染容器</h3>
+
+<p><code class="highlighter-rouge">node.getRenderContainer()</code> 返回当前节点的渲染容器</p>
+
+<h2 id="minder">Minder</h2>
+
+<p>脑图使用类</p>
+
+<h3 id="static-method-registermodule-name-module-"><code class="highlighter-rouge">static method</code> registerModule( name, module )</h3>
+<p>注册一个模块</p>
+
+<h3 id="section-6">构造函数</h3>
+
+<p><code class="highlighter-rouge">constructor</code> KityMinder(id, option)</p>
+
+<p>创建脑图画布。KityMinder 实例化的时候，会从模块池中取出模块，并且实例化这些模块，然后加载。</p>
+
+<p><code class="highlighter-rouge">id</code> 实例的 id</p>
+
+<p><code class="highlighter-rouge">option</code> 其他选项（当前没有）</p>
+
+<h3 id="section-7">公开接口</h3>
+
+<p><code class="highlighter-rouge">.getRoot() : MinderNode</code></p>
+
+<p>获取脑图根节点</p>
+
+<p><code class="highlighter-rouge">.execCommand( name [, params...] ) : this</code></p>
+
+<p>执行指定的命令。该方法执行的时候，会实例化指定类型的命令，并且把命令参数传给命令执行</p>
+
+<p><code class="highlighter-rouge">.queryCommandState( name )</code></p>
+
+<p>查询命令的当前状态</p>
+
+<p><code class="highlighter-rouge">.queryCommandValue( name )</code></p>
+
+<p>查询命令的当前结果</p>
+
+<p><code class="highlighter-rouge">.update(MinderNode node) : this</code></p>
+
+<p>更新指定节点及其子树的呈现，如果不指定节点，则更新跟节点的呈现（整棵树）</p>
+
+<p><code class="highlighter-rouge">.export() : object</code></p>
+
+<p>以导出节点以及所有子树的数据（data上所有的字段会被导出）</p>
+
+<p><code class="highlighter-rouge">.import(object data) : this</code></p>
+
+<p>导入节点数据，会节点以及所有子树结构以及子树数据</p>
+
+<p><code class="highlighter-rouge">.getSelectedNodes() : MinderNode[]</code></p>
+
+<p>返回选中的节点列表</p>
+
+<p><code class="highlighter-rouge">.select(MinderNode[] nodes | MinderNode node) : this</code></p>
+
+<p>添加一个或多个节点到节点选择列表中</p>
+
+<p><code class="highlighter-rouge">.selectSingle(Minder node) : this</code></p>
+
+<p>唯一选中指定节点</p>
+
+<p><code class="highlighter-rouge">.toggleSelect(MinderNode[] nodes | MinderNode node)</code></p>
+
+<p>切换一个或多个节点的选中状态</p>
+
+<p><code class="highlighter-rouge">.clearSelect(MinderNode[] nodes | MinderNode node) : this</code></p>
+
+<p>从节点选择列表中移除一个或多个节点，如果不传节点，全部取消选择</p>
+
+<h3 id="section-8">事件机制</h3>
+
+<h4 id="section-9">事件分类</h4>
+
+<p>KityMinder 的事件分为：</p>
+
+<ul>
+  <li>
+    <p>交互事件: <code class="highlighter-rouge">click</code>, <code class="highlighter-rouge">dblclick</code>, <code class="highlighter-rouge">mousedown</code>, <code class="highlighter-rouge">mousemove</code>, <code class="highlighter-rouge">mouseup</code>, <code class="highlighter-rouge">keydown</code>, <code class="highlighter-rouge">keyup</code>, <code class="highlighter-rouge">keypress</code>, <code class="highlighter-rouge">touchstart</code>, <code class="highlighter-rouge">touchend</code>, <code class="highlighter-rouge">touchmove</code></p>
+  </li>
+  <li>
+    <p>Command 事件: <code class="highlighter-rouge">beforecommand</code>, <code class="highlighter-rouge">precommand</code>, <code class="highlighter-rouge">aftercommand</code></p>
+  </li>
+  <li>
+    <p>交互事件：<code class="highlighter-rouge">selectionchange</code>, <code class="highlighter-rouge">contentchange</code>, <code class="highlighter-rouge">interactchange</code></p>
+  </li>
+  <li>
+    <p>模块事件：模块自行触发与上述不同名的事件</p>
+  </li>
+</ul>
+
+<h4 id="section-10">事件接口</h4>
+
+<p><code class="highlighter-rouge">.on(event, callback)</code> 侦听指定事件</p>
+
+<p><code class="highlighter-rouge">.once(event, callback)</code> 侦听指定事件一次，当 callback 被调用之后，后面再发生该事件不再被调用</p>
+
+<p><code class="highlighter-rouge">.off(event, callback)</code> 取消对事件的侦听</p>
+
+<p><code class="highlighter-rouge">.fire(event, params)</code> 触发指定的事件，params 是自定义的 JSON 数据，会合并到事件对象</p>
+
+<h4 id="section-11">回调函数接口</h4>
+
+<p>回调函数接收唯一的参数 e</p>
+
+<p>对于交互事件，e 是原生 event 对象的一个拓展；对于需要坐标的事件，用 e.getPosition() 可以获得在 Kity Paper 上的坐标值</p>
+
+<p>对 command 事件：</p>
+
+<ul>
+  <li><code class="highlighter-rouge">e.commandName</code> 获取执行的命令的类型</li>
+  <li><code class="highlighter-rouge">e.commandArgs</code> 获取命令执行的参数列表</li>
+</ul>
+
+<p>对 import 事件：</p>
+
+<ul>
+  <li><code class="highlighter-rouge">e.getImportData()</code> 获取导入的数据</li>
+</ul>
+
+<p>对 selectionchange 事件：</p>
+
+<ul>
+  <li><code class="highlighter-rouge">e.currentSelection</code> 获取当前选择的节点列表</li>
+  <li><code class="highlighter-rouge">e.additionNodes</code> 添加到选择节点列表的那部分节点</li>
+  <li><code class="highlighter-rouge">e.removalNodes</code> 从选择节点列表移除的那部分节点</li>
+</ul>
+
+<h4 id="section-12">事件触发时机</h4>
+
+<p><code class="highlighter-rouge">command</code> 事件只在顶级 command 执行的时候触发（Command 里调用 Command 不触发）</p>
+
+<p><code class="highlighter-rouge">contentchange</code> 事件在顶级 command 之后会查询是否发生了内容的变化，如果发生了变化，则会触发；</p>
+
+<p><code class="highlighter-rouge">selectionchange</code> 事件在顶级 command 之后会查询是否发生了选区的变化，如果发生了变化，则会触发</p>
+
+<p><code class="highlighter-rouge">interactchange</code> 事件会在所有的鼠标、键盘、触摸操作后发生，并且会进行稀释；command 可以手动触发该事件，此时不会被稀释</p>
+
+  </div>
+
+</article>
+
+      </div>
+    </div>
+
+    <footer class="site-footer">
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">前端花园</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li><a href="mailto:gemeiwangji789@qq.com">gemeiwangji789@qq.com</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col footer-col-2">
+        <ul class="social-media-list">
+          
+          <li>
+            <a href="https://github.com/BETH-zhang"><span class="icon icon--github"><svg viewBox="0 0 16 16"><path fill="#828282" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761 c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32 c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472 c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037 C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65 c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261 c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082 c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129 c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/></svg>
+</span><span class="username">BETH-zhang</span></a>
+
+          </li>
+          
+
+          
+        </ul>
+      </div>
+
+      <div class="footer-col footer-col-3">
+        <p>在前端的道路上风景更加绚丽多姿</p>
+      </div>
+    </div>
+
+  </div>
+
+  <img src="/img/return-top.png" class="return-top js_return_top" />
+
+</footer>
+
+<script type="text/javascript" src="/js/returnTop.js"></script>
+<script type="text/javascript" src="/js/webConsole.js"></script>
+
+
+
+  </body>
+
+</html>

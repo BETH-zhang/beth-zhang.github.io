@@ -5,9 +5,1923 @@
     <description>在前端的道路上风景更加绚丽多姿</description>
     <link>https://github.com/BETH-zhang/</link>
     <atom:link href="https://github.com/BETH-zhang/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Mon, 04 Jul 2016 19:37:22 +0800</pubDate>
-    <lastBuildDate>Mon, 04 Jul 2016 19:37:22 +0800</lastBuildDate>
+    <pubDate>Tue, 05 Jul 2016 15:37:00 +0800</pubDate>
+    <lastBuildDate>Tue, 05 Jul 2016 15:37:00 +0800</lastBuildDate>
     <generator>Jekyll v3.1.6</generator>
+    
+      <item>
+        <title>Kityminder整体设计</title>
+        <description>&lt;h1 id=&quot;kity-minder-&quot;&gt;Kity Minder 整体设计&lt;/h1&gt;
+
+&lt;h2 id=&quot;namespace-kityminder&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;namespace&lt;/code&gt; KityMinder&lt;/h2&gt;
+&lt;p&gt;暴露的命名空间，所有公开类都会放在该命名空间下。还会暴露一个简写的命名空间：KM。&lt;/p&gt;
+
+&lt;h2 id=&quot;abstract-command&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;abstract&lt;/code&gt; Command&lt;/h2&gt;
+
+&lt;p&gt;表示一条在 KityMinder 上执行的命令，以class的方式定义，命令必须依附于模块，不允许单独存在。&lt;/p&gt;
+
+&lt;h2 id=&quot;section&quot;&gt;命令定义结构：&lt;/h2&gt;
+
+&lt;div class=&quot;language-js highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;MyCommand&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;kity&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;createClass&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;base&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Command&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+
+    &lt;span class=&quot;na&quot;&gt;execute&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Minder&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;minder&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[,&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;args&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;...]){},&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;revert&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Minder&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;minder&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;){},&lt;/span&gt;
+
+    &lt;span class=&quot;c1&quot;&gt;// 基类缺省实现：&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;queryState&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Minder&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;minder&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;){},&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;queryValue&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Minder&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;minder&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;){},&lt;/span&gt;
+
+    &lt;span class=&quot;c1&quot;&gt;// 基类实现：&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;setContentChanged&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;bool&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;isContentChanged&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{},&lt;/span&gt;
+
+    &lt;span class=&quot;na&quot;&gt;setSelectionChanged&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;bool&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{},&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;isSelectionChanged&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&quot;method-executeminder-minder-args-&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;method&lt;/code&gt; execute(Minder minder [,args…] )&lt;/h3&gt;
+&lt;p&gt;定义command执行时的一些操作，不可缺省&lt;/p&gt;
+
+&lt;h3 id=&quot;method-revertminder-minder&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;method&lt;/code&gt; revert(Minder minder)&lt;/h3&gt;
+&lt;p&gt;定义revert操作，可缺省,如果没有则为不可revert&lt;/p&gt;
+
+&lt;h3 id=&quot;method-querystateminder-minder&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;method&lt;/code&gt; queryState(Minder minder)&lt;/h3&gt;
+&lt;p&gt;todo:用于返回当前命令的state，分为&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;-1：不可执行&lt;/li&gt;
+  &lt;li&gt;0：可执行&lt;/li&gt;
+  &lt;li&gt;1：已执行&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;可缺省，默认返回0&lt;/p&gt;
+
+&lt;h3 id=&quot;method-queryvalueminder-minder&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;method&lt;/code&gt; queryValue(Minder minder)&lt;/h3&gt;
+&lt;p&gt;todo:用于返回当前命令的状态相关值，（例如：进度条的进度百分比值等）
+可缺省&lt;/p&gt;
+
+&lt;h3 id=&quot;method-iscontentchanged&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;method&lt;/code&gt; isContentChanged()&lt;/h3&gt;
+&lt;p&gt;返回命令是否对内容产生影响（true/false）
+缺省为 true&lt;/p&gt;
+
+&lt;h3 id=&quot;method-iscontentchanged-1&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;method&lt;/code&gt; isContentChanged()&lt;/h3&gt;
+&lt;p&gt;返回命令是否对选区产生影响（true/false）
+缺省为 false&lt;/p&gt;
+
+&lt;h2 id=&quot;module&quot;&gt;Module&lt;/h2&gt;
+&lt;p&gt;Module定义一个模块，表示控制脑图中一个功能的模块（布局、渲染、输入文字、图标叠加等）&lt;/p&gt;
+
+&lt;h3 id=&quot;section-1&quot;&gt;模块定义&lt;/h3&gt;
+&lt;p&gt;下面代码简单展示了模块的定义方式&lt;/p&gt;
+
+&lt;div class=&quot;language-js highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nx&quot;&gt;KityMinder&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;registerModule&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;ModuleName&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;c1&quot;&gt;// 此处可以进行命令的定义、设置模块常量、工具函数等&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+
+        &lt;span class=&quot;c1&quot;&gt;// 模块可能使用到的配置项，提供一个默认值&lt;/span&gt;
+        &lt;span class=&quot;s2&quot;&gt;&quot;defaultOpitons&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+            
+        &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
+        
+        &lt;span class=&quot;c1&quot;&gt;// Minder 实例化的时候会调用 init 方法，this 指向正在实例化的 Minder 对象&lt;/span&gt;
+        &lt;span class=&quot;c1&quot;&gt;// options 是 Minder 对象最终的配置（经过配置文件和用户设定改写）&lt;/span&gt;
+        &lt;span class=&quot;s2&quot;&gt;&quot;init&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;options&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;){&lt;/span&gt;
+
+        &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
+        
+        &lt;span class=&quot;c1&quot;&gt;// 注册模块需要使用到的命令&lt;/span&gt;
+        &lt;span class=&quot;s2&quot;&gt;&quot;commands&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;s2&quot;&gt;&quot;mycommand&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;CommandClass&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
+        
+        &lt;span class=&quot;c1&quot;&gt;// 模块需要关注的事件处理函数&lt;/span&gt;
+        &lt;span class=&quot;c1&quot;&gt;// 处理函数中 this 指向事件发生的 Minder 对象&lt;/span&gt;
+        &lt;span class=&quot;c1&quot;&gt;// e 参数为 MinderEvent 对象&lt;/span&gt;
+        &lt;span class=&quot;s2&quot;&gt;&quot;events&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;s2&quot;&gt;&quot;click&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;e&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;){&lt;/span&gt;
+            
+            &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
+            &lt;span class=&quot;s2&quot;&gt;&quot;keydown keyup&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;e&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;){&lt;/span&gt;
+            
+            &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
+        
+        &lt;span class=&quot;c1&quot;&gt;// Minder 被卸载的时候会调用 destroy 方法，模块自行回收自己的资源（事件由 Minder 自动回收）&lt;/span&gt;
+        &lt;span class=&quot;c1&quot;&gt;// destroy 方法中的 this 指向 Minder 实例&lt;/span&gt;
+        &lt;span class=&quot;s2&quot;&gt;&quot;destroy&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        
+        &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
+        
+        &lt;span class=&quot;c1&quot;&gt;// Minder 被重设是会调用 reset 方法，模块自行&lt;/span&gt;
+        &lt;span class=&quot;c1&quot;&gt;// reset 方法中的 this 指向 Minder 实例&lt;/span&gt;
+        &lt;span class=&quot;s2&quot;&gt;&quot;reset&quot;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        
+        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&quot;mindernode&quot;&gt;MinderNode&lt;/h2&gt;
+
+&lt;p&gt;MinderNode 是 Kity Minder 需要展示和控制的树的一个节点。节点上提供了&lt;em&gt;树遍历&lt;/em&gt;和&lt;em&gt;数据存取&lt;/em&gt;的功能。并且提供对节点对应的渲染容器（Kity.Group）的访问&lt;/p&gt;
+
+&lt;p&gt;节点上提供公开字段，任何模块可以读取和修改，这些字段会提供给 KityMinder 作为渲染的依据。&lt;/p&gt;
+
+&lt;p&gt;公开的字段和存放的数据都会在导出、保存现场的时候被保留。&lt;/p&gt;
+
+&lt;p&gt;MinderTreeNode 维护的树关系和数据只是作为一个脑图的结构和数据，不具有任何渲染和交互的能力。&lt;/p&gt;
+
+&lt;h3 id=&quot;section-2&quot;&gt;树遍历&lt;/h3&gt;
+
+&lt;p&gt;通过 6 个接口来进行树的访问和修改操作&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;node.getParent()&lt;/code&gt; 返回当前节点的父节点&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;node.getChildren()&lt;/code&gt; 返回当前节点的子节点&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;node.getIndex()&lt;/code&gt; 返回当前节点在父节点中的位置，如果没有父节点，返回 -1&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;node.insertChild( node, index )&lt;/code&gt; 插入一个子节点到当前节点上，插入的位置为 index&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;node.removeChild( node | index )&lt;/code&gt; 移除一个子节点或指定位置的子节点&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;node.getChild( index )&lt;/code&gt; 获得指定位置的子节点&lt;/p&gt;
+
+&lt;h3 id=&quot;section-3&quot;&gt;数据存取&lt;/h3&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;node.getData(name)&lt;/code&gt; 获得指定字段的数据&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;node.setData(name, value)&lt;/code&gt; 设定指定字段的数据&lt;/p&gt;
+
+&lt;h3 id=&quot;section-4&quot;&gt;公开字段&lt;/h3&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;node.setData( &quot;x&quot;, value )&lt;/code&gt; 设置节点的 x 坐标&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;node.setData( &quot;y&quot;, value )&lt;/code&gt; 设置节点的 y 坐标&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;node.getData( &quot;x&quot;, value )&lt;/code&gt; 获取节点的 x 坐标&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;node.getData( &quot;y&quot;, value )&lt;/code&gt; 获取节点的 y 坐标&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;node.setData( &quot;text&quot;, value )&lt;/code&gt; 设置节点的文本&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;node.getData( &quot;text&quot;, value )&lt;/code&gt; 获取节点的文本&lt;/p&gt;
+
+&lt;h3 id=&quot;section-5&quot;&gt;渲染容器&lt;/h3&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;node.getRenderContainer()&lt;/code&gt; 返回当前节点的渲染容器&lt;/p&gt;
+
+&lt;h2 id=&quot;minder&quot;&gt;Minder&lt;/h2&gt;
+
+&lt;p&gt;脑图使用类&lt;/p&gt;
+
+&lt;h3 id=&quot;static-method-registermodule-name-module-&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;static method&lt;/code&gt; registerModule( name, module )&lt;/h3&gt;
+&lt;p&gt;注册一个模块&lt;/p&gt;
+
+&lt;h3 id=&quot;section-6&quot;&gt;构造函数&lt;/h3&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;constructor&lt;/code&gt; KityMinder(id, option)&lt;/p&gt;
+
+&lt;p&gt;创建脑图画布。KityMinder 实例化的时候，会从模块池中取出模块，并且实例化这些模块，然后加载。&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;id&lt;/code&gt; 实例的 id&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;option&lt;/code&gt; 其他选项（当前没有）&lt;/p&gt;
+
+&lt;h3 id=&quot;section-7&quot;&gt;公开接口&lt;/h3&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;.getRoot() : MinderNode&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;获取脑图根节点&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;.execCommand( name [, params...] ) : this&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;执行指定的命令。该方法执行的时候，会实例化指定类型的命令，并且把命令参数传给命令执行&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;.queryCommandState( name )&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;查询命令的当前状态&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;.queryCommandValue( name )&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;查询命令的当前结果&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;.update(MinderNode node) : this&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;更新指定节点及其子树的呈现，如果不指定节点，则更新跟节点的呈现（整棵树）&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;.export() : object&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;以导出节点以及所有子树的数据（data上所有的字段会被导出）&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;.import(object data) : this&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;导入节点数据，会节点以及所有子树结构以及子树数据&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;.getSelectedNodes() : MinderNode[]&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;返回选中的节点列表&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;.select(MinderNode[] nodes | MinderNode node) : this&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;添加一个或多个节点到节点选择列表中&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;.selectSingle(Minder node) : this&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;唯一选中指定节点&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;.toggleSelect(MinderNode[] nodes | MinderNode node)&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;切换一个或多个节点的选中状态&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;.clearSelect(MinderNode[] nodes | MinderNode node) : this&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;从节点选择列表中移除一个或多个节点，如果不传节点，全部取消选择&lt;/p&gt;
+
+&lt;h3 id=&quot;section-8&quot;&gt;事件机制&lt;/h3&gt;
+
+&lt;h4 id=&quot;section-9&quot;&gt;事件分类&lt;/h4&gt;
+
+&lt;p&gt;KityMinder 的事件分为：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;交互事件: &lt;code class=&quot;highlighter-rouge&quot;&gt;click&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;dblclick&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;mousedown&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;mousemove&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;mouseup&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;keydown&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;keyup&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;keypress&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;touchstart&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;touchend&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;touchmove&lt;/code&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Command 事件: &lt;code class=&quot;highlighter-rouge&quot;&gt;beforecommand&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;precommand&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;aftercommand&lt;/code&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;交互事件：&lt;code class=&quot;highlighter-rouge&quot;&gt;selectionchange&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;contentchange&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;interactchange&lt;/code&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;模块事件：模块自行触发与上述不同名的事件&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;section-10&quot;&gt;事件接口&lt;/h4&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;.on(event, callback)&lt;/code&gt; 侦听指定事件&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;.once(event, callback)&lt;/code&gt; 侦听指定事件一次，当 callback 被调用之后，后面再发生该事件不再被调用&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;.off(event, callback)&lt;/code&gt; 取消对事件的侦听&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;.fire(event, params)&lt;/code&gt; 触发指定的事件，params 是自定义的 JSON 数据，会合并到事件对象&lt;/p&gt;
+
+&lt;h4 id=&quot;section-11&quot;&gt;回调函数接口&lt;/h4&gt;
+
+&lt;p&gt;回调函数接收唯一的参数 e&lt;/p&gt;
+
+&lt;p&gt;对于交互事件，e 是原生 event 对象的一个拓展；对于需要坐标的事件，用 e.getPosition() 可以获得在 Kity Paper 上的坐标值&lt;/p&gt;
+
+&lt;p&gt;对 command 事件：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;e.commandName&lt;/code&gt; 获取执行的命令的类型&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;e.commandArgs&lt;/code&gt; 获取命令执行的参数列表&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;对 import 事件：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;e.getImportData()&lt;/code&gt; 获取导入的数据&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;对 selectionchange 事件：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;e.currentSelection&lt;/code&gt; 获取当前选择的节点列表&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;e.additionNodes&lt;/code&gt; 添加到选择节点列表的那部分节点&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;e.removalNodes&lt;/code&gt; 从选择节点列表移除的那部分节点&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;section-12&quot;&gt;事件触发时机&lt;/h4&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;command&lt;/code&gt; 事件只在顶级 command 执行的时候触发（Command 里调用 Command 不触发）&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;contentchange&lt;/code&gt; 事件在顶级 command 之后会查询是否发生了内容的变化，如果发生了变化，则会触发；&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;selectionchange&lt;/code&gt; 事件在顶级 command 之后会查询是否发生了选区的变化，如果发生了变化，则会触发&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;interactchange&lt;/code&gt; 事件会在所有的鼠标、键盘、触摸操作后发生，并且会进行稀释；command 可以手动触发该事件，此时不会被稀释&lt;/p&gt;
+</description>
+        <pubDate>Tue, 05 Jul 2016 00:00:00 +0800</pubDate>
+        <link>https://github.com/BETH-zhang/2016/07/05/kityminder%E6%95%B4%E4%BD%93%E8%AE%BE%E8%AE%A1.html</link>
+        <guid isPermaLink="true">https://github.com/BETH-zhang/2016/07/05/kityminder%E6%95%B4%E4%BD%93%E8%AE%BE%E8%AE%A1.html</guid>
+        
+        
+      </item>
+    
+      <item>
+        <title>Kityminder Core Command</title>
+        <description>&lt;p&gt;移步：&lt;a href=&quot;https://github.com/fex-team/kityminder-core/wiki/command#appendchildnode&quot;&gt;命令（Command）和 API 的差别&lt;/a&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;section&quot;&gt;命令列表&lt;/h1&gt;
+
+&lt;div id=&quot;kityMinderCommand&quot;&gt;&lt;/div&gt;
+
+&lt;script type=&quot;text/javascript&quot; src=&quot;/js/H5ComponentBase.js&quot;&gt;&lt;/script&gt;
+
+&lt;script type=&quot;text/javascript&quot; src=&quot;/js/is.js&quot;&gt;&lt;/script&gt;
+
+&lt;script type=&quot;text/javascript&quot; src=&quot;/js/mini_markdown.js&quot;&gt;&lt;/script&gt;
+
+&lt;script type=&quot;text/javascript&quot; src=&quot;/js/H5ComponentkityMinderCommand.js&quot;&gt;&lt;/script&gt;
+
+&lt;script type=&quot;text/javascript&quot;&gt;
+    var data = {
+        AppendChildNode: {
+            intro: &quot;添加子节点到选中的节点中&quot;,
+            command: &quot;minder.execCommand(&#39;AppendChildNode&#39;, textOrData);&quot;,
+            params: [{
+                param: &#39;textOrData&#39;,
+                type: &#39;string|object&#39;,
+                intro: &#39;要插入的节点的文本或数据&#39;
+            }],
+            state: {
+                get: &quot;var state = minder.queryCommandState(&#39;AppendChildNode&#39;);&quot;,
+                value: {
+                    0: &#39;当前有选中的节点&#39;,
+                    &#39;-1&#39;: &#39;当前没有选中的节点&#39;
+                }
+            }
+        },
+        AppendSiblingNode: {
+            intro: &quot;添加选中的节点的兄弟节点&quot;,
+            command: &quot;minder.execCommand(&#39;AppendSiblingNode&#39;, textOrData);&quot;,
+            params: [{
+                param: &#39;textOrData&#39;,
+                type: &#39;string|object&#39;,
+                intro: &#39;要添加的节点的文本或数据&#39;
+            }],
+            state: {
+                get: &quot;var state = minder.queryCommandState(&#39;AppendSiblingNode&#39;);&quot;,
+                value: {
+                    0: &#39;当前有选中的节点&#39;,
+                    &#39;-1&#39;: &#39;当前没有选中的节点&#39;
+                }
+            }
+        },
+        Arrange: {
+            intro: &quot;调整选中节点的位置&quot;,
+            command: &quot;minder.execCommand(&#39;Arrange&#39;, index);&quot;,
+            params: [{
+                param: &#39;index&#39;,
+                type: &#39;number&#39;,
+                intro: &#39;调整后节点的新位置&#39;
+            }],
+            state: {
+                get: &quot;var state = minder.queryCommandState(&#39;Arrange&#39;);&quot;,
+                value: {
+                    0: &#39;当前选中了具有相同父亲的节点&#39;,
+                    &#39;-1&#39;: &#39;其它情况&#39;
+                }
+            }
+        },
+        ArrangeDown: {
+            intro: &quot;向下调整选中节点的位置&quot;,
+            keyCode: &#39;Alt + Down&#39;,
+            command: &quot;minder.execCommand(&#39;ArrangeDown&#39;);&quot;,
+            state: {
+                get: &quot;var state = minder.queryCommandState(&#39;ArrangeDown&#39;);&quot;,
+                value: {
+                    0: &#39;当前选中了具有相同父亲的节点&#39;,
+                    &#39;-1&#39;: &#39;其它情况&#39;
+                }
+            }
+        },
+        ArrangeUp: {
+            intro: &quot;向上调整选中节点的位置&quot;,
+            keyCode: &#39;Alt + Up&#39;,
+            command: &quot;minder.execCommand(&#39;ArrangeUp&#39;);&quot;,
+            state: {
+                get: &quot;var state = minder.queryCommandState(&#39;ArrangeUp&#39;);&quot;,
+                value: {
+                    0: &#39;当前选中了具有相同父亲的节点&#39;,
+                    &#39;-1&#39;: &#39;其它情况&#39;
+                }
+            }
+        },
+        Background: {
+            intro: &quot;设置选中节点的背景颜色&quot;,
+            command: &quot;minder.execCommand(&#39;Background&#39;, color);&quot;,
+            params: [{
+                param: &#39;color&#39;,
+                type: &#39;string&#39;,
+                intro: &#39;表示颜色的字符串&#39;
+            }],
+            state: {
+                get: &quot;var state = minder.queryCommandState(&#39;Background&#39;);&quot;,
+                value: {
+                    0: &#39;当前有选中的节点&#39;,
+                    &#39;-1&#39;: &#39;当前没有选中的节点&#39;
+                }
+            },
+            returnValue: &quot;var value = minder.queryCommandValue(&#39;Background&#39;);&quot;,
+            tips: &quot;如果只有一个节点选中，返回已选中节点的背景颜色；否则返回 &#39;mixed&#39;&quot;
+        },
+        Bold: {
+            intro: &quot;加粗选中的节点&quot;,
+            keyCode: &#39;Ctrl + B&#39;,
+            command: &quot;minder.execCommand(&#39;Bold&#39;);&quot;,
+            state: {
+                get: &quot;var state = minder.queryCommandState(&#39;Bold&#39;);&quot;,
+                value: {
+                    0: &#39;当前有选中的节点&#39;,
+                    &#39;-1&#39;: &#39;当前没有选中的节点&#39;,
+                    1: &#39;当前已选中的节点已加粗&#39;
+                }
+            }
+        },
+        Camera: {
+            intro: &quot;设置当前视野的中心位置到某个节点上&quot;,
+            command: &quot;minder.execCommand(&#39;Camera&#39;, focusNode, duration);&quot;,
+            params: [{
+                param: &#39;focusNode&#39;,
+                type: &#39;kityminder.MinderNode&#39;,
+                intro: &#39;要定位的节点&#39;
+            },{
+                param: &#39;duration&#39;,
+                type: &#39;number&#39;,
+                intro: &#39;设置视野移动的动画时长（单位 ms），设置为 0 不使用动画&#39;
+            }],
+            state: {
+                get: &quot;var state = minder.queryCommandState(&#39;Camera&#39;);&quot;,
+                value: {
+                    0: &#39;始终可用&#39;,
+                }
+            }
+        },
+        ClearStyle: {
+            intro: &quot;移除选中节点的样式，包括字体、字号、粗体、斜体、背景色、字体色&quot;,
+            command: &quot;minder.execCommand(&#39;ClearStyle&#39;);&quot;,
+            state: {
+                get: &quot;var state = minder.queryCommandState(&#39;ClearStyle&#39;);&quot;,
+                value: {
+                    0: &#39;当前有选中的节点，并且至少有一个设置了至少一种样式&#39;,
+                    &#39;-1&#39;: &#39;其它情况&#39;
+                }
+            }
+        },
+        Copy: {
+            intro: &quot;复制当前选中的节点&quot;,
+            keyCode: &#39;Ctrl + C&#39;,
+            command: &quot;minder.execCommand(&#39;Copy&#39;);&quot;,
+            state: {
+                get: &quot;var state = minder.queryCommandState(&#39;Copy&#39;);&quot;,
+                value: {
+                    0: &#39;当前有选中的节点&#39;,
+                    &#39;-1&#39;: &#39;当前没有选中的节点&#39;
+                }
+            }
+        },
+        CopyStyle: {
+            intro: &quot;拷贝选中节点的当前样式，包括字体、字号、粗体、斜体、背景色、字体色&quot;,
+            command: &quot;minder.execCommand(&#39;CopyStyle&#39;);&quot;,
+            state: {
+                get: &quot;var state = minder.queryCommandState(&#39;CopyStyle&#39;);&quot;,
+                value: {
+                    0: &#39;当前有选中的节点&#39;,
+                    &#39;-1&#39;: &#39;当前没有选中的节点&#39;
+                }
+            }
+        },
+        Cut: {
+            intro: &quot;剪切当前选中的节点&quot;,
+            keyCode: &#39;Ctrl + X&#39;,
+            command: &quot;minder.execCommand(&#39;Cut&#39;);&quot;,
+            state: {
+                get: &quot;var state = minder.queryCommandState(&#39;Cut&#39;);&quot;,
+                value: {
+                    0: &#39;当前有选中的节点&#39;,
+                    &#39;-1&#39;: &#39;当前没有选中的节点&#39;
+                }
+            }
+        },
+        EditNode: {
+            intro: &quot;编辑选中的节点&quot;,
+            command: &quot;minder.execCommand(&#39;EditNode&#39;);&quot;,
+            state: {
+                get: &quot;var state = minder.queryCommandState(&#39;EditNode&#39;);&quot;,
+                value: {
+                    0: &#39;当前有选中的节点&#39;,
+                    &#39;-1&#39;: &#39;当前没有选中的节点&#39;
+                }
+            }
+        },
+        Expand: {
+            intro: &quot;展开当前选中的节点，保证其可见&quot;,
+            command: &quot;minder.execCommand(&#39;Expand&#39;, justParents);&quot;,
+            params: [{
+                param: &#39;justParents&#39;,
+                type: &#39;bool&#39;,
+                intro: &#39;是否只展开到父亲&lt;br/&gt;* false - （默认）保证选中的节点以及其子树可见&lt;br/&gt;* true - 只保证选中的节点可见，不展开其子树&#39;
+            }],            
+            state: {
+                get: &quot;var state = minder.queryCommandState(&#39;Expand&#39;);&quot;,
+                value: {
+                    0: &#39;当前有选中的节点&#39;,
+                    &#39;-1&#39;: &#39;当前没有选中的节点&#39;
+                }
+            }
+        },
+        ExpandToLevel: {
+            intro: &quot;展开脑图到指定的层级&quot;,
+            command: &quot;minder.execCommand(&#39;ExpandToLevel&#39;, level);&quot;,
+            params: [{
+                param: &#39;level&#39;,
+                type: &#39;number&#39;,
+                intro: &#39;指定展开到的层级，最少值为 1。&#39;
+            }],            
+            state: {
+                get: &quot;var state = minder.queryCommandState(&#39;ExpandToLevel&#39;);&quot;,
+                value: {
+                    0: &#39;一直可用&#39;
+                }
+            }
+        },
+        FontFamily: {
+            intro: &quot;设置选中节点的字体&quot;,
+            command: &quot;minder.execCommand(&#39;FontFamily&#39;, family);&quot;,
+            params: [{
+                param: &#39;family&#39;,
+                type: &#39;string&#39;,
+                intro: &#39;表示字体的字符串&#39;
+            }],            
+            state: {
+                get: &quot;var state = minder.queryCommandState(&#39;FontFamily&#39;);&quot;,
+                value: {
+                    0: &#39;当前有选中的节点&#39;,
+                    &#39;-1&#39;: &#39;当前没有选中的节点&#39;
+                }
+            },
+            returnValue: &quot;var value = minder.queryCommandValue(&#39;FontFamily&#39;);&quot;,
+            tips: &#39;返回首个选中节点的字体&#39;
+        },
+        FontSize: {
+            intro: &quot;设置选中节点的字体大小&quot;,
+            command: &quot;minder.execCommand(&#39;FontSize&#39;, size);&quot;,
+            params: [{
+                param: &#39;size&#39;,
+                type: &#39;number&#39;,
+                intro: &#39;字体大小（px）&#39;
+            }],            
+            state: {
+                get: &quot;var state = minder.queryCommandState(&#39;FontSize&#39;);&quot;,
+                value: {
+                    0: &#39;当前有选中的节点&#39;,
+                    &#39;-1&#39;: &#39;当前没有选中的节点&#39;
+                }
+            },
+            returnValue: &quot;var value = minder.queryCommandValue(&#39;FontSize&#39;);&quot;,
+            tips: &#39;返回首个选中节点的字体大小&#39;
+        },
+        ForeColor: {
+            intro: &quot;设置选中节点的字体颜色&quot;,
+            command: &quot;minder.execCommand(&#39;ForeColor&#39;, color);&quot;,
+            params: [{
+                param: &#39;color&#39;,
+                type: &#39;string&#39;,
+                intro: &#39;表示颜色的字符串&#39;
+            }],            
+            state: {
+                get: &quot;var state = minder.queryCommandState(&#39;ForeColor&#39;);&quot;,
+                value: {
+                    0: &#39;当前有选中的节点&#39;,
+                    &#39;-1&#39;: &#39;当前没有选中的节点&#39;
+                }
+            },
+            returnValue: &quot;var value = minder.queryCommandValue(&#39;ForeColor&#39;);&quot;,
+            tips: &quot;如果只有一个节点选中，返回已选中节点的字体颜色；否则返回 &#39;mixed&#39;。&quot;
+        },
+        Hand: {
+            intro: &quot;切换抓手状态，抓手状态下，鼠标拖动将拖动视野，而不是创建选区&quot;,
+            command: &quot;minder.execCommand(&#39;Hand&#39;);&quot;,
+            state: {
+                get: &quot;var state = minder.queryCommandState(&#39;Hand&#39;);&quot;,
+                value: {
+                    0: &#39;当前不是抓手状态&#39;,
+                    1: &#39;当前是抓手状态&#39;
+                }
+            }
+        },
+        HyperLink: {
+            intro: &quot;为选中的节点添加超链接&quot;,
+            command: &quot;minder.execCommand(&#39;HyperLink&#39;, url, title);&quot;,
+            params: [{
+                param: &#39;url&#39;,
+                type: &#39;string&#39;,
+                intro: &#39;超链接的 URL，设置为 null 移除&#39;
+            },{
+                param: &#39;title&#39;,
+                type: &#39;string&#39;,
+                intro: &#39;超链接的说明&#39;
+            }],            
+            state: {
+                get: &quot;var state = minder.queryCommandState(&#39;HyperLink&#39;);&quot;,
+                value: {
+                    0: &#39;当前有选中的节点&#39;,
+                    &#39;-1&#39;: &#39;当前没有选中的节点&#39;
+                }
+            },
+            returnValue: &quot;var value = minder.queryCommandValue(&#39;HyperLink&#39;);&quot;,
+            tips: &quot;返回首个选中节点的超链接信息，JSON 对象： {url: url, title: title}&quot;
+        },
+        Image: {
+            intro: &quot;为选中的节点添加图片&quot;,
+            command: &quot;minder.execCommand(&#39;Image&#39;, url, title);&quot;,
+            params: [{
+                param: &#39;url&#39;,
+                type: &#39;string&#39;,
+                intro: &quot;图片的 URL，设置为空字符串 &#39;&#39; 为移除图片&quot;
+            },{
+                param: &#39;title&#39;,
+                type: &#39;string&#39;,
+                intro: &#39;图片的说明&#39;
+            }],            
+            state: {
+                get: &quot;var state = minder.queryCommandState(&#39;Image&#39;);&quot;,
+                value: {
+                    0: &#39;当前有选中的节点&#39;,
+                    &#39;-1&#39;: &#39;当前没有选中的节点&#39;
+                }
+            },
+            returnValue: &quot;var value = minder.queryCommandValue(&#39;Image&#39;);&quot;,
+            tips: &quot;返回首个选中节点的图片信息，JSON 对象： {url: url, title: title}&quot;
+        },
+        Italic: {
+            intro: &quot;加斜选中的节点&quot;,
+            keyCode: &#39;Ctrl + I&#39;,
+            command: &quot;minder.execCommand(&#39;Italic&#39;);&quot;,
+            state: {
+                get: &quot;var state = minder.queryCommandState(&#39;Italic&#39;);&quot;,
+                value: {
+                    0: &#39;当前有选中的节点&#39;,
+                    &#39;-1&#39;: &#39;当前没有选中的节点&#39;,
+                    1: &#39;当前已选中的节点已加斜&#39;
+                }
+            },
+            returnValue: &quot;var value = minder.queryCommandValue(&#39;Image&#39;);&quot;,
+            tips: &quot;返回首个选中节点的图片信息，JSON 对象： {url: url, title: title}&quot;
+        },
+        Layout: {
+            intro: &quot;设置选中节点的布局&lt;br&gt;允许使用的布局可以使用 kityminder.Minder.getLayoutList() &quot;,
+            command: &quot;minder.execCommand(&#39;Layout&#39;, name);&quot;,
+            params: [{
+                param: &#39;name&#39;,
+                type: &#39;string&#39;,
+                intro: &#39;布局的名称，设置为 null 则使用继承或默认的布局&#39;
+            }],            
+            state: {
+                get: &quot;var state = minder.queryCommandState(&#39;Layout&#39;);&quot;,
+                value: {
+                    0: &#39;当前有选中的节点&#39;,
+                    &#39;-1&#39;: &#39;当前没有选中的节点&#39;
+                }
+            },
+            returnValue: &quot;var value = minder.queryCommandValue(&#39;Layout&#39;);&quot;,
+            tips: &quot;返回首个选中节点的布局名称&quot;
+        },
+        Move: {
+            intro: &quot;指定方向移动当前视野&quot;,
+            command: &quot;minder.execCommand(&#39;Move&#39;, dir, duration);&quot;,
+            params: [{
+                param: &#39;dir&#39;,
+                type: &#39;string&#39;,
+                intro: &quot;移动方向&lt;br/&gt;取值为 &#39;left&#39;，视野向左移动一半&lt;br/&gt;取值为 &#39;right&#39;，视野向右移动一半&lt;/br&gt;取值为 &#39;up&#39;，视野向上移动一半&lt;/br&gt;取值为 &#39;down&#39;，视野向下移动一半&quot;
+            },{
+                param: &#39;duration&#39;,
+                type: &#39;number&#39;,
+                intro: &#39;视野移动的动画时长（单位 ms），设置为 0 不使用动画&#39;
+            }],            
+            state: {
+                get: &quot;var state = minder.queryCommandState(&#39;Move&#39;);&quot;,
+                value: {
+                    0: &#39;始终可用&#39;
+                }
+            }
+        },
+        Note: {
+            intro: &quot;指定方向移动当前视野&quot;,
+            command: &quot;minder.execCommand(&#39;Note&#39;, note);&quot;,
+            params: [{
+                param: &#39;note&#39;,
+                type: &#39;string&#39;,
+                intro: &quot;要设置的备注信息，设置为 null 则移除备注信息&quot;
+            }],            
+            state: {
+                get: &quot;var state = minder.queryCommandState(&#39;Note&#39;);&quot;,
+                value: {
+                    0: &#39;当前有选中的节点&#39;,
+                    &#39;-1&#39;: &#39;当前没有选中的节点&#39;
+                }
+            }
+        },
+        Paste: {
+            intro: &quot;粘贴已复制的节点到每一个当前选中的节点上&quot;,
+            keyCode: &#39;Ctrl + V&#39;,
+            command: &quot;minder.execCommand(&#39;Paste&#39;);&quot;,
+            state: {
+                get: &quot;var state = minder.queryCommandState(&#39;Paste&#39;);&quot;,
+                value: {
+                    0: &#39;当前有选中的节点&#39;,
+                    &#39;-1&#39;: &#39;当前没有选中的节点&#39;
+                }
+            }
+        },
+        PasteStyle: {
+            intro: &quot;粘贴已拷贝的样式到选中的节点上，包括字体、字号、粗体、斜体、背景色、字体色&quot;,
+            command: &quot;minder.execCommand(&#39;PasteStyle&#39;);&quot;,
+            state: {
+                get: &quot;var state = minder.queryCommandState(&#39;PasteStyle&#39;);&quot;,
+                value: {
+                    0: &#39;当前有选中的节点, 并且已经有复制的样式&#39;,
+                    &#39;-1&#39;: &#39;当前没有选中的节点, 或者没有复制的样式&#39;
+                }
+            }
+        },
+        Priority: {
+            intro: &quot;设置节点的优先级信息&quot;,
+            command: &quot;minder.execCommand(&#39;Priority&#39;, value);&quot;,
+            params: [{
+                param: &#39;value&#39;,
+                type: &#39;number&#39;,
+                intro: &#39;要设置的优先级（添加一个优先级小图标）&lt;br/&gt;取值为 0 移除优先级信息；&lt;br/&gt;取值为 1 - 9 设置优先级，超过 9 的优先级不渲染&#39;
+            }],
+            state: {
+                get: &quot;var state = minder.queryCommandState(&#39;Priority&#39;);&quot;,
+                value: {
+                    0: &#39;当前有选中的节点&#39;,
+                    &#39;-1&#39;: &#39;当前没有选中的节点&#39;
+                }
+            }
+        },
+        Progress: {
+            intro: &quot;设置节点的进度信息（添加一个进度小图标）&quot;,
+            command: &quot;minder.execCommand(&#39;Progress&#39;, value);&quot;,
+            params: [{
+                param: &#39;value&#39;,
+                type: &#39;number&#39;,
+                intro: &#39;要设置的进度&lt;br/&gt;取值为 0 移除进度信息；&lt;/br&gt;取值为 1 表示未开始；&lt;br/&gt;取值为 2 表示完成 1/8；&lt;br/&gt;取值为 3 表示完成 2/8；&lt;br/&gt;取值为 4 表示完成 3/8；&lt;br/&gt;其余类推，取值为 9 表示全部完成&#39;
+            }],
+            state: {
+                get: &quot;var state = minder.queryCommandState(&#39;Progress&#39;);&quot;,
+                value: {
+                    0: &#39;当前有选中的节点&#39;,
+                    &#39;-1&#39;: &#39;当前没有选中的节点&#39;
+                }
+            }
+        },
+        RemoveNode: {
+            intro: &quot;移除选中的节点&quot;,
+            command: &quot;minder.execCommand(&#39;RemoveNode&#39;);&quot;,
+            state: {
+                get: &quot;var state = minder.queryCommandState(&#39;RemoveNode&#39;);&quot;,
+                value: {
+                    0: &#39;当前有选中的节点&#39;,
+                    &#39;-1&#39;: &#39;当前没有选中的节点&#39;
+                }
+            }
+        },
+        ResetLayout: {
+            intro: &quot;重设选中节点的布局，如果当前没有选中的节点，重设整个脑图的布局&quot;,
+            command: &quot;minder.execCommand(&#39;ResetLayout&#39;);&quot;,
+            state: {
+                get: &quot;var state = minder.queryCommandState(&#39;ResetLayout&#39;);&quot;,
+                value: {
+                    0: &#39;始终可用&#39;
+                }
+            },
+            returnValue: &quot;var value = minder.queryCommandValue(&#39;ResetLayout&#39;);&quot;,
+            tips: &#39;返回首个选中节点的布局名称&#39;
+        },
+        Resource: {
+            intro: &quot;设置节点的资源标签&quot;,
+            command: &quot;minder.execCommand(&#39;Resource&#39;, resource);&quot;,
+            params: [{
+                param: &#39;resource&#39;,
+                type: &#39;Array&lt;string&gt;&#39;,
+                intro: &#39;要设置的资源列表，设置为空清除节点的资源标签&#39;
+            }],
+            returnValue: &quot;var value = minder.queryCommandValue(&#39;Resource&#39;);&quot;,
+            tips: &#39;返回当前选中节点中包含的资源（数组）&#39;
+        },
+        Template: {
+            intro: &quot;设置当前脑图的模板&quot;,
+            command: &quot;minder.execCommand(&#39;Template&#39;, name);&quot;,
+            params: [{
+                param: &#39;name&#39;,
+                type: &#39;string&#39;,
+                intro: &#39;模板名称&lt;br/&gt;允许使用的模板可以使用 kityminder.Minder.getTemplateList() 查询&#39;
+            }],
+            state: {
+                get: &quot;var state = minder.queryCommandState(&#39;Template&#39;);&quot;,
+                value: {
+                    0: &#39;始终可用&#39;
+                }
+            },
+            returnValue: &quot;var value = minder.queryCommandValue(&#39;Template&#39;);&quot;,
+            tips: &#39;返回当前的模板名称&#39;
+        },
+        Theme: {
+            intro: &quot;设置当前脑图的主题&quot;,
+            command: &quot;minder.execCommand(&#39;Theme&#39;, name);&quot;,
+            params: [{
+                param: &#39;name&#39;,
+                type: &#39;string&#39;,
+                intro: &#39;主题名称&lt;br/&gt;允许使用的主题可以使用 kityminder.Minder.getThemeList() 查询&#39;
+            }],
+            state: {
+                get: &quot;var state = minder.queryCommandState(&#39;Theme&#39;);&quot;,
+                value: {
+                    0: &#39;始终可用&#39;
+                }
+            },
+            returnValue: &quot;var value = minder.queryCommandValue(&#39;Theme&#39;);&quot;,
+            tips: &#39;返回当前的主题名称&#39;
+        },
+        Zoom: {
+            intro: &quot;缩放当前的视野到一定的比例（百分比）&quot;,
+            command: &quot;minder.execCommand(&#39;Zoom&#39;, value);&quot;,
+            params: [{
+                param: &#39;value&#39;,
+                type: &#39;number&#39;,
+                intro: &#39;设置的比例，取值 100 则为原尺寸&#39;
+            }],
+            state: {
+                get: &quot;var state = minder.queryCommandState(&#39;Zoom&#39;);&quot;,
+                value: {
+                    0: &#39;始终可用&#39;
+                }
+            }
+        },
+        ZoomIn: {
+            intro: &quot;放大当前的视野到下一个比例等级（百分比）&quot;,
+            keyCode: &#39;=&#39;,
+            command: &quot;minder.execCommand(&#39;ZoomIn&#39;);&quot;,
+            state: {
+                get: &quot;var state = minder.queryCommandState(&#39;ZoomIn&#39;);&quot;,
+                value: {
+                    0: &#39;如果当前脑图的配置中还有下一个比例等级&#39;,
+                    &#39;-1&#39;: &#39;其它情况&#39;
+                }
+            }
+        },
+        ZoomOut: {
+            intro: &quot;缩小当前的视野到上一个比例等级（百分比）&quot;,
+            keyCode: &#39;-&#39;,
+            command: &quot;minder.execCommand(&#39;ZoomOut&#39;);&quot;,
+            state: {
+                get: &quot;var state = minder.queryCommandState(&#39;ZoomOut&#39;);&quot;,
+                value: {
+                    0: &#39;如果当前脑图的配置中还有上一个比例等级&#39;,
+                    &#39;-1&#39;: &#39;其它情况&#39;
+                }
+            }
+        }
+    };
+    var kityMinderCommand = new H5ComponentkityMinderCommand(&#39;my&#39;, {
+        type: &#39;kityMinderCommand&#39;,
+        data: data
+    });
+
+    $(&#39;#kityMinderCommand&#39;).append(kityMinderCommand);
+&lt;/script&gt;
+
+</description>
+        <pubDate>Tue, 05 Jul 2016 00:00:00 +0800</pubDate>
+        <link>https://github.com/BETH-zhang/2016/07/05/kityminder-core-command.html</link>
+        <guid isPermaLink="true">https://github.com/BETH-zhang/2016/07/05/kityminder-core-command.html</guid>
+        
+        
+      </item>
+    
+      <item>
+        <title>Js数据类型判断</title>
+        <description>&lt;p&gt;http://www.cnblogs.com/mofish/p/3388427.html&lt;/p&gt;
+</description>
+        <pubDate>Tue, 05 Jul 2016 00:00:00 +0800</pubDate>
+        <link>https://github.com/BETH-zhang/2016/07/05/js%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E5%88%A4%E6%96%AD.html</link>
+        <guid isPermaLink="true">https://github.com/BETH-zhang/2016/07/05/js%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E5%88%A4%E6%96%AD.html</guid>
+        
+        
+      </item>
+    
+      <item>
+        <title>前端资源大汇总</title>
+        <description>&lt;p&gt;http://cnodejs.org/topic/56ef3edd532839c33a99d00e&lt;/p&gt;
+
+&lt;h1 id=&quot;section&quot;&gt;综合类&lt;/h1&gt;
+
+&lt;h2 id=&quot;section-1&quot;&gt;前端知识体系&lt;/h2&gt;
+&lt;p&gt;## 前端知识结构
+## Web前端开发大系概览
+## Web前端开发大系概览-中文版
+## Web Front-end Stack v2.2
+## 免费的编程中文书籍索引
+## 前端书籍
+## 前端免费书籍大全
+## 前端知识体系
+## 免费的编程中文书籍索引
+## 智能社 - 精通JavaScript开发
+## 重新介绍 JavaScript（JS 教程）
+## 麻省理工学院公开课：计算机科学及编程导论
+## JavaScript中的this陷阱的最全收集–没有之一
+## JS函数式编程指南
+## JavaScript Promise迷你书（中文版）
+## 腾讯移动Web前端知识库
+## Front-End-Develop-Guide 前端开发指南
+## 前端开发笔记本
+## 大前端工具集 - 聂微东
+## 前端开发者手册&lt;/p&gt;
+
+&lt;h1 id=&quot;section-2&quot;&gt;入门类&lt;/h1&gt;
+
+&lt;h2 id=&quot;section-3&quot;&gt;前端入门教程&lt;/h2&gt;
+&lt;p&gt;## 瘳雪峰的Javascript教程
+## jQuery基础教程
+## 前端工程师必备的PS技能——切图篇
+## 结合个人经历总结的前端入门方法&lt;/p&gt;
+
+&lt;h1 id=&quot;section-4&quot;&gt;效果类&lt;/h1&gt;
+
+&lt;h2 id=&quot;section-5&quot;&gt;弹出层&lt;/h2&gt;
+&lt;p&gt;## 焦点图轮播特效&lt;/p&gt;
+
+&lt;h1 id=&quot;section-6&quot;&gt;工具类&lt;/h1&gt;
+
+&lt;h2 id=&quot;css-sprite-&quot;&gt;css sprite 雪碧图制作&lt;/h2&gt;
+&lt;p&gt;## 版本控制入门 – 搬进 Github
+## Grunt-beginner前端自动化工具&lt;/p&gt;
+
+&lt;h1 id=&quot;section-7&quot;&gt;慕课专题&lt;/h1&gt;
+
+&lt;h2 id=&quot;section-8&quot;&gt;张鑫旭 - 慕课系列&lt;/h2&gt;
+&lt;p&gt;## lyn - 慕课系列
+## 艾伦 - 慕课系列
+## 碧仔 - Hello，移动WEB&lt;/p&gt;
+
+&lt;h1 id=&quot;section-9&quot;&gt;周报类&lt;/h1&gt;
+
+&lt;h2 id=&quot;section-10&quot;&gt;平安科技移动开发二队技术周报&lt;/h2&gt;
+
+&lt;h1 id=&quot;section-11&quot;&gt;开发中心&lt;/h1&gt;
+
+&lt;h2 id=&quot;mozilla-js&quot;&gt;mozilla js参考&lt;/h2&gt;
+&lt;p&gt;## chrome开发中心（chrome的内核已转向blink）
+## safari开发中心
+## microsoft js参考
+## js秘密花园
+## js秘密花园
+## w3help 综合Bug集合网站&lt;/p&gt;
+
+&lt;h1 id=&quot;section-12&quot;&gt;综合搜索&lt;/h1&gt;
+
+&lt;h2 id=&quot;javascripting&quot;&gt;javascripting&lt;/h2&gt;
+&lt;p&gt;## 各种流行库搜索&lt;/p&gt;
+
+&lt;h1 id=&quot;api&quot;&gt;综合API&lt;/h1&gt;
+
+&lt;h2 id=&quot;runoobcom-api&quot;&gt;runoob.com-包含各种API集合&lt;/h2&gt;
+&lt;p&gt;## 开源中国在线API文档合集
+## devdocs 英文综合API网站&lt;/p&gt;
+
+&lt;h1 id=&quot;jquery&quot;&gt;jQuery&lt;/h1&gt;
+
+&lt;h2 id=&quot;jquery-api-&quot;&gt;jQuery API 中文文档&lt;/h2&gt;
+&lt;p&gt;## hemin 在线版
+## css88 jq api
+## css88 jqui api
+## 学习jquery
+## jquery 源码查找&lt;/p&gt;
+
+&lt;h1 id=&quot;ecmascript&quot;&gt;Ecmascript&lt;/h1&gt;
+
+&lt;h2 id=&quot;understanding-ecmascript-6---nicholas-c-zakas&quot;&gt;Understanding ECMAScript 6 - Nicholas C. Zakas&lt;/h2&gt;
+&lt;p&gt;## exploring-es6
+## exploring-es6翻译
+## exploring-es6翻译后预览
+## 阮一峰 es6
+## 阮一峰 Javascript
+## ECMA-262，第 5 版
+## es5&lt;/p&gt;
+
+&lt;h1 id=&quot;js-template&quot;&gt;Js template&lt;/h1&gt;
+
+&lt;h2 id=&quot;template-chooser&quot;&gt;template-chooser&lt;/h2&gt;
+&lt;p&gt;## artTemplate
+## tomdjs
+## 淘宝模板juicer模板
+## Fxtpl v1.0 繁星前端模板引擎
+## laytpl
+## mozilla - nunjucks
+## Juicer
+## dustjs
+## etpl&lt;/p&gt;
+
+&lt;h1 id=&quot;section-13&quot;&gt;弹出层&lt;/h1&gt;
+
+&lt;h2 id=&quot;artdialog-&quot;&gt;artDialog 最新版&lt;/h2&gt;
+&lt;p&gt;## artDialog 文档
+## google code 下载地址
+## 贤心弹出层
+## 响应式用户交互组件库
+## sweetalert-有css3动画弹出层&lt;/p&gt;
+
+&lt;h1 id=&quot;css&quot;&gt;CSS&lt;/h1&gt;
+
+&lt;h2 id=&quot;css-&quot;&gt;CSS 语法参考&lt;/h2&gt;
+&lt;p&gt;## CSS3动画手册
+## 腾讯css3动画制作工具
+## 志爷css小工具集合
+## css3 js 移动大杂烩
+## bouncejs 触摸库
+## css3 按钮动画
+## animate.css
+## 全局CSS的终结(狗带) [译]&lt;/p&gt;
+
+&lt;h1 id=&quot;angularjs&quot;&gt;Angularjs&lt;/h1&gt;
+
+&lt;h2 id=&quot;angularjs-&quot;&gt;Angular.js 的一些学习资源&lt;/h2&gt;
+&lt;p&gt;## angularjs中文社区
+## Angularjs源码学习
+## Angularjs源码学习
+## angular对bootstrap的封装
+## angularjs + nodejs
+## 吕大豹 Angularjs
+## AngularJS 最佳实践
+## Angular的一些扩展指令
+## Angular数据绑定原理
+## 一些扩展Angular UI组件
+## Ember和AngularJS的性能测试
+## 带你走近AngularJS - 基本功能介绍
+## Angularjs开发指南
+## Angularjs学习
+## 不要带着jQuery的思维去学习AngularJS
+## angularjs 学习笔记
+## angularjs 开发指南
+## angularjs 英文资料
+## angular bootstrap
+## angular jq mobile
+## angular ui
+## 整合jQuery Mobile+AngularJS经验谈
+## 有jQuery背景，该如何用AngularJS编程思想
+## AngularJS在线教程
+## angular学习笔记&lt;/p&gt;
+
+&lt;h1 id=&quot;react&quot;&gt;React&lt;/h1&gt;
+
+&lt;h2 id=&quot;reactjs-&quot;&gt;react.js 中文论坛&lt;/h2&gt;
+&lt;p&gt;## react.js 官方网址
+## react.js 官方文档
+## react.js material UI
+## react.js TouchstoneJS UI
+## react.js amazeui UI
+## React 入门实例教程 - 阮一峰
+## React Native 中文版
+## Webpack 和 React 小书 - 前端乱炖
+## Webpack 和 React 小书 - gitbook
+## webpack
+## Webpack，101入门体验
+## webpack入门教程
+## 基于webpack搭建前端工程解决方案探索
+## React原创实战视频教程&lt;/p&gt;
+
+&lt;h1 id=&quot;api-1&quot;&gt;移动端API&lt;/h1&gt;
+
+&lt;h1 id=&quot;api-2&quot;&gt;API&lt;/h1&gt;
+
+&lt;h2 id=&quot;section-14&quot;&gt;99移动端知识集合&lt;/h2&gt;
+&lt;p&gt;## 移动端前端开发知识库
+## 移动前端的一些坑和解决方法（外观表现）
+## 【原】移动web资源整理
+## zepto 1.0 中文手册
+## zepto 1.0 中文手册
+## zepto 1.1.2
+## zepto 中文注释
+## jqmobile 手册
+## 移动浏览器开发集合
+## 移动开发大杂烩
+## 微信webview中的一些问题&lt;/p&gt;
+
+&lt;h1 id=&quot;section-15&quot;&gt;框架&lt;/h1&gt;
+
+&lt;h2 id=&quot;htmlios&quot;&gt;特色的HTML框架可以创建精美的iOS应用&lt;/h2&gt;
+&lt;p&gt;## 淘宝SUI&lt;/p&gt;
+
+&lt;h1 id=&quot;avalon&quot;&gt;avalon&lt;/h1&gt;
+
+&lt;h2 id=&quot;avalonjs&quot;&gt;avalonjs&lt;/h2&gt;
+&lt;p&gt;## Avalon新一代UI库： OniUI
+## avalon.oniui-基于avalon的组件库&lt;/p&gt;
+
+&lt;h1 id=&quot;requriejs&quot;&gt;Requriejs&lt;/h1&gt;
+
+&lt;h2 id=&quot;javascript&quot;&gt;Javascript模块化编程（一）：模块的写法&lt;/h2&gt;
+&lt;p&gt;## Javascript模块化编程（二）：AMD规范
+## Javascript模块化编程（三）：require.js的用法
+## RequireJS入门（一）
+## RequireJS入门（二）
+## RequireJS进阶（三）
+## requrie源码学习
+## requrie 入门指南
+## requrieJS 学习笔记
+## requriejs 其一
+## require backbone结合&lt;/p&gt;
+
+&lt;h1 id=&quot;seajs&quot;&gt;Seajs&lt;/h1&gt;
+
+&lt;h2 id=&quot;seajs-1&quot;&gt;seajs&lt;/h2&gt;
+&lt;p&gt;## seajs 中文手册&lt;/p&gt;
+
+&lt;h1 id=&quot;lesssass&quot;&gt;Less,sass&lt;/h1&gt;
+
+&lt;h2 id=&quot;sass&quot;&gt;sass&lt;/h2&gt;
+&lt;p&gt;## sass教程-sass中国
+## Sass 中文文档
+## less&lt;/p&gt;
+
+&lt;h1 id=&quot;markdown&quot;&gt;Markdown&lt;/h1&gt;
+
+&lt;h2 id=&quot;markdown--&quot;&gt;Markdown 语法说明 (简体中文版)&lt;/h2&gt;
+&lt;p&gt;## markdown入门参考
+## gitbook 国外的在线markdown可编辑成书
+## mdeditor 一款国内的在线markdown编辑器
+## stackedit 国外的在线markdown编辑器，功能强大，同步云盘
+## mditor 一款轻量级的markdown编辑器
+## lepture-editor
+## markdown-editor&lt;/p&gt;
+
+&lt;h1 id=&quot;d3&quot;&gt;D3&lt;/h1&gt;
+
+&lt;h2 id=&quot;d3-tutorials&quot;&gt;d3 Tutorials&lt;/h2&gt;
+&lt;p&gt;## Gallery
+## lofter
+## iteye
+## ruanyifeng&lt;/p&gt;
+
+&lt;h1 id=&quot;section-16&quot;&gt;兼容性&lt;/h1&gt;
+
+&lt;h2 id=&quot;esma-&quot;&gt;esma 兼容列表&lt;/h2&gt;
+&lt;p&gt;## W3C CSS验证服务
+## caniuse
+## csscreator
+## microsoft
+## 在线测兼容-移动端
+## emulators&lt;/p&gt;
+
+&lt;h1 id=&quot;ui&quot;&gt;UI相关&lt;/h1&gt;
+
+&lt;h2 id=&quot;bootcss&quot;&gt;bootcss&lt;/h2&gt;
+&lt;p&gt;## MetroUICSS
+## semantic
+## Buttons
+## kitecss
+## pintuer
+## amazeui
+## worldhello
+## linuxtoy
+## gitmagic
+## rogerdudler
+## gitref
+## book
+## gogojimmy&lt;/p&gt;
+
+&lt;h1 id=&quot;http&quot;&gt;HTTP&lt;/h1&gt;
+
+&lt;h2 id=&quot;http-api-&quot;&gt;HTTP API 设计指南&lt;/h2&gt;
+
+&lt;h1 id=&quot;api-3&quot;&gt;其它API&lt;/h1&gt;
+
+&lt;h2 id=&quot;javascript-1&quot;&gt;javascript流行库汇总&lt;/h2&gt;
+&lt;p&gt;## 验证api
+## underscore 中文手册
+## underscore源码分析
+## underscore源码分析-亚里士朱德的博客
+## underscrejs en api
+## lodash - underscore的代替品
+## ext4api
+## backbone 中文手册
+## qwrap手册
+## 缓动函数
+## svg 中文参考
+## svg mdn参考
+## svg 导出 canvas
+## svg 导出 png
+## ai-to-svg
+## localStorage 库&lt;/p&gt;
+
+&lt;h1 id=&quot;section-17&quot;&gt;图表类&lt;/h1&gt;
+
+&lt;h2 id=&quot;highcharts-api&quot;&gt;Highcharts 中文API&lt;/h2&gt;
+&lt;p&gt;## Highcharts 英文API
+## ECharts 百度的图表软件
+## 高德地图
+## 开源的矢量图脚本框架
+## svg 地图&lt;/p&gt;
+
+&lt;h1 id=&quot;vue&quot;&gt;vue&lt;/h1&gt;
+
+&lt;h2 id=&quot;vue-1&quot;&gt;Vue&lt;/h2&gt;
+&lt;p&gt;## Vue 论坛
+## Vue 入门指南
+## Vue 的一些资源索引&lt;/p&gt;
+
+&lt;h1 id=&quot;section-18&quot;&gt;正则&lt;/h1&gt;
+
+&lt;h2 id=&quot;js&quot;&gt;JS正则表达式元字符&lt;/h2&gt;
+&lt;p&gt;## 正则表达式30分钟入门教程
+## MDN-正则表达式
+## ruanyifeng - RegExp对象
+## 小胡子哥 - 进阶正则表达式
+## is.js
+## 正则在线测试&lt;/p&gt;
+
+&lt;h1 id=&quot;ionic&quot;&gt;ionic&lt;/h1&gt;
+
+&lt;h2 id=&quot;ionic-1&quot;&gt;ionic&lt;/h2&gt;
+
+&lt;h1 id=&quot;section-19&quot;&gt;其它&lt;/h1&gt;
+
+&lt;h2 id=&quot;mockjs-&quot;&gt;Mock.js 是一款模拟数据生成器&lt;/h2&gt;
+
+&lt;h1 id=&quot;section-20&quot;&gt;开发规范&lt;/h1&gt;
+
+&lt;h1 id=&quot;section-21&quot;&gt;前端&lt;/h1&gt;
+
+&lt;h2 id=&quot;github&quot;&gt;通过分析github代码库总结出来的工程师代码书写习惯&lt;/h2&gt;
+&lt;p&gt;## HTML&amp;amp;CSS编码规范 by @mdo
+## 团队合作的css命名规范-腾讯AlloyTeam前端团队
+## 前端编码规范之js - by yuwenhui
+## 前端编码规范之js - by 李靖
+## 前端开发规范手册
+## Airbnb JavaScript 编码规范（简体中文版）
+## AMD与CMD规范的区别
+## AMD与CMD规范的区别
+## KISSY 源码规范
+## bt编码规范
+## 规范加强版
+## 前端代码规范 及 最佳实践
+## 百度前端规范
+## 百度前端规范
+## 百度前端规范
+## ECMAScript6 编码规范–广发证券前端团队
+## JavaScript 风格指南/编码规范（Airbnb公司版）
+## 网易前端开发规范
+## css模块
+## 前端规范资源列表&lt;/p&gt;
+
+&lt;h1 id=&quot;php&quot;&gt;PHP&lt;/h1&gt;
+
+&lt;h2 id=&quot;php-&quot;&gt;最流行的PHP 代码规范&lt;/h2&gt;
+&lt;p&gt;## 最流行的PHP 代码规范&lt;/p&gt;
+
+&lt;h1 id=&quot;android&quot;&gt;Android&lt;/h1&gt;
+
+&lt;h2 id=&quot;android-1&quot;&gt;【敏捷开发】Android团队开发规范&lt;/h2&gt;
+&lt;p&gt;## Android 开发规范与应用&lt;/p&gt;
+
+&lt;h1 id=&quot;section-22&quot;&gt;各大公司开源项目&lt;/h1&gt;
+
+&lt;h2 id=&quot;facebook-projects&quot;&gt;Facebook Projects&lt;/h2&gt;
+&lt;p&gt;## 百度web前端研发部
+## 百度EFE
+## 百度github
+## alloyteam
+## alloyteam-github
+## alloyteam-AlloyGameEngine
+## AlloyDesigner 即时修改，即时保存，设计稿较正，其它开发辅助工具
+## H5交互页编辑器AEditor介绍 H5动画交互页开发的工具介绍
+## AEditor H5动画交互页开发的工具
+## maka
+## 值得订阅的weekly
+## 腾讯html5
+## 奇舞团开源项目
+## Qunar UED&lt;/p&gt;
+
+&lt;h1 id=&quot;javascript-2&quot;&gt;Javascript&lt;/h1&gt;
+
+&lt;h1 id=&quot;section-23&quot;&gt;常用&lt;/h1&gt;
+
+&lt;h2 id=&quot;iebetterjs-ie6-ie8ie9chrome&quot;&gt;ieBetter.js-让IE6-IE8拥有IE9+,Chrome等浏览器特性&lt;/h2&gt;
+&lt;p&gt;## 模拟键盘
+## 拼音
+## 中国个人身份证号验证&lt;/p&gt;
+
+&lt;h1 id=&quot;section-24&quot;&gt;算法&lt;/h1&gt;
+
+&lt;h2 id=&quot;javascript--&quot;&gt;数据结构与算法 JavaScript 描述. 章节练习&lt;/h2&gt;
+&lt;p&gt;## 常见排序算法（JS版）
+## 经典排序
+## 常见排序算法-js版本
+## JavaScript 算法与数据结构 精华集
+## 面试常考算法题精讲&lt;/p&gt;
+
+&lt;h1 id=&quot;section-25&quot;&gt;移动端&lt;/h1&gt;
+
+&lt;h2 id=&quot;fastclick&quot;&gt;fastclick&lt;/h2&gt;
+&lt;p&gt;## no-click-delay&lt;/p&gt;
+
+&lt;h1 id=&quot;json&quot;&gt;JSON&lt;/h1&gt;
+
+&lt;h2 id=&quot;json-1&quot;&gt;模拟生成JSON数据&lt;/h2&gt;
+&lt;p&gt;## 返回跨域JSONAPI&lt;/p&gt;
+
+&lt;h1 id=&quot;html5&quot;&gt;Html5&lt;/h1&gt;
+
+&lt;h2 id=&quot;html5--demo&quot;&gt;HTML5 有哪些让你惊艳的 demo？&lt;/h2&gt;
+
+&lt;h1 id=&quot;css-1&quot;&gt;CSS&lt;/h1&gt;
+
+&lt;h2 id=&quot;browserhacks&quot;&gt;browserhacks&lt;/h2&gt;
+
+&lt;h1 id=&quot;jquery-1&quot;&gt;jQuery&lt;/h1&gt;
+
+&lt;h1 id=&quot;section-26&quot;&gt;焦点图&lt;/h1&gt;
+
+&lt;h2 id=&quot;myfocus&quot;&gt;myfocus&lt;/h2&gt;
+&lt;p&gt;## myfocus-官方演示站
+## SuperSlidev2.1 – 大话主席
+## soChange&lt;/p&gt;
+
+&lt;h1 id=&quot;ext-easyui-j-ui-ui&quot;&gt;Ext, EasyUI, J-UI 及其它各种UI方案&lt;/h1&gt;
+
+&lt;h1 id=&quot;ext&quot;&gt;Ext&lt;/h1&gt;
+
+&lt;h2 id=&quot;extjs&quot;&gt;extjs&lt;/h2&gt;
+&lt;p&gt;## ext4英文api
+## ext4中文api&lt;/p&gt;
+
+&lt;h1 id=&quot;easyui&quot;&gt;EasyUI&lt;/h1&gt;
+
+&lt;h2 id=&quot;jquery-easyui-&quot;&gt;jquery easyui 未压缩源代码&lt;/h2&gt;
+
+&lt;h1 id=&quot;j-ui&quot;&gt;J-UI&lt;/h1&gt;
+
+&lt;h2 id=&quot;j-ui-1&quot;&gt;J-UI&lt;/h2&gt;
+
+&lt;h1 id=&quot;other&quot;&gt;Other&lt;/h1&gt;
+
+&lt;h2 id=&quot;mui-app&quot;&gt;MUI-最接近原生APP体验的高性能前端框架&lt;/h2&gt;
+&lt;p&gt;## Amaze UI | 中国首个开源 HTML5 跨屏前端框架
+## 淘宝 HTML5 前端框架
+## KISSY - 阿里前端JavaScript库
+## 网易Nej - Nice Easy Javascript
+## Kendo UI MVVM Demo
+## Bootstrap
+## Smart UI
+## 雅虎UI - CSS UI&lt;/p&gt;
+
+&lt;h1 id=&quot;section-27&quot;&gt;页面 社会化 分享功能&lt;/h1&gt;
+
+&lt;h2 id=&quot;pc&quot;&gt;百度分享 pc端&lt;/h2&gt;
+&lt;p&gt;## JiaThis pc端
+## 社会化分享组件 移动端
+## ShareSDK 轻松实现社会化功能 移动端
+## 友盟分享 移动端&lt;/p&gt;
+
+&lt;h1 id=&quot;section-28&quot;&gt;富文本编辑器&lt;/h1&gt;
+
+&lt;h2 id=&quot;ueditor&quot;&gt;百度 ueditor&lt;/h2&gt;
+&lt;p&gt;## 经典的ckeditor
+## 经典的kindeditor
+## wysiwyg
+## 一个有情怀的编辑器。Bach’s Editor
+## tower用的编辑器
+## summernote 编辑器
+## html5编辑器
+## XEditor
+## wangEditor&lt;/p&gt;
+
+&lt;h1 id=&quot;section-29&quot;&gt;日历&lt;/h1&gt;
+
+&lt;h1 id=&quot;pc-1&quot;&gt;PC&lt;/h1&gt;
+
+&lt;h2 id=&quot;my97&quot;&gt;经典my97&lt;/h2&gt;
+&lt;p&gt;## 强大的独立日期选择器
+## fullcalendar
+## fullcalendar日历控件知识点集合
+## 中文api
+## 农历日历
+## 超酷的仿百度带节日日历老黄历控件
+## 日期格式化
+## 大牛日历控件
+## 我群某管理作品
+## input按位替换-官网
+## input按位替换-github
+## bootstrap-daterangepicker
+## 国外30个插件集合
+## JavaScript datepicker
+## Datepair.js
+## 一个风格多样的日历
+## 弹出层式的全日历
+## jquery双日历&lt;/p&gt;
+
+&lt;h1 id=&quot;section-30&quot;&gt;移动&lt;/h1&gt;
+
+&lt;h2 id=&quot;jquery-2&quot;&gt;大气实用jQuery手机移动端日历日期选择插件&lt;/h2&gt;
+&lt;p&gt;## jQuery Mobile 移动开发中的日期插件Mobiscroll&lt;/p&gt;
+
+&lt;h1 id=&quot;date-library&quot;&gt;Date library&lt;/h1&gt;
+
+&lt;h2 id=&quot;datejs&quot;&gt;Datejs&lt;/h2&gt;
+&lt;p&gt;## sugarjs&lt;/p&gt;
+
+&lt;h1 id=&quot;section-31&quot;&gt;综合效果搜索平台&lt;/h1&gt;
+
+&lt;h2 id=&quot;section-32&quot;&gt;效果网&lt;/h2&gt;
+&lt;p&gt;## 17素材
+## 常用的JavaScript代码片段&lt;/p&gt;
+
+&lt;h1 id=&quot;section-33&quot;&gt;前端工程化&lt;/h1&gt;
+
+&lt;h1 id=&quot;section-34&quot;&gt;概述&lt;/h1&gt;
+
+&lt;h2 id=&quot;section-35&quot;&gt;前端工具大全&lt;/h2&gt;
+&lt;p&gt;## 什么是前端工程化&lt;/p&gt;
+
+&lt;h1 id=&quot;gulp&quot;&gt;Gulp&lt;/h1&gt;
+
+&lt;h2 id=&quot;gulp-1&quot;&gt;Gulp官网&lt;/h2&gt;
+&lt;p&gt;## Gulp中文网
+## gulp资料收集
+## Gulp：任务自动管理工具 - ruanyifeng
+## Gulp插件
+## Gulp不完全入门教程
+## 为什么使用gulp?
+## Gulp安装及配合组件构建前端开发一体化
+## Gulp 入门指南
+## Gulp 入门指南 - nimojs
+## Gulp入门教程
+## Gulp in Action
+## Gulp开发教程（翻译）
+## 前端构建工具gulpjs的使用介绍及技巧&lt;/p&gt;
+
+&lt;h1 id=&quot;grunt&quot;&gt;Grunt&lt;/h1&gt;
+
+&lt;h2 id=&quot;gruntjs&quot;&gt;gruntjs&lt;/h2&gt;
+&lt;p&gt;## Grunt中文网&lt;/p&gt;
+
+&lt;h1 id=&quot;fis&quot;&gt;Fis&lt;/h1&gt;
+
+&lt;h2 id=&quot;fis-&quot;&gt;fis 官网&lt;/h2&gt;
+&lt;p&gt;## fis&lt;/p&gt;
+
+&lt;h1 id=&quot;section-36&quot;&gt;轮播图&lt;/h1&gt;
+
+&lt;h1 id=&quot;pc-2&quot;&gt;pc图轮&lt;/h1&gt;
+
+&lt;h2 id=&quot;sochange&quot;&gt;单屏轮播sochange&lt;/h2&gt;
+&lt;p&gt;## 左右按钮多图切换
+## fullpage全屏轮播&lt;/p&gt;
+
+&lt;h1 id=&quot;section-37&quot;&gt;移动端&lt;/h1&gt;
+
+&lt;h2 id=&quot;section-38&quot;&gt;无缝切换&lt;/h2&gt;
+&lt;p&gt;## 滑屏效果
+## 全屏fullpage
+## 单个图片切换
+## 单个全屏切换
+## 百度的切换库
+## 单个全屏切换
+## 滑屏效果
+## 旋转拖动设置
+## 类似于swipe切换
+## 支持多种形式的触摸滑动
+## 滑屏效果
+## 大话主席pc移动图片轮换
+## 滑屏效果
+## 基于zepto的fullpage
+## [WebApp]定宽网页设计下，固定宽度布局开发WebApp并实现多终端下WebApp布局自适应
+## 判断微信客户端的那些坑
+## 可以通过javascript直接调用原生分享的工具
+## JiaThis 分享到微信代码
+## 聊聊移动端跨平台开发的各种技术
+## 前端自动化测试
+## 多种轮换图片
+## 滑动侧边栏&lt;/p&gt;
+
+&lt;h1 id=&quot;section-39&quot;&gt;文件上传&lt;/h1&gt;
+
+&lt;h2 id=&quot;section-40&quot;&gt;百度上传组件&lt;/h2&gt;
+&lt;p&gt;## 上传
+## flash 头像上传
+## 图片上传预览
+## 图片裁剪
+## 图片裁剪-shearphoto
+## jQuery图片处理&lt;/p&gt;
+
+&lt;h1 id=&quot;select&quot;&gt;模拟select&lt;/h1&gt;
+
+&lt;h2 id=&quot;select-1&quot;&gt;糖饼 select&lt;/h2&gt;
+&lt;p&gt;## flexselect
+## 双select
+## select2&lt;/p&gt;
+
+&lt;h1 id=&quot;section-41&quot;&gt;取色插件&lt;/h1&gt;
+
+&lt;h2 id=&quot;photoshop-&quot;&gt;类似 Photoshop 的界面取色插件&lt;/h2&gt;
+&lt;p&gt;## jquery color
+## 取色插件集合
+## farbtastic 圆环＋正方形&lt;/p&gt;
+
+&lt;h1 id=&quot;section-42&quot;&gt;城市联动&lt;/h1&gt;
+
+&lt;h2 id=&quot;jquerycityselectjsjqueryjson&quot;&gt;jquery.cityselect.js基于jQuery+JSON的省市或自定义联动效果&lt;/h2&gt;
+
+&lt;h1 id=&quot;section-43&quot;&gt;剪贴板&lt;/h1&gt;
+
+&lt;h2 id=&quot;section-44&quot;&gt;剪贴板&lt;/h2&gt;
+&lt;p&gt;## clipboard 最新的剪切方案
+## 不是Flash的剪贴板&lt;/p&gt;
+
+&lt;h1 id=&quot;section-45&quot;&gt;简繁转换&lt;/h1&gt;
+
+&lt;h2 id=&quot;section-46&quot;&gt;简繁转换&lt;/h2&gt;
+
+&lt;h1 id=&quot;grid&quot;&gt;表格 Grid&lt;/h1&gt;
+
+&lt;h2 id=&quot;facebook&quot;&gt;facebook表格&lt;/h2&gt;
+&lt;p&gt;## 类似于Excel编辑表格-handsontable
+## bootstrap-table插件
+## datatables&lt;/p&gt;
+
+&lt;h1 id=&quot;section-47&quot;&gt;在线演示&lt;/h1&gt;
+
+&lt;h2 id=&quot;js----runjs&quot;&gt;js 在线编辑 - runjs&lt;/h2&gt;
+&lt;p&gt;## js 在线编辑 - jsbin
+## js 在线编辑 - codepen
+## js 在线编辑 - jsfiddle
+## java 在线编辑 - runjs
+## js 在线编辑 - hcharts
+## js 在线编辑 - jsdm
+## sql 在线编辑 - sqlfiddle
+## mozilla 在线编辑器&lt;/p&gt;
+
+&lt;h1 id=&quot;section-48&quot;&gt;播放器&lt;/h1&gt;
+
+&lt;h2 id=&quot;html5-videoplayer&quot;&gt;Html5 VideoPlayer&lt;/h2&gt;
+
+&lt;h1 id=&quot;section-49&quot;&gt;粒子动画&lt;/h1&gt;
+
+&lt;h2 id=&quot;proton-&quot;&gt;Proton 烟花&lt;/h2&gt;
+
+&lt;h1 id=&quot;nodejs&quot;&gt;Nodejs&lt;/h1&gt;
+
+&lt;h2 id=&quot;nodejs-&quot;&gt;nodejs 篇幅比较巨大&lt;/h2&gt;
+&lt;p&gt;## Node.js 包教不包会
+## 篇幅比较少
+## node express 入门教程
+## nodejs定时任务
+## 一个nodejs博客
+## 【NodeJS 学习笔记04】新闻发布系统
+## 过年7天乐，学nodejs 也快乐
+## 七天学会NodeJS
+## Nodejs学习笔记（二）— 事件模块
+## nodejs入门
+## angularjs nodejs
+## 从零开始nodejs系列文章
+## 理解nodejs
+## nodejs事件轮询
+## node入门
+## nodejs cms
+## Node初学者入门，一本全面的NodeJS教程
+## NodeJS的代码调试和性能调优&lt;/p&gt;
+
+&lt;h1 id=&quot;section-50&quot;&gt;性能优化&lt;/h1&gt;
+
+&lt;h1 id=&quot;section-51&quot;&gt;常规优化&lt;/h1&gt;
+
+&lt;h2 id=&quot;javascript-3&quot;&gt;Javascript高性能动画与页面渲染&lt;/h2&gt;
+&lt;p&gt;## 移动H5前端性能优化指南
+## 5173首页前端性能优化实践
+## 给网页设计师和前端开发者看的前端性能优化
+## 复杂应用的 CSS 性能分析和优化建议
+## 张鑫旭——前端性能
+## 前端性能监控总结
+## 网站性能优化之CSS无图片技术
+## web前端性能优化进阶路
+## 前端技术：网站性能优化之CSS无图片技术
+## 浏览器的加载与页面性能优化
+## 页面加载中的图片性能优化
+## Hey——前端性能
+## html优化
+## 99css——性能
+## Yslow——性能优化
+## YSLOW中文介绍
+## 转一篇Yahoo关于网站性能优化的文章，兼谈本站要做的优化
+## Yahoo!团队实践分享：网站性能
+## 网站性能优化指南：什么使我们的网站变慢？
+## 网站性能优化实践，减少加载时间，提高用户体验
+## 浅谈网站性能优化 前端篇
+## 前端重构实践之如何对网站性能优化？
+## 前端性能优化：使用媒体查询加载指定大小的背景图片
+## 网站性能系列博文
+## 加载，不只是少一点点
+## 前端性能的测试与优化
+## 分享网页加载速度优化的一些技巧？
+## 页面加载中的图片性能优化
+## web前端优化(基于Yslow)
+## 网站性能优化工具大全
+## 【高性能前端1】高性能HTML
+## 【高性能前端2】高性能CSS
+## 由12306谈谈网站前端性能和后端性能优化
+## AlloyTeam——前端优化
+## 毫秒必争，前端网页性能最佳实践
+## 网站性能工具Yslow的使用方法
+## 前端工程与性能优化（上）：静态资源版本更新与缓存
+## 前端工程与性能优化（下）：静态资源管理与模板框架
+## HTTPS连接的前几毫秒发生了什么
+## Yslow
+## Essential Web Performance Metrics — A Primer, Part 1
+## Essential Web Performance Metrics — Part 2
+## YUISlide,针对移动设备的动画性能优化
+## Improving Site Performance
+## 让网站提速的最佳前端实践
+## Why Website Speed is Important
+## Need for Speed – How to Improve your Website Performance
+## 阿里无线前端性能优化指南 (Pt.1 加载期优化)&lt;/p&gt;
+
+&lt;h1 id=&quot;section-52&quot;&gt;优化工具&lt;/h1&gt;
+
+&lt;h2 id=&quot;javascript--oneprofile&quot;&gt;JavaScript 性能分析新工具 OneProfile&lt;/h2&gt;
+&lt;p&gt;## JavaScript 堆内存分析新工具 OneHeap&lt;/p&gt;
+
+&lt;h1 id=&quot;section-53&quot;&gt;在线工具&lt;/h1&gt;
+
+&lt;h2 id=&quot;google&quot;&gt;google在线工具&lt;/h2&gt;
+&lt;p&gt;## 阿里测
+## 阿里-免费测试服务
+## 阿里-F2etest多浏览器兼容性测试解决方案
+## js性能测试&lt;/p&gt;
+
+&lt;h1 id=&quot;section-54&quot;&gt;前端架构&lt;/h1&gt;
+
+&lt;h2 id=&quot;section-55&quot;&gt;技术架构&lt;/h2&gt;
+&lt;p&gt;## 前端架构
+## 如何成为前端架构师
+## 关于前端架构-张克军
+## 百度腾讯offer比较（腾讯游戏VS百度基础架构）&lt;/p&gt;
+
+&lt;h1 id=&quot;section-56&quot;&gt;个人作品&lt;/h1&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;推荐作品&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;winter代码片段需要翻墙
+fgm
+岑安作品集
+当耐特demo集合
+米空格 js作品
+myFocus
+SeaJS组件库
+颜海镜作品
+脚儿网作品
+javascript个人作品
+妙味的雷东升游戏作品
+javascript作品集
+云五笔，灰度产生生成工具
+项目主页
+个性的作品主页
+播放器
+ucren js demos 集
+智能社
+实例陈列架
+zoye demo
+王员外
+平凡
+jyg 游戏案例
+很多jquery插件
+不羁虫 - soJs 作品系列
+frozenui
+黑白棋
+fromone
+2. 群员作品&lt;/p&gt;
+
+&lt;p&gt;MDialog - [合肥-M.J]
+轮播图 - [上海－冷静]
+[广州—坚壳]
+[成都 - 无痕]　感恩节专题
+[球霸天]
+[北京-小数]
+[ptf] Magix 工具
+[杭州-Pft] Magix 基于 MVC 结构和 Hash 驱动的 OPOA（One Page One Application）应用
+[上海-剧中人]-实验室
+[上海-豪情 ] 作品集合
+[成都-feeling]
+[上海-angela]
+[海南-hank]作品
+[上海-张力]博客
+[上海-zenki]作品
+移动端图案解锁
+[合肥-M.J] - MPreview 移动端图片预览组
+[合肥-M.J] - Mexam 移动端在线做题组
+[北京-苏瑞] - dancer小人
+[上海-玄沐]- 个人网站
+[厦门-二哲]- 个人博客
+3. 国外大牛精品&lt;/p&gt;
+
+&lt;p&gt;pazguille
+十三. 简历模板&lt;/p&gt;
+
+&lt;p&gt;不错的个人简历
+简历
+张伦
+简历
+翁天信
+动画方式的简历
+组件丰富简历
+简历池
+haorooms博客
+Justin Young
+十四. 面试题&lt;/p&gt;
+
+&lt;p&gt;那几个月在找工作（百度，网易游戏）
+2014最新面试题
+阿里前端面试题
+2016校招内推 – 阿里巴巴前端 – 三面面试经历
+腾讯面试题
+年后跳槽那点事：乐视+金山+360面试之行
+阿里前端面试题上线
+拉勾网js面试题
+前端面试
+Web开发笔试面试题 大全
+前端开发面试题
+2014最新前端面试题
+百度面试
+面试题
+前端工作面试问题
+前端开发面试题
+5个经典的前端面试问题
+最全前端面试问题及答案总结
+如何面试一名前端开发工程师？
+史上最全 前端开发面试问题及答案整理
+前端实习生面试总结
+史上最全 前端开发面试问题及答案整理
+BAT及各大互联网公司2014前端笔试面试题：JavaScript篇
+前端开发面试题大收集
+收集的前端面试题和答案
+如何面试前端工程师
+前端开发面试题
+牛客网-笔试面经
+十五. iconfont&lt;/p&gt;
+
+&lt;p&gt;中文字体
+淘宝字库
+字体
+制作教程
+zhangxinxu-icommon
+icommon
+用字体在网页中画ICON图标(推荐教程)
+字体压缩工具 感谢初级群　[深圳-小鱼] 的推荐
+十六. 开发工具类&lt;/p&gt;
+
+&lt;p&gt;前端开发工具&lt;/p&gt;
+
+&lt;p&gt;IntelliJ IDEA 简体中文专题教程
+Webstorm,InterllIdea,Phpstorm
+SublimeText
+Atom
+visual studio code
+Chrome, Firebug, Filddle 调试&lt;/p&gt;
+
+&lt;p&gt;Fiddler&lt;/p&gt;
+
+&lt;p&gt;Fiddler调式使用知多少(一)深入研究
+微信fiddle
+微信fiddle
+Chrome&lt;/p&gt;
+
+&lt;p&gt;Google Chrome 官方
+Chrome - 基础
+Chrome - 进阶
+Chrome - 性能
+Chrome - 性能进阶
+Chrome - 移动
+Chrome - 使用技巧
+Chrome - Console控制台不完全指南
+Chrome - Workspace使浏览器变成IDE
+network面板
+chrome开发工具快捷键
+chrome调试工具常用功能整理
+Chrome 开发工具 Workspace 使用
+Chrome神器Vimium快捷键学习记录
+sass调试-w3cplus
+如何更专业的使用Chrome开发者工具-w3cplus
+chrome调试canvas
+chrome profiles1
+chrome profiles2
+chrome profiles3
+chrome移动版调试
+chrome调试
+chrome的调试
+chrome console 命令详解
+查看事件绑定1
+查看事件绑定2
+神器——Chrome开发者工具(一)
+奇趣百科性能优化(Chrome DevTools 中的 Timeline Profils 等工具使用介绍)
+chrome 开发者工具的 15 个小技巧
+Chrome开发者工具不完全指南
+Chrome 开发者工具使用技巧
+Firebug&lt;/p&gt;
+
+&lt;p&gt;firebug视频教程
+firefox 模拟器
+console.log 命令详解
+Firebug入门指南
+Firebug控制台详解
+移动,微信调试&lt;/p&gt;
+
+&lt;p&gt;浏览器端调试安卓
+移动端前端开发调试
+使用 Chrome 远程调试 Android 设备
+mac移动端调试
+mac移动端调试
+无线调试攻略
+无线调试攻略
+屌爆了,完美调试 微信webview(x5)
+微信调试的那些事
+远程console
+微信调试工具
+各种真机远程调试方法汇总
+iOS Simulator&lt;/p&gt;
+
+&lt;p&gt;Simulator
+Xcode中的iOS模拟器(iOS Simulator)的介绍和使用心得
+img&lt;/p&gt;
+
+&lt;p&gt;loading img
+智图-图片优化平台
+在线png优化
+生成二维码&lt;/p&gt;
+
+&lt;p&gt;生成二维码
+浏览器同步&lt;/p&gt;
+
+&lt;p&gt;puer
+liveReload
+f5
+File Watchers
+在线PPT制作&lt;/p&gt;
+
+&lt;p&gt;nodePPT
+PPT
+reveal
+slippy
+十七. 前端导航网站&lt;/p&gt;
+
+&lt;p&gt;界面清爽的前端导航
+前端导航
+前端网址导航
+前端名录
+前端导航
+前端开发资源
+网址导航
+前端开发仓库 - 众多效果的收集地
+前端资源导航
+F2E 前端导航
+十八. 常用CDN&lt;/p&gt;
+
+&lt;p&gt;新浪CDN
+百度静态资源公共库
+360网站卫士常用前端公共库CDN服务
+Bootstrap中文网开源项目免费 CDN 服务
+开放静态文件 CDN - 七牛
+CDN加速 - jq22
+jQuery CDN
+Google jQuery CDN
+微软CDN
+十九. Git,SVN,Github&lt;/p&gt;
+
+&lt;p&gt;Git&lt;/p&gt;
+
+&lt;p&gt;git-scm
+廖雪峰-Git教程
+git-for-windows
+GitHub 添加 SSH keys
+gogithub
+git常规命令练习
+git的资料整理
+我所记录的git命令（非常实用）
+企业开发git工作流模式探索部分休整
+GitHub 漫游指南
+GitHub秘籍
+使用git和github进行协同开发流程
+动画方式练习git&lt;/p&gt;
+</description>
+        <pubDate>Mon, 04 Jul 2016 00:00:00 +0800</pubDate>
+        <link>https://github.com/BETH-zhang/2016/07/04/%E5%89%8D%E7%AB%AF%E8%B5%84%E6%BA%90%E5%A4%A7%E6%B1%87%E6%80%BB.html</link>
+        <guid isPermaLink="true">https://github.com/BETH-zhang/2016/07/04/%E5%89%8D%E7%AB%AF%E8%B5%84%E6%BA%90%E5%A4%A7%E6%B1%87%E6%80%BB.html</guid>
+        
+        
+      </item>
     
       <item>
         <title>前端性能优化</title>
@@ -322,1744 +2236,6 @@ $ git reset head
         <pubDate>Sun, 03 Jul 2016 00:00:00 +0800</pubDate>
         <link>https://github.com/BETH-zhang/2016/07/03/GIT%E5%B7%A5%E4%BD%9C%E6%B5%81.html</link>
         <guid isPermaLink="true">https://github.com/BETH-zhang/2016/07/03/GIT%E5%B7%A5%E4%BD%9C%E6%B5%81.html</guid>
-        
-        
-      </item>
-    
-      <item>
-        <title>Fis配置api</title>
-        <description>&lt;h2 id=&quot;section&quot;&gt;零配置&lt;/h2&gt;
-
-&lt;p&gt;不使用任何配置，fis将支持：&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;使用 fis install &lt;name&gt; 命令安装fis仓库提供的各种 组件、框架、示例、素材、配置等 开发资源。&lt;/name&gt;&lt;/li&gt;
-  &lt;li&gt;使用 fis server start 命令启动一个本地调试服务器，完美支持php后端程序&lt;/li&gt;
-  &lt;li&gt;使用 fis release –dest ./output –md5 命令为所有静态资源文件（js、css、图片、flash等）添加md5戳，并修改文件中的引用路径&lt;/li&gt;
-  &lt;li&gt;使用 fis release –dest ./output –optimize 命令对js、css、html、htm文件进行压缩（后续还会加上对图片的自动压缩）&lt;/li&gt;
-  &lt;li&gt;编译中对 js、 css 以及 类html ( html, htm, xhtml, tpl, php, jsp, asp ) 文件分别支持三种扩展语言能力：
-    &lt;ul&gt;
-      &lt;li&gt;资源定位：获取任何开发中所使用资源的线上路径；&lt;/li&gt;
-      &lt;li&gt;内容嵌入：把一个文件的内容(文本)或者base64编码(图片)嵌入到另一个文件中；&lt;/li&gt;
-      &lt;li&gt;依赖声明：在一个文本文件内标记对其他文件的依赖关系；&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;以上功能可满足传统前端开发所需的基本要求&lt;/p&gt;
-
-&lt;h2 id=&quot;section-1&quot;&gt;使用配置文件&lt;/h2&gt;
-
-&lt;p&gt;在项目目录下新建一个 fis-conf.js 文件，我们可以对fis的编译系统做各种定制化配置。配置fis系统的接口是：&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;fis.config.set(key, value); 或者
-
-fis.config.merge({...}); 由于fis自动化工具采用nodejs作为平台，因此其配置文件也是js书写的。fis变量是全局注册，config属性是fis系统的配置对象实例，merge或set方法用以合并配置数据。
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;h3 id=&quot;section-2&quot;&gt;内置的默认配置&lt;/h3&gt;
-
-&lt;p&gt;由于fis系统是完全插件化的，因此fis.config对象会有一些内置配置用以为用户提供零配置下的基本功能，所以配置文件中使用fis.config.merge 或者 fis.config.set 接口来追加用户配置。而内部初始化的配置数是：&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;nx&quot;&gt;fis&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;init&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;
-    &lt;span class=&quot;na&quot;&gt;project&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;na&quot;&gt;charset&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;utf8&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-        &lt;span class=&quot;na&quot;&gt;md5Length&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;7&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;script type=&quot;text/javascript&quot; src=&quot;/js/H5ComponentBase.js&quot;&gt;&lt;/script&gt;
-
-&lt;h2 id=&quot;section-3&quot;&gt;项目配置&lt;/h2&gt;
-
-&lt;p&gt;配置项 project&lt;/p&gt;
-
-&lt;div style=&quot;display:none;&quot;&gt;
-
-&lt;div id=&quot;charset&quot;&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;nx&quot;&gt;fis&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;set&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;project.charset&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;gbk&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-&lt;span class=&quot;err&quot;&gt;或者&lt;/span&gt;
-
-&lt;span class=&quot;nx&quot;&gt;fis&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;merge&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;
-    &lt;span class=&quot;na&quot;&gt;project&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;charset&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;gbk&#39;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;/div&gt;
-&lt;div id=&quot;md5Length&quot;&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;nx&quot;&gt;fis&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;set&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;project.md5Length&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;8&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-&lt;span class=&quot;err&quot;&gt;或者&lt;/span&gt;
-
-&lt;span class=&quot;nx&quot;&gt;fis&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;merge&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;
-    &lt;span class=&quot;na&quot;&gt;project&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;md5Length&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;8&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;/div&gt;
-&lt;div id=&quot;md5Connector&quot;&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;nx&quot;&gt;fis&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;set&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;project.md5Connector &#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;.&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-&lt;span class=&quot;err&quot;&gt;或者&lt;/span&gt;
-
-&lt;span class=&quot;nx&quot;&gt;fis&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;merge&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;
-    &lt;span class=&quot;na&quot;&gt;project&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;md5Connector&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;.&#39;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;/div&gt;
-&lt;div id=&quot;include&quot;&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;nx&quot;&gt;fis&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;set&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;project.include&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;src/**&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-&lt;span class=&quot;err&quot;&gt;或者&lt;/span&gt;
-
-&lt;span class=&quot;nx&quot;&gt;fis&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;merge&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;
-    &lt;span class=&quot;na&quot;&gt;project&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;include&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;src/**&#39;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
-&lt;span class=&quot;err&quot;&gt;或者&lt;/span&gt;
-
-&lt;span class=&quot;nx&quot;&gt;fis&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;set&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;project.include&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;src/**&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;sr&quot;&gt;/^&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\/&lt;/span&gt;&lt;span class=&quot;sr&quot;&gt;vendor&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\/&lt;/span&gt;&lt;span class=&quot;sr&quot;&gt;/i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]);&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;/div&gt;
-&lt;div id=&quot;exclude&quot;&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;nx&quot;&gt;fis&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;set&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;project.exclude&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;sr&quot;&gt;/^&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\/&lt;/span&gt;&lt;span class=&quot;sr&quot;&gt;_build&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\/&lt;/span&gt;&lt;span class=&quot;sr&quot;&gt;/i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-&lt;span class=&quot;err&quot;&gt;或者&lt;/span&gt;
-
-&lt;span class=&quot;nx&quot;&gt;fis&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;merge&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;
-    &lt;span class=&quot;na&quot;&gt;project&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;exclude&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;sr&quot;&gt;/^&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\/&lt;/span&gt;&lt;span class=&quot;sr&quot;&gt;_build&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\/&lt;/span&gt;&lt;span class=&quot;sr&quot;&gt;/i&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
-&lt;span class=&quot;err&quot;&gt;或者&lt;/span&gt;
-
-&lt;span class=&quot;nx&quot;&gt;fis&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;set&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;project.exclude&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;dist/**&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;sr&quot;&gt;/^&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\/&lt;/span&gt;&lt;span class=&quot;sr&quot;&gt;_build&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\/&lt;/span&gt;&lt;span class=&quot;sr&quot;&gt;/i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]);&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;/div&gt;
-&lt;div id=&quot;fileType-text&quot;&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;nx&quot;&gt;fis&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;set&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;project.fileType.text&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;tpl, js, css&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-&lt;span class=&quot;err&quot;&gt;或者&lt;/span&gt;
-
-&lt;span class=&quot;nx&quot;&gt;fis&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;merge&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;
-    &lt;span class=&quot;na&quot;&gt;project&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;na&quot;&gt;fileType&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-            &lt;span class=&quot;na&quot;&gt;text&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;tpl, js, css&#39;&lt;/span&gt;
-        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;/div&gt;
-&lt;div id=&quot;fileType-image&quot;&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;nx&quot;&gt;fis&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;set&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;project.fileType.image&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;swf, cur, ico&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-&lt;span class=&quot;err&quot;&gt;或者&lt;/span&gt;
-
-&lt;span class=&quot;nx&quot;&gt;fis&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;merge&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;
-    &lt;span class=&quot;na&quot;&gt;project&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;na&quot;&gt;fileType&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-            &lt;span class=&quot;na&quot;&gt;image&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;swf, cur, ico&#39;&lt;/span&gt;
-        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;/div&gt;
-&lt;div id=&quot;watch-exclude&quot;&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;nx&quot;&gt;fis&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;set&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;project.watch.exclude&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;node_modules&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-&lt;span class=&quot;err&quot;&gt;或者&lt;/span&gt;
-
-&lt;span class=&quot;nx&quot;&gt;fis&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;set&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;project.watch.exclude&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;node_modules&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;sr&quot;&gt;/docs/&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]);&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;/div&gt;
-&lt;div id=&quot;watch-usePolling&quot;&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;nx&quot;&gt;fis&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;set&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;project.watch.usePolling&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;/div&gt;
-
-&lt;/div&gt;
-
-&lt;div id=&quot;api-list-project&quot; class=&quot;light&quot;&gt;&lt;/div&gt;
-
-&lt;h2 id=&quot;section-4&quot;&gt;插件配置&lt;/h2&gt;
-
-&lt;p&gt;配置项 modules&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;fis系统有非常灵活的插件扩展能力，详细内容请参看 &lt;a href=&quot;http://fex.baidu.com/fis-site/docs/more/fis-base.html&quot;&gt;运行原理&lt;/a&gt;，&lt;a href=&quot;http://fex.baidu.com/fis-site/docs/more/how-plugin-works.html&quot;&gt;插件调用机制&lt;/a&gt;，&lt;a href=&quot;http://fex.baidu.com/fis-site/docs/more/extension-point.html&quot;&gt;插件扩展点列表&lt;/a&gt;等文档。
-fis所有的插件配置都支持定义一个 数组或者逗号分隔的字符串序列 来依次处理文件内容。&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;div id=&quot;api-list-plugin&quot; class=&quot;light&quot;&gt;&lt;/div&gt;
-
-&lt;div style=&quot;display:none;&quot;&gt;
-
-&lt;div id=&quot;parser&quot;&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;c1&quot;&gt;//fis-conf.js&lt;/span&gt;
-&lt;span class=&quot;nx&quot;&gt;fis&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;merge&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;
-    &lt;span class=&quot;na&quot;&gt;modules&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;na&quot;&gt;parser&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-            &lt;span class=&quot;c1&quot;&gt;//coffee后缀的文件使用fis-parser-coffee-script插件编译&lt;/span&gt;
-            &lt;span class=&quot;na&quot;&gt;coffee&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;coffee-script&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-            &lt;span class=&quot;c1&quot;&gt;//less后缀的文件使用fis-parser-less插件编译&lt;/span&gt;
-            &lt;span class=&quot;c1&quot;&gt;//处理器支持数组，或者逗号分隔的字符串配置&lt;/span&gt;
-            &lt;span class=&quot;na&quot;&gt;less&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;less&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt;
-            &lt;span class=&quot;c1&quot;&gt;//md后缀的文件使用fis-parser-marked插件编译&lt;/span&gt;
-            &lt;span class=&quot;na&quot;&gt;md&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;marked&#39;&lt;/span&gt;
-        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
-    &lt;span class=&quot;na&quot;&gt;roadmap&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;na&quot;&gt;ext&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-            &lt;span class=&quot;c1&quot;&gt;//less后缀的文件将输出为css后缀&lt;/span&gt;
-            &lt;span class=&quot;c1&quot;&gt;//并且在parser之后的其他处理流程中被当做css文件处理&lt;/span&gt;
-            &lt;span class=&quot;na&quot;&gt;less&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;css&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-            &lt;span class=&quot;c1&quot;&gt;//coffee后缀的文件将输出为js文件&lt;/span&gt;
-            &lt;span class=&quot;c1&quot;&gt;//并且在parser之后的其他处理流程中被当做js文件处理&lt;/span&gt;
-            &lt;span class=&quot;na&quot;&gt;coffee&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;js&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-            &lt;span class=&quot;c1&quot;&gt;//md后缀的文件将输出为html文件&lt;/span&gt;
-            &lt;span class=&quot;c1&quot;&gt;//并且在parser之后的其他处理流程中被当做html文件处理&lt;/span&gt;
-            &lt;span class=&quot;na&quot;&gt;md&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;html&#39;&lt;/span&gt;
-        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;/div&gt;
-&lt;div id=&quot;preprocessor&quot;&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;nx&quot;&gt;fis&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;set&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;modules.preprocessor.css&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;image-set&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-&lt;span class=&quot;err&quot;&gt;或者&lt;/span&gt;
-
-&lt;span class=&quot;c1&quot;&gt;//fis-conf.js&lt;/span&gt;
-&lt;span class=&quot;nx&quot;&gt;fis&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;merge&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;
-    &lt;span class=&quot;na&quot;&gt;modules&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;na&quot;&gt;preprocessor&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-            &lt;span class=&quot;c1&quot;&gt;//css后缀文件会经过fis-preprocessor-image-set插件的预处理&lt;/span&gt;
-            &lt;span class=&quot;na&quot;&gt;css&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;image-set&#39;&lt;/span&gt;
-        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;/div&gt;
-&lt;div id=&quot;postprocessor&quot;&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;err&quot;&gt;类似&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;modules&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;preprocessor&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;/div&gt;
-&lt;div id=&quot;lint&quot;&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;nx&quot;&gt;fis&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;set&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;modules.lint.js&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;jshint&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-&lt;span class=&quot;err&quot;&gt;或者&lt;/span&gt;
-
-&lt;span class=&quot;c1&quot;&gt;//fis-conf.js&lt;/span&gt;
-&lt;span class=&quot;nx&quot;&gt;fis&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;merge&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;
-    &lt;span class=&quot;na&quot;&gt;modules&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;na&quot;&gt;lint&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-            &lt;span class=&quot;c1&quot;&gt;//js后缀文件会经过fis-lint-jshint插件的代码校验检查&lt;/span&gt;
-            &lt;span class=&quot;na&quot;&gt;js&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;jshint&#39;&lt;/span&gt;
-        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;/div&gt;
-&lt;div id=&quot;test&quot;&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;nx&quot;&gt;fis&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;set&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;modules.test.js&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;phantomjs&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-&lt;span class=&quot;err&quot;&gt;或者&lt;/span&gt;
-
-&lt;span class=&quot;c1&quot;&gt;//fis-conf.js&lt;/span&gt;
-&lt;span class=&quot;nx&quot;&gt;fis&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;merge&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;
-    &lt;span class=&quot;na&quot;&gt;modules&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;na&quot;&gt;test&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-            &lt;span class=&quot;c1&quot;&gt;//js后缀文件会经过fis-test-phantomjs插件的测试&lt;/span&gt;
-            &lt;span class=&quot;na&quot;&gt;js&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;phantomjs&#39;&lt;/span&gt;
-        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;/div&gt;
-&lt;div id=&quot;optimizer&quot;&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;nx&quot;&gt;fis&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;set&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;modules.optimizer.js&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;uglify-js&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-&lt;span class=&quot;err&quot;&gt;或者&lt;/span&gt;
-
-&lt;span class=&quot;c1&quot;&gt;//fis-conf.js&lt;/span&gt;
-&lt;span class=&quot;nx&quot;&gt;fis&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;merge&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;
-    &lt;span class=&quot;na&quot;&gt;modules&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;na&quot;&gt;optimizer&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-            &lt;span class=&quot;c1&quot;&gt;//js后缀文件会经过fis-optimizer-uglify-js插件的压缩优化&lt;/span&gt;
-            &lt;span class=&quot;na&quot;&gt;js&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;uglify-js&#39;&lt;/span&gt;
-        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;/div&gt;
-&lt;div id=&quot;prepackager&quot;&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;nx&quot;&gt;fis&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;set&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;modules.prepackager&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;oo, xx&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-&lt;span class=&quot;err&quot;&gt;或者&lt;/span&gt;
-
-&lt;span class=&quot;c1&quot;&gt;//fis-conf.js&lt;/span&gt;
-&lt;span class=&quot;nx&quot;&gt;fis&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;merge&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;
-    &lt;span class=&quot;na&quot;&gt;modules&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;c1&quot;&gt;//打包前调用fis-prepackager-oo和fis-prepackager-xx插件进行处理&lt;/span&gt;
-        &lt;span class=&quot;na&quot;&gt;prepackager&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;oo, xx&#39;&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;/div&gt;
-&lt;div id=&quot;packager&quot;&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;nx&quot;&gt;fis&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;set&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;modules.packager&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;your_packager&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-&lt;span class=&quot;err&quot;&gt;或者&lt;/span&gt;
-
-&lt;span class=&quot;c1&quot;&gt;//fis-conf.js&lt;/span&gt;
-&lt;span class=&quot;nx&quot;&gt;fis&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;merge&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;
-    &lt;span class=&quot;na&quot;&gt;modules&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;c1&quot;&gt;//打包调用fis-packager-your_packager插件进行处理&lt;/span&gt;
-        &lt;span class=&quot;na&quot;&gt;packager&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;your_packager&#39;&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;/div&gt;
-&lt;div id=&quot;spriter&quot;&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;nx&quot;&gt;fis&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;set&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;modules.spriter&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;your_spriter&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-&lt;span class=&quot;err&quot;&gt;或者&lt;/span&gt;
-
-&lt;span class=&quot;c1&quot;&gt;//fis-conf.js&lt;/span&gt;
-&lt;span class=&quot;nx&quot;&gt;fis&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;merge&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;
-    &lt;span class=&quot;na&quot;&gt;modules&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;c1&quot;&gt;//打包后调用fis-spriter-your_spriter插件进行css sprites化处理&lt;/span&gt;
-        &lt;span class=&quot;na&quot;&gt;spriter&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;your_spriter&#39;&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;/div&gt;
-&lt;div id=&quot;postpackager&quot;&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;nx&quot;&gt;fis&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;set&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;modules.postpackager&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;your_postpackager&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-&lt;span class=&quot;err&quot;&gt;或者&lt;/span&gt;
-
-&lt;span class=&quot;c1&quot;&gt;//fis-conf.js&lt;/span&gt;
-&lt;span class=&quot;nx&quot;&gt;fis&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;merge&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;
-    &lt;span class=&quot;na&quot;&gt;modules&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;c1&quot;&gt;//打包后调用fis-postpackager-your_postpackager插件进行处理&lt;/span&gt;
-        &lt;span class=&quot;na&quot;&gt;postpackager&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;your_postpackager&#39;&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;/div&gt;
-
-&lt;/div&gt;
-
-&lt;h2 id=&quot;section-5&quot;&gt;插件运行配置&lt;/h2&gt;
-
-&lt;div id=&quot;api-list-plugin-run&quot; class=&quot;light&quot;&gt;&lt;/div&gt;
-
-&lt;div style=&quot;display:none;&quot;&gt;
-
-&lt;div id=&quot;settings&quot;&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;nx&quot;&gt;fis&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;set&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;settings.optimizer.uglify-js.output.max_line_len&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;500&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-&lt;span class=&quot;nx&quot;&gt;fis&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;set&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;settings.optimizer.clean-css.keepBreaks&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-&lt;span class=&quot;err&quot;&gt;或者&lt;/span&gt;
-
-&lt;span class=&quot;c1&quot;&gt;//fis-conf.js&lt;/span&gt;
-&lt;span class=&quot;nx&quot;&gt;fis&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;merge&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;
-    &lt;span class=&quot;na&quot;&gt;settings&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;na&quot;&gt;optimizer&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-            &lt;span class=&quot;c1&quot;&gt;//fis-optimizer-uglify-js插件的配置数据&lt;/span&gt;
-            &lt;span class=&quot;s1&quot;&gt;&#39;uglify-js&#39;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-                &lt;span class=&quot;na&quot;&gt;output&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-                    &lt;span class=&quot;na&quot;&gt;max_line_len&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;500&lt;/span&gt;
-                &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-            &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
-            &lt;span class=&quot;c1&quot;&gt;//fis-optimizer-clean-css插件的配置数据&lt;/span&gt;
-            &lt;span class=&quot;s1&quot;&gt;&#39;clean-css&#39;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-                &lt;span class=&quot;na&quot;&gt;keepBreaks&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;
-            &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;/div&gt;
-
-&lt;/div&gt;
-
-&lt;h2 id=&quot;section-6&quot;&gt;内置插件运行配置&lt;/h2&gt;
-
-&lt;div id=&quot;api-list-in-plugin&quot; class=&quot;light&quot;&gt;&lt;/div&gt;
-
-&lt;div style=&quot;display:none;&quot;&gt;
-
-&lt;div id=&quot;postprocessor-jswrapper&quot;&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;nx&quot;&gt;fis&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;set&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;settings.postprocessor.jswrapper.template&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;try{ ${content} }catch(e){e.message+=&quot;${id}&quot;;throw e;}&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-&lt;span class=&quot;err&quot;&gt;或者&lt;/span&gt;
-
-&lt;span class=&quot;nx&quot;&gt;fis&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;merge&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;
-    &lt;span class=&quot;na&quot;&gt;settings&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;na&quot;&gt;postprocessor&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-            &lt;span class=&quot;na&quot;&gt;jswrapper&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-                &lt;span class=&quot;na&quot;&gt;template&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;try{ ${content} }catch(e){ e.message += &quot;${id}&quot;; throw e; }&#39;&lt;/span&gt;
-            &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;/div&gt;
-&lt;div id=&quot;optimizer-uglify-js&quot;&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;c1&quot;&gt;//配置字符串全部转换为ascii字符&lt;/span&gt;
-&lt;span class=&quot;nx&quot;&gt;fis&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;set&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;settings.optimizer.uglify-js.output.ascii_only&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-&lt;span class=&quot;err&quot;&gt;或者&lt;/span&gt;
-
-&lt;span class=&quot;c1&quot;&gt;//配置字符串全部转换为ascii字符&lt;/span&gt;
-&lt;span class=&quot;nx&quot;&gt;fis&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;merge&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;
-    &lt;span class=&quot;na&quot;&gt;settings&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;na&quot;&gt;optimizer&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-            &lt;span class=&quot;s1&quot;&gt;&#39;uglify-js&#39;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-                &lt;span class=&quot;na&quot;&gt;output&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-                    &lt;span class=&quot;na&quot;&gt;ascii_only&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;
-                &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-            &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;/div&gt;
-&lt;div id=&quot;optimizer-clean-css&quot;&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;c1&quot;&gt;//配置压缩css时保留换行&lt;/span&gt;
-&lt;span class=&quot;nx&quot;&gt;fis&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;set&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;settings.optimizer.clean-css.keepBreaks&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-&lt;span class=&quot;err&quot;&gt;或者&lt;/span&gt;
-
-&lt;span class=&quot;c1&quot;&gt;//配置压缩css时保留换行&lt;/span&gt;
-&lt;span class=&quot;nx&quot;&gt;fis&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;merge&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;
-    &lt;span class=&quot;na&quot;&gt;settings&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;na&quot;&gt;optimizer&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-            &lt;span class=&quot;s1&quot;&gt;&#39;clean-css&#39;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-                &lt;span class=&quot;na&quot;&gt;keepBreaks&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;
-            &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;/div&gt;
-&lt;div id=&quot;optimizer-png-compressor&quot;&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;c1&quot;&gt;//使用pngquant进行压缩，png图片压缩后均为png8&lt;/span&gt;
-&lt;span class=&quot;nx&quot;&gt;fis&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;set&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;settings.optimizer.png-compressor.type&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;pngquant&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-&lt;span class=&quot;err&quot;&gt;或者&lt;/span&gt;
-
-&lt;span class=&quot;c1&quot;&gt;//使用pngquant进行压缩，png图片压缩后均为png8&lt;/span&gt;
-&lt;span class=&quot;nx&quot;&gt;fis&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;merge&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;
-    &lt;span class=&quot;na&quot;&gt;settings&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;na&quot;&gt;optimizer&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-            &lt;span class=&quot;s1&quot;&gt;&#39;png-compressor&#39;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-                &lt;span class=&quot;na&quot;&gt;type&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;pngquant&#39;&lt;/span&gt;
-            &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;/div&gt;
-&lt;div id=&quot;spriter-csssprites&quot;&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;c1&quot;&gt;//使用矩阵布局&lt;/span&gt;
-&lt;span class=&quot;nx&quot;&gt;fis&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;set&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;settings.spriter.csssprites.layout&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;matrix&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-&lt;span class=&quot;err&quot;&gt;或者&lt;/span&gt;
-
-&lt;span class=&quot;c1&quot;&gt;//使用矩阵布局&lt;/span&gt;
-&lt;span class=&quot;nx&quot;&gt;fis&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;merge&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;
-    &lt;span class=&quot;na&quot;&gt;settings&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;na&quot;&gt;spriter&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-            &lt;span class=&quot;na&quot;&gt;csssprites&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-                &lt;span class=&quot;na&quot;&gt;layout&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;matrix&#39;&lt;/span&gt;
-            &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;/div&gt;
-
-&lt;/div&gt;
-
-&lt;h2 id=&quot;section-7&quot;&gt;目录规范与域名配置&lt;/h2&gt;
-
-&lt;h2 id=&quot;roadmap&quot;&gt;配置项 roadmap&lt;/h2&gt;
-
-&lt;div id=&quot;api-list-roadmap&quot; class=&quot;light&quot;&gt;&lt;/div&gt;
-
-&lt;div style=&quot;display:none;&quot;&gt;
-
-&lt;div id=&quot;roadmap-path&quot;&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;nx&quot;&gt;fis&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;merge&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;
-    &lt;span class=&quot;na&quot;&gt;roadmap&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;na&quot;&gt;path&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;
-            &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-                &lt;span class=&quot;c1&quot;&gt;//所有widget目录下的js文件&lt;/span&gt;
-                &lt;span class=&quot;na&quot;&gt;reg&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;widget/**.js&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-                &lt;span class=&quot;c1&quot;&gt;//是模块化的js文件（标记为这种值的文件，会进行amd或者闭包包装）&lt;/span&gt;
-                &lt;span class=&quot;na&quot;&gt;isMod&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-                &lt;span class=&quot;c1&quot;&gt;//默认依赖lib.js&lt;/span&gt;
-                &lt;span class=&quot;na&quot;&gt;requires&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;lib.js&#39;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;],&lt;/span&gt;
-                &lt;span class=&quot;c1&quot;&gt;//向产出的map.json文件里附加一些信息&lt;/span&gt;
-                &lt;span class=&quot;na&quot;&gt;extras&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;say&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;123&#39;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
-                &lt;span class=&quot;c1&quot;&gt;//编译后产出到 /static/widget/xxx 目录下&lt;/span&gt;
-                &lt;span class=&quot;na&quot;&gt;release&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;/static$&amp;amp;&#39;&lt;/span&gt;
-            &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
-            &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-                &lt;span class=&quot;c1&quot;&gt;//所有的js文件&lt;/span&gt;
-                &lt;span class=&quot;na&quot;&gt;reg&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;**.js&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-                &lt;span class=&quot;c1&quot;&gt;//发布到/static/js/xxx目录下&lt;/span&gt;
-                &lt;span class=&quot;na&quot;&gt;release&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;/static/js$&amp;amp;&#39;&lt;/span&gt;
-            &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
-            &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-                &lt;span class=&quot;c1&quot;&gt;//所有的ico文件&lt;/span&gt;
-                &lt;span class=&quot;na&quot;&gt;reg&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;**.ico&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-                &lt;span class=&quot;c1&quot;&gt;//发布的时候即使加了--md5参数也不要生成带md5戳的文件&lt;/span&gt;
-                &lt;span class=&quot;na&quot;&gt;useHash&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;false&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-                &lt;span class=&quot;c1&quot;&gt;//发布到/static/xxx目录下&lt;/span&gt;
-                &lt;span class=&quot;na&quot;&gt;release&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;/static$&amp;amp;&#39;&lt;/span&gt;
-            &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
-            &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-                &lt;span class=&quot;c1&quot;&gt;//所有image目录下的.png，.gif文件&lt;/span&gt;
-                &lt;span class=&quot;na&quot;&gt;reg&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;sr&quot;&gt;/^&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\/&lt;/span&gt;&lt;span class=&quot;sr&quot;&gt;images&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\/(&lt;/span&gt;&lt;span class=&quot;sr&quot;&gt;.*&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\.(?:&lt;/span&gt;&lt;span class=&quot;sr&quot;&gt;png|gif&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;))&lt;/span&gt;&lt;span class=&quot;sr&quot;&gt;/i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-                &lt;span class=&quot;c1&quot;&gt;//访问这些图片的url是 &#39;/m/xxxx?log_id=123&#39;&lt;/span&gt;
-                &lt;span class=&quot;na&quot;&gt;url&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;/m/$1?log_id=123&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-                &lt;span class=&quot;c1&quot;&gt;//发布到/static/pic/xxx目录下&lt;/span&gt;
-                &lt;span class=&quot;na&quot;&gt;release&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;/static/pic/$1&#39;&lt;/span&gt;
-            &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
-            &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-                &lt;span class=&quot;c1&quot;&gt;//所有template目录下的.php文件&lt;/span&gt;
-                &lt;span class=&quot;na&quot;&gt;reg&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;sr&quot;&gt;/^&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\/&lt;/span&gt;&lt;span class=&quot;sr&quot;&gt;template&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\/(&lt;/span&gt;&lt;span class=&quot;sr&quot;&gt;.*&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\.&lt;/span&gt;&lt;span class=&quot;sr&quot;&gt;php&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;sr&quot;&gt;/i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-                &lt;span class=&quot;c1&quot;&gt;//是类html文件，会进行html语言能力扩展&lt;/span&gt;
-                &lt;span class=&quot;na&quot;&gt;isHtmlLike&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-                &lt;span class=&quot;c1&quot;&gt;//发布为gbk编码文件&lt;/span&gt;
-                &lt;span class=&quot;na&quot;&gt;charset&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;gbk&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-                &lt;span class=&quot;c1&quot;&gt;//发布到/php/template/xxx目录下&lt;/span&gt;
-                &lt;span class=&quot;na&quot;&gt;release&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;/php/template/$1&#39;&lt;/span&gt;
-            &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
-            &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-                &lt;span class=&quot;c1&quot;&gt;//前面规则未匹配到的其他文件&lt;/span&gt;
-                &lt;span class=&quot;na&quot;&gt;reg&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;sr&quot;&gt;/.*/&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-                &lt;span class=&quot;c1&quot;&gt;//编译的时候不要产出了&lt;/span&gt;
-                &lt;span class=&quot;na&quot;&gt;release&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;false&lt;/span&gt;
-            &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-        &lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;/div&gt;
-&lt;div id=&quot;roadmap-ext&quot;&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;c1&quot;&gt;//fis-conf.js&lt;/span&gt;
-&lt;span class=&quot;nx&quot;&gt;fis&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;merge&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;
-    &lt;span class=&quot;na&quot;&gt;roadmap&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;na&quot;&gt;ext&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-            &lt;span class=&quot;c1&quot;&gt;//less后缀的文件将输出为css后缀&lt;/span&gt;
-            &lt;span class=&quot;c1&quot;&gt;//并且在parser之后的其他处理流程中被当做css文件处理&lt;/span&gt;
-            &lt;span class=&quot;na&quot;&gt;less&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;css&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-            &lt;span class=&quot;c1&quot;&gt;//coffee后缀的文件将输出为js文件&lt;/span&gt;
-            &lt;span class=&quot;c1&quot;&gt;//并且在parser之后的其他处理流程中被当做js文件处理&lt;/span&gt;
-            &lt;span class=&quot;na&quot;&gt;coffee&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;js&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-            &lt;span class=&quot;c1&quot;&gt;//md后缀的文件将输出为html文件&lt;/span&gt;
-            &lt;span class=&quot;c1&quot;&gt;//并且在parser之后的其他处理流程中被当做html文件处理&lt;/span&gt;
-            &lt;span class=&quot;na&quot;&gt;md&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;html&#39;&lt;/span&gt;
-        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;/div&gt;
-&lt;div id=&quot;roadmap-domain&quot;&gt;
-
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;c1&quot;&gt;//fis-conf.js&lt;/span&gt;
-&lt;span class=&quot;c1&quot;&gt;//用法一&lt;/span&gt;
-&lt;span class=&quot;nx&quot;&gt;fis&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;merge&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;
-    &lt;span class=&quot;na&quot;&gt;roadmap&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;c1&quot;&gt;//所有静态资源文件都使用 http://s1.example.com 或者 http://s2.example.com 作为域名&lt;/span&gt;
-        &lt;span class=&quot;na&quot;&gt;domain&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;http://s1.example.com, http://s2.example.com&#39;&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
-&lt;span class=&quot;c1&quot;&gt;//用法二&lt;/span&gt;
-&lt;span class=&quot;nx&quot;&gt;fis&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;merge&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;
-    &lt;span class=&quot;na&quot;&gt;roadmap&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;na&quot;&gt;domain&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-            &lt;span class=&quot;c1&quot;&gt;//widget目录下的所有css文件使用 http://css1.example.com 作为域名&lt;/span&gt;
-            &lt;span class=&quot;s1&quot;&gt;&#39;widget/**.css&#39;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;http://css1.example.com&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-            &lt;span class=&quot;c1&quot;&gt;//所有的js文件使用 http://js1.example.com 或者  http://js2.example.com 作为域名&lt;/span&gt;
-            &lt;span class=&quot;s1&quot;&gt;&#39;**.js&#39;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;http://js1.example.com&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;http://js2.example.com&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
-        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-
-编译时使用fis release的 --domains 参数来控制是否添加domain
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;fis release --domains --dest ../output
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div id=&quot;roadmap-domain-image&quot;&gt; 
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;c1&quot;&gt;//fis-conf.js&lt;/span&gt;
-&lt;span class=&quot;nx&quot;&gt;fis&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;merge&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;
-    &lt;span class=&quot;na&quot;&gt;roadmap&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;na&quot;&gt;domain&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-            &lt;span class=&quot;c1&quot;&gt;//所有图片文件，使用 http://img.example.com 作为域名&lt;/span&gt;
-            &lt;span class=&quot;s1&quot;&gt;&#39;image&#39;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;http://img.example.com&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
-        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-编译时使用fis release的 --domains 参数来控制是否添加domain
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;fis release --domains --dest ../output&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;/div&gt;
-
-&lt;/div&gt;
-
-&lt;h2 id=&quot;section-8&quot;&gt;部署配置&lt;/h2&gt;
-
-&lt;div id=&quot;api-list-deploy&quot; class=&quot;light&quot;&gt;&lt;/div&gt;
-
-&lt;div style=&quot;display:none;&quot;&gt;
-&lt;div id=&quot;deploy&quot;&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;c1&quot;&gt;//fis-conf.js&lt;/span&gt;
-&lt;span class=&quot;nx&quot;&gt;fis&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;merge&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;
-    &lt;span class=&quot;na&quot;&gt;deploy&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;c1&quot;&gt;//使用fis release --dest remote来使用这个配置&lt;/span&gt;
-        &lt;span class=&quot;na&quot;&gt;remote&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-            &lt;span class=&quot;c1&quot;&gt;//如果配置了receiver，fis会把文件逐个post到接收端上&lt;/span&gt;
-            &lt;span class=&quot;na&quot;&gt;receiver&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;http://www.example.com/path/to/receiver.php&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-            &lt;span class=&quot;c1&quot;&gt;//从产出的结果的static目录下找文件&lt;/span&gt;
-            &lt;span class=&quot;na&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;/static&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-            &lt;span class=&quot;c1&quot;&gt;//保存到远端机器的/home/fis/www/static目录下&lt;/span&gt;
-            &lt;span class=&quot;c1&quot;&gt;//这个参数会跟随post请求一起发送&lt;/span&gt;
-            &lt;span class=&quot;na&quot;&gt;to&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;/home/fis/www/&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-            &lt;span class=&quot;c1&quot;&gt;//通配或正则过滤文件，表示只上传所有的js文件&lt;/span&gt;
-            &lt;span class=&quot;na&quot;&gt;include&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;**.js&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-            &lt;span class=&quot;c1&quot;&gt;//widget目录下的那些文件就不要发布了&lt;/span&gt;
-            &lt;span class=&quot;na&quot;&gt;exclude&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;sr&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\/&lt;/span&gt;&lt;span class=&quot;sr&quot;&gt;widget&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\/&lt;/span&gt;&lt;span class=&quot;sr&quot;&gt;/i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-            &lt;span class=&quot;c1&quot;&gt;//支持对文件进行字符串替换&lt;/span&gt;
-            &lt;span class=&quot;na&quot;&gt;replace&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-                &lt;span class=&quot;na&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;http://www.online.com&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-                &lt;span class=&quot;na&quot;&gt;to&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;http://www.offline.com&#39;&lt;/span&gt;
-            &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-        &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
-        &lt;span class=&quot;c1&quot;&gt;//名字随便取的，没有特殊含义&lt;/span&gt;
-        &lt;span class=&quot;na&quot;&gt;local&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-            &lt;span class=&quot;c1&quot;&gt;//from参数省略，表示从发布后的根目录开始上传&lt;/span&gt;
-            &lt;span class=&quot;c1&quot;&gt;//发布到当前项目的上一级的output目录中&lt;/span&gt;
-            &lt;span class=&quot;na&quot;&gt;to&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;../output&#39;&lt;/span&gt;
-        &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
-        &lt;span class=&quot;c1&quot;&gt;//也可以是一个数组&lt;/span&gt;
-        &lt;span class=&quot;na&quot;&gt;remote2&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;
-            &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-                &lt;span class=&quot;c1&quot;&gt;//将static目录上传到/home/fis/www/webroot下&lt;/span&gt;
-                &lt;span class=&quot;c1&quot;&gt;//上传文件路径为/home/fis/www/webroot/static/xxxx&lt;/span&gt;
-                &lt;span class=&quot;na&quot;&gt;receiver&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;http://www.example.com/path/to/receiver.php&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-                &lt;span class=&quot;na&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;/static&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-                &lt;span class=&quot;na&quot;&gt;to&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;/home/fis/www/webroot&#39;&lt;/span&gt;
-            &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
-            &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-                &lt;span class=&quot;c1&quot;&gt;//将template目录内的文件（不包括template一级）&lt;/span&gt;
-                &lt;span class=&quot;c1&quot;&gt;//上传到/home/fis/www/tpl下&lt;/span&gt;
-                &lt;span class=&quot;c1&quot;&gt;//上传文件路径为/home/fis/www/tpl/xxxx&lt;/span&gt;
-                &lt;span class=&quot;na&quot;&gt;receiver&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;http://www.example.com/path/to/receiver.php&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-                &lt;span class=&quot;na&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;/template&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-                &lt;span class=&quot;na&quot;&gt;to&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;/home/fis/www/tpl&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-                &lt;span class=&quot;na&quot;&gt;subOnly&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;
-            &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-        &lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;ul&gt;
-    &lt;li&gt;小贴士：&lt;/li&gt;
-
-&lt;li&gt;--dest参数 支持使用逗号（,）分割多个发布配置，比如上面的例子，我们可以使用fis release --dest remote,plugin 命令在一次编译中同时发布多个目标。&lt;/li&gt;
-
-&lt;li&gt;subOnly参数 默认上传from整个目录到测试机。添加subOnly参数仅上传from目录下文件。&lt;/li&gt;
-
-&lt;li&gt;replace替换多个字符串 需要replace替换多个字符串，可以使用正则的方式。例如：&lt;/li&gt;
-&lt;/ul&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
-replace : {
-    from : /www\.a\.com|www\.b\.com/,
-    to : function(m){
-        if(m === &#39;www.a.com&#39;) return &#39;www.x.com&#39;;
-        if(m === &#39;www.b.com&#39;) return &#39;www.y.com&#39;;
-    }
-}
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
-&lt;/div&gt;
-
-
-&lt;/div&gt;
-
-&lt;h2 id=&quot;deploy-&quot;&gt;deploy 扩展&lt;/h2&gt;
-
-&lt;p&gt;通过 deploy扩展 能力，用户可以自定义 fis 的产出功能，更方便的实现自动化部署功能。目前官方提供的 deploy扩展 有&lt;/p&gt;
-
-&lt;p&gt;tar
-git
-bcs&lt;/p&gt;
-
-&lt;p&gt;此外还有社区贡献的如&lt;/p&gt;
-
-&lt;p&gt;aliyun
-zip
-ftp&lt;/p&gt;
-
-&lt;p&gt;使用 deploy扩展 的方法与使用 fis 插件的方法类似&lt;/p&gt;
-
-&lt;p&gt;用法：&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;c1&quot;&gt;// 设置开启deploy扩展，可以输入数组来开启多个扩展&lt;/span&gt;
-&lt;span class=&quot;nx&quot;&gt;fis&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;set&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;modules.deploy&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;tar&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-
-&lt;span class=&quot;c1&quot;&gt;// 为指定扩展设置发布配置&lt;/span&gt;
-&lt;span class=&quot;nx&quot;&gt;fis&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;set&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;settings.deploy.tar&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;na&quot;&gt;publish&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;na&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;/&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-        &lt;span class=&quot;na&quot;&gt;to&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;/&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-        &lt;span class=&quot;na&quot;&gt;gzip&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-        &lt;span class=&quot;na&quot;&gt;level&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;//压缩质量 0-9，越大压缩比越高&lt;/span&gt;
-        &lt;span class=&quot;na&quot;&gt;memLevel&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;6&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;//压缩使用的内存量 1-9， 越大占用内存越多，执行速度越快&lt;/span&gt;
-        &lt;span class=&quot;na&quot;&gt;file&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;./output/output.tar.gz&#39;&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;# 发布至output/output.tar.gz
-fis release -d publish
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;h2 id=&quot;section-9&quot;&gt;打包配置&lt;/h2&gt;
-
-&lt;div id=&quot;api-list-pack&quot; class=&quot;light&quot;&gt;&lt;/div&gt;
-
-&lt;div style=&quot;display:none;&quot;&gt;
-&lt;div id=&quot;pack&quot;&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;c1&quot;&gt;//fis-conf.js&lt;/span&gt;
-&lt;span class=&quot;nx&quot;&gt;fis&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;merge&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;
-    &lt;span class=&quot;na&quot;&gt;pack&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;c1&quot;&gt;//打包所有的demo.js, script.js文件&lt;/span&gt;
-        &lt;span class=&quot;c1&quot;&gt;//将内容输出为static/pkg/aio.js文件&lt;/span&gt;
-        &lt;span class=&quot;s1&quot;&gt;&#39;pkg/aio.js&#39;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;**/demo.js&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;sr&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\/&lt;/span&gt;&lt;span class=&quot;sr&quot;&gt;script&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\.&lt;/span&gt;&lt;span class=&quot;sr&quot;&gt;js$/i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt;
-        &lt;span class=&quot;c1&quot;&gt;//打包所有的css文件&lt;/span&gt;
-        &lt;span class=&quot;c1&quot;&gt;//将内容输出为static/pkg/aio.css文件&lt;/span&gt;
-        &lt;span class=&quot;s1&quot;&gt;&#39;pkg/aio.css&#39;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;**.css&#39;&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-输出结果：使用命令 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
-    fis release --pack --md5 --dest ./output 
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-编译项目，然后到output目录下查看产出的map.json内容得到：
-
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;s2&quot;&gt;&quot;res&quot;&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;s2&quot;&gt;&quot;demo.css&quot;&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-            &lt;span class=&quot;s2&quot;&gt;&quot;uri&quot;&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;/static/css/demo_7defa41.css&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-            &lt;span class=&quot;s2&quot;&gt;&quot;type&quot;&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;css&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-            &lt;span class=&quot;s2&quot;&gt;&quot;pkg&quot;&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;p1&quot;&lt;/span&gt;
-        &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
-        &lt;span class=&quot;s2&quot;&gt;&quot;demo.js&quot;&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-            &lt;span class=&quot;s2&quot;&gt;&quot;uri&quot;&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;/static/js/demo_33c5143.js&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-            &lt;span class=&quot;s2&quot;&gt;&quot;type&quot;&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;js&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-            &lt;span class=&quot;s2&quot;&gt;&quot;deps&quot;&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;
-                &lt;span class=&quot;s2&quot;&gt;&quot;demo.css&quot;&lt;/span&gt;
-            &lt;span class=&quot;p&quot;&gt;],&lt;/span&gt;
-            &lt;span class=&quot;s2&quot;&gt;&quot;pkg&quot;&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;p0&quot;&lt;/span&gt;
-        &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
-        &lt;span class=&quot;s2&quot;&gt;&quot;index.html&quot;&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-            &lt;span class=&quot;s2&quot;&gt;&quot;uri&quot;&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;/index.html&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-            &lt;span class=&quot;s2&quot;&gt;&quot;type&quot;&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;html&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-            &lt;span class=&quot;s2&quot;&gt;&quot;deps&quot;&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;
-                &lt;span class=&quot;s2&quot;&gt;&quot;demo.js&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-                &lt;span class=&quot;s2&quot;&gt;&quot;demo.css&quot;&lt;/span&gt;
-            &lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
-        &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
-        &lt;span class=&quot;s2&quot;&gt;&quot;script.js&quot;&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-            &lt;span class=&quot;s2&quot;&gt;&quot;uri&quot;&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;/static/js/script_32300bf.js&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-            &lt;span class=&quot;s2&quot;&gt;&quot;type&quot;&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;js&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-            &lt;span class=&quot;s2&quot;&gt;&quot;pkg&quot;&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;p0&quot;&lt;/span&gt;
-        &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
-        &lt;span class=&quot;s2&quot;&gt;&quot;style.css&quot;&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-            &lt;span class=&quot;s2&quot;&gt;&quot;uri&quot;&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;/static/css/style_837b297.css&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-            &lt;span class=&quot;s2&quot;&gt;&quot;type&quot;&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;css&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-            &lt;span class=&quot;s2&quot;&gt;&quot;pkg&quot;&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;p1&quot;&lt;/span&gt;
-        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
-    &lt;span class=&quot;s2&quot;&gt;&quot;pkg&quot;&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;s2&quot;&gt;&quot;p0&quot;&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-            &lt;span class=&quot;s2&quot;&gt;&quot;uri&quot;&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;/static/pkg/aio_5bb04ef.js&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-            &lt;span class=&quot;s2&quot;&gt;&quot;type&quot;&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;js&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-            &lt;span class=&quot;s2&quot;&gt;&quot;has&quot;&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;
-                &lt;span class=&quot;s2&quot;&gt;&quot;demo.js&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-                &lt;span class=&quot;s2&quot;&gt;&quot;script.js&quot;&lt;/span&gt;
-            &lt;span class=&quot;p&quot;&gt;],&lt;/span&gt;
-            &lt;span class=&quot;s2&quot;&gt;&quot;deps&quot;&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;
-                &lt;span class=&quot;s2&quot;&gt;&quot;demo.css&quot;&lt;/span&gt;
-            &lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
-        &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
-        &lt;span class=&quot;s2&quot;&gt;&quot;p1&quot;&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-            &lt;span class=&quot;s2&quot;&gt;&quot;uri&quot;&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;/static/pkg/aio_cdf8bd3.css&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-            &lt;span class=&quot;s2&quot;&gt;&quot;type&quot;&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;css&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-            &lt;span class=&quot;s2&quot;&gt;&quot;has&quot;&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;
-                &lt;span class=&quot;s2&quot;&gt;&quot;demo.css&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-                &lt;span class=&quot;s2&quot;&gt;&quot;style.css&quot;&lt;/span&gt;
-            &lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
-        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;/div&gt;
-&lt;/div&gt;
-
-&lt;script type=&quot;text/javascript&quot; src=&quot;/js/H5ComponentApiList.js&quot;&gt;&lt;/script&gt;
-
-</description>
-        <pubDate>Thu, 30 Jun 2016 00:00:00 +0800</pubDate>
-        <link>https://github.com/BETH-zhang/2016/06/30/FIS%E9%85%8D%E7%BD%AEAPI.html</link>
-        <guid isPermaLink="true">https://github.com/BETH-zhang/2016/06/30/FIS%E9%85%8D%E7%BD%AEAPI.html</guid>
-        
-        
-      </item>
-    
-      <item>
-        <title>Git Tips</title>
-        <description>&lt;blockquote&gt;
-  &lt;p&gt;pezy edited this page on 30 Mar · 16 revisions&lt;br /&gt;
-https://github.com/pezy/blog.wiki.git
- Clone in Desktop
- 参考资料&lt;a href=&quot;http://gitref.org/&quot;&gt;Git参考手册&lt;/a&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;h2 id=&quot;how-to-set-proxy-in-windows-git&quot;&gt;How to set proxy in windows git?&lt;/h2&gt;
-
-&lt;p&gt;use git config -l can show all the configuration of your git.&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;set
-    git config --global http.proxy http://10.22.98.21:8080
-remove
-    git config --global (or --system or --local) --unset http.proxy
-remove all
-    git config --global (or --system or --local) --unset-all http.proxy
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;h2 id=&quot;git&quot;&gt;git如何回滚？&lt;/h2&gt;
-
-&lt;p&gt;刚才一次误操作仍然心有余悸，本想图省事直接在网页上为blog的post branch增加一个文件夹和一个markdown文档，结果不知怎么搞得合并到主gh-pages分支上去了。结果主分支一下子空了许多。立刻掏出命令行，找回之。&lt;/p&gt;
-
-&lt;p&gt;首先需要知道的是，你想回滚到哪一个提交版本？&lt;br /&gt;
-    commits list&lt;/p&gt;
-
-&lt;p&gt;如图所示，右边那串字符就是你的commits id了。复制你要回滚的版本id。 然后输入以下命令：&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;git reset --hard &amp;lt;tag/branch/commit id&amp;gt; 你会长舒一口气，至少硬盘上看，文件都回来了。 然后你将这些修改重新commit覆盖服务器端版本即可。
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;需要注意的是：本地branch为A，服务器端branch为B，请问如何正确的push?&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;git push origin A:B 这个冒号，可以理解为to的意思，from A to B.
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;h2 id=&quot;forkreporepo&quot;&gt;Fork的repo拉取并合并主repo的步骤&lt;/h2&gt;
-
-&lt;p&gt;首先要先确定一下是否建立了主repo的远程源：&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;git remote -v 如果里面只能看到你自己的两个源(fetch 和 push)，那就需要添加主repo的源：
-
-git remote add upstream URL
-git remote -v 然后你就能看到upstream了。
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;如果想与主repo合并：&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;git fetch upstream
-git merge upstream/master
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;h2 id=&quot;repo&quot;&gt;如何引入别人的repo&lt;/h2&gt;
-
-&lt;p&gt;Github 上常常有很多非常好的工具，如检测内存泄漏的，单元测试的。如何将这些工具引入到自己的 repo 目录里呢？&lt;/p&gt;
-
-&lt;p&gt;下面以 Cache 为例：&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;
-    &lt;p&gt;添加submodule：&lt;/p&gt;
-
-    &lt;p&gt;git submodule add git@github.com:philsquared/Catch.git&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;更新submodule：&lt;/p&gt;
-
-    &lt;p&gt;# should init
-  git submodule update –init
-  git submodule update&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;查看状态：&lt;/p&gt;
-
-    &lt;p&gt;git submodule status&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;更改URL&lt;/p&gt;
-
-    &lt;p&gt;# Modify your .gitmodule file to use the new URL
-  git submodule sync&lt;/p&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;pull-requestcommit&quot;&gt;发起一个pull request，我只想提交某一个commit怎么办？&lt;/h2&gt;
-
-&lt;p&gt;情景浮现：Cpp-Primer之前的章节被发现有Bug，可是我正在进行第七章的撰写，我不希望把这个半成品发给 @Mooophy，只想pull request给他Bug的修改。&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;# 新建一个branch来缓存origin repo
-git checkout -b upstream origin/master
-# 只截取某一个commit，cherry-pick，真是个好名字
-git cherry-pick &amp;lt;SHA hash of commit&amp;gt;
-# 推送到origin repo就行了
-git push origin upstream 当然，这几步其实都是在自己的fork内&quot;演练&quot;。你还需要在Github上点一下 pull request 按钮。然后万事大吉啦。
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;h2 id=&quot;section&quot;&gt;删除远程分支&lt;/h2&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;git push origin :del_branch_name
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;h2 id=&quot;section-1&quot;&gt;该死的行尾空白，能否忽略？&lt;/h2&gt;
-
-&lt;p&gt;由于经常在Windows和Mac上切换，两个系统的行尾空白符却不同意，造成很多不必要的diff，去掉这该死的差别：&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;git stripspace &amp;lt; README.md
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;h2 id=&quot;commit&quot;&gt;完了，这个不该commit的，能取消吗？&lt;/h2&gt;
-
-&lt;p&gt;有时候会出现不想commit的东西给commit了，尤其是喜欢用git commit -am的人。如何会退？&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;git reset --soft HEAD~1
-# 可以重新调整
-# 如果你想直接用上次的log，可以这样：
-git commit -c ORIG_HEAD
-# 如果你连log都要改，请使用常规的commit
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;h2 id=&quot;section-2&quot;&gt;修改远程地址&lt;/h2&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;git remote set-url origin git://new.url.here
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;h2 id=&quot;section-3&quot;&gt;快速查看冲突列表&lt;/h2&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;git diff --name-only --diff-filter=U
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;h2 id=&quot;section-4&quot;&gt;快速回滚到某历史版本&lt;/h2&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;git reset --hard &amp;lt;old-commit-id&amp;gt;
-git push -f origin branch Using this is dangerous in a collaborative environment: you&#39;re rewriting history.
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;h2 id=&quot;diff&quot;&gt;查看提交历史中的 diff&lt;/h2&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;
-    &lt;p&gt;看单个文件的全部 diff:&lt;/p&gt;
-
-    &lt;p&gt;git log –full-diff -p your_file_path&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;看最后两个历史 Commits 的 diff:&lt;/p&gt;
-
-    &lt;p&gt;git log -p -2&lt;/p&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;see more at: http://git-scm.com/book/en/v2/Git-Basics-Viewing-the-Commit-History&lt;/p&gt;
-
-&lt;h2 id=&quot;windows--unixlinux--diff&quot;&gt;如何处理 Windows 平台与 Unix/Linux 平台换行符的不一致带来的大量 diff?&lt;/h2&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;git config --global core.autocrlf input
-# Configure Git on OS X or Linux to properly handle line endings
-
-git config --global core.autocrlf true
-# Configure Git on Windows to properly handle line endings 参考：https://help.github.com/articles/dealing-with-line-endings/#platform-all
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;h2 id=&quot;gitignore--add&quot;&gt;如何将 .gitignore 里写过的后缀文件，强制 add?&lt;/h2&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;git add --force my/ignore/file.foo 远程有多个分支，我想将本地切换到远程的某一个分支该怎么做？
-
-git checkout -b test origin/test
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-</description>
-        <pubDate>Wed, 29 Jun 2016 00:00:00 +0800</pubDate>
-        <link>https://github.com/BETH-zhang/2016/06/29/Git-Tips.html</link>
-        <guid isPermaLink="true">https://github.com/BETH-zhang/2016/06/29/Git-Tips.html</guid>
-        
-        
-      </item>
-    
-      <item>
-        <title>2015年50+ css 工具、框架、库合集</title>
-        <description>&lt;p&gt;#2015年50+ CSS 工具、框架、库合集&lt;/p&gt;
-
-&lt;p&gt;CSS动画工具 &amp;amp; 库&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;
-    &lt;ol&gt;
-      &lt;li&gt;Animate Plus
-一个可以帮你创建CSS属性和SVG属性的JavaScript动画库。&lt;/li&gt;
-    &lt;/ol&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;ol&gt;
-      &lt;li&gt;Rocket
-一个创建WEB动画的简单的工具。&lt;/li&gt;
-    &lt;/ol&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;ol&gt;
-      &lt;li&gt;Tuesday
-新奇CSS动画库。&lt;/li&gt;
-    &lt;/ol&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;ol&gt;
-      &lt;li&gt;Shift.css
-创建定时CSS动画的简单框架。&lt;/li&gt;
-    &lt;/ol&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;ol&gt;
-      &lt;li&gt;MOTION UI
-用于创建灵活的CSS过渡和动画的SASS库。&lt;/li&gt;
-    &lt;/ol&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;ol&gt;
-      &lt;li&gt;Transformicons
-使用SVG和CSS的动画图标、符号、按钮。&lt;/li&gt;
-    &lt;/ol&gt;
-  &lt;/li&gt;
-  &lt;li&gt;CSS实用程序和工具
-    &lt;ol&gt;
-      &lt;li&gt;sanitize.css
-让浏览器渲染元素一致，并允许您以当前最佳实践的方式，即装即用。&lt;/li&gt;
-    &lt;/ol&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;ol&gt;
-      &lt;li&gt;CSS Stats
-CSS状态统计可视化工具。&lt;/li&gt;
-    &lt;/ol&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;ol&gt;
-      &lt;li&gt;cssfmt
-自动格式化CSS源代码的工具。&lt;/li&gt;
-    &lt;/ol&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;ol&gt;
-      &lt;li&gt;PurifyCSS
-很方便的检测你的应用使用了那些CSS选择器的工具，并创建一个未被使用的CSS的文件。&lt;/li&gt;
-    &lt;/ol&gt;
-  &lt;/li&gt;
-  &lt;li&gt;Flexbox工具
-    &lt;ol&gt;
-      &lt;li&gt;Flexbox in 5 Minutes
-CSS 的 flexbox属性主要特性的互动之旅。&lt;/li&gt;
-    &lt;/ol&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;ol&gt;
-      &lt;li&gt;Flexbugs
-Flexbox常见问题及狂浏览器解决方案&lt;/li&gt;
-    &lt;/ol&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;ol&gt;
-      &lt;li&gt;cssPlus
-基于 Flexbox 的稳健、快速、跨浏览器的布局脚手架。&lt;/li&gt;
-    &lt;/ol&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;ol&gt;
-      &lt;li&gt;Sketch Flex Layout
-允许CSS Flexbox布局的Sketch 插件&lt;/li&gt;
-    &lt;/ol&gt;
-  &lt;/li&gt;
-  &lt;li&gt;CSS工具包
-    &lt;ol&gt;
-      &lt;li&gt;CSSGram
-重塑Instagram过滤器的微型CSS库。&lt;/li&gt;
-    &lt;/ol&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;ol&gt;
-      &lt;li&gt;Flickity
-创建画廊与轮播图的CSS库。&lt;/li&gt;
-    &lt;/ol&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;ol&gt;
-      &lt;li&gt;Marx&lt;/li&gt;
-    &lt;/ol&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;ol&gt;
-      &lt;li&gt;Pushy
-使用CSS转换和过渡效果的响应式导航菜单。&lt;/li&gt;
-    &lt;/ol&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;ol&gt;
-      &lt;li&gt;Rucksack
-CSS 工具包&lt;/li&gt;
-    &lt;/ol&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;ol&gt;
-      &lt;li&gt;Drop
-用于创建下拉菜单和其他浮动元素的库。&lt;/li&gt;
-    &lt;/ol&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;ol&gt;
-      &lt;li&gt;Tufte CSS
-使用Edward Tufte的理念展示文章的工具&lt;/li&gt;
-    &lt;/ol&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;ol&gt;
-      &lt;li&gt;Gradify
-CSS渐变占位符图像&lt;/li&gt;
-    &lt;/ol&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;ol&gt;
-      &lt;li&gt;Stretchy
-表单元素大小自动调整&lt;/li&gt;
-    &lt;/ol&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;ol&gt;
-      &lt;li&gt;CSSketch
-开源的Sketch的CSS插件&lt;/li&gt;
-    &lt;/ol&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;ol&gt;
-      &lt;li&gt;SassyFlags
-为你的网站添加旗帜的简单库&lt;/li&gt;
-    &lt;/ol&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;ol&gt;
-      &lt;li&gt;ai2html
-把Illustrator文档转为HTML和CSS的开源工具&lt;/li&gt;
-    &lt;/ol&gt;
-  &lt;/li&gt;
-  &lt;li&gt;CSS工具包
-    &lt;ol&gt;
-      &lt;li&gt;Crayon.css
-CSS颜色变量名与16进制对应列表。&lt;/li&gt;
-    &lt;/ol&gt;
-  &lt;/li&gt;
-  &lt;li&gt;响应的网页框架和用户界面工具包
-    &lt;ol&gt;
-      &lt;li&gt;Juiced
-Flexbox CSS 框架&lt;/li&gt;
-    &lt;/ol&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;ol&gt;
-      &lt;li&gt;Primer
-CSS工具包与指南&lt;/li&gt;
-    &lt;/ol&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;ol&gt;
-      &lt;li&gt;Neutron
-创建灵化、简洁网页布局的SASS框架。&lt;/li&gt;
-    &lt;/ol&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;ol&gt;
-      &lt;li&gt;Basscss
-基本元素类型和不可改变的实用程序的轻量级集合。&lt;/li&gt;
-    &lt;/ol&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;ol&gt;
-      &lt;li&gt;flexible.gs
-灵活的响应式栅格布局CSS框架&lt;/li&gt;
-    &lt;/ol&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;ol&gt;
-      &lt;li&gt;Rin&lt;/li&gt;
-    &lt;/ol&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;ol&gt;
-      &lt;li&gt;Wee
-用于创建复杂逻辑、响应式的轻量级前端框架。&lt;/li&gt;
-    &lt;/ol&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;ol&gt;
-      &lt;li&gt;Scooter
-SCSS框架和UI库&lt;/li&gt;
-    &lt;/ol&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;ol&gt;
-      &lt;li&gt;spaceBase
-基于SASS的响应式CSS框架&lt;/li&gt;
-    &lt;/ol&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;ol&gt;
-      &lt;li&gt;Decorator
-HTML, CSS, and JavaScrip 前端框架&lt;/li&gt;
-    &lt;/ol&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;ol&gt;
-      &lt;li&gt;Rebar
-Sass/Stylus 栅格布局框架&lt;/li&gt;
-    &lt;/ol&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;ol&gt;
-      &lt;li&gt;Concise CSS
-使用SASS的轻量级易用框架&lt;/li&gt;
-    &lt;/ol&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;ol&gt;
-      &lt;li&gt;Workbench
-加快开发速度的前端样板&lt;/li&gt;
-    &lt;/ol&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;ol&gt;
-      &lt;li&gt;Lost
-SCSS 或 Stylus 栅格布局&lt;/li&gt;
-    &lt;/ol&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;ol&gt;
-      &lt;li&gt;minigrid()
-只有2KB的零依赖栅格布局&lt;/li&gt;
-    &lt;/ol&gt;
-  &lt;/li&gt;
-  &lt;li&gt;材料设计框架
-    &lt;ol&gt;
-      &lt;li&gt;Material
-HTML5 UI 框架&lt;/li&gt;
-    &lt;/ol&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;ol&gt;
-      &lt;li&gt;LumX
-基于 AngularJS &amp;amp; Material Design 的框架&lt;/li&gt;
-    &lt;/ol&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;ol&gt;
-      &lt;li&gt;MUI
-轻量级WEB框架&lt;/li&gt;
-    &lt;/ol&gt;
-  &lt;/li&gt;
-  &lt;li&gt;基于Web的CSS工具和应用程序
-    &lt;ol&gt;
-      &lt;li&gt;CSS Gradient Animator
-动态生成gradients的WEB工具&lt;/li&gt;
-    &lt;/ol&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;ol&gt;
-      &lt;li&gt;CIRCULUS.SVG
-SVG圆形菜单生成器&lt;/li&gt;
-    &lt;/ol&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;ol&gt;
-      &lt;li&gt;CSS Ruler&lt;/li&gt;
-    &lt;/ol&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;ol&gt;
-      &lt;li&gt;SVGOMG
-优化和配置SVGO的WEB应用&lt;/li&gt;
-    &lt;/ol&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;ol&gt;
-      &lt;li&gt;Blend
-生成简单漂亮CSS3 gradients的工具&lt;/li&gt;
-    &lt;/ol&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;ol&gt;
-      &lt;li&gt;Filter Blend
-CSS的混合模式和过滤器生成器&lt;/li&gt;
-    &lt;/ol&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;ol&gt;
-      &lt;li&gt;SVG Path Builder App
-使用GUI快速创建SVG path&lt;/li&gt;
-    &lt;/ol&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;ol&gt;
-      &lt;li&gt;.resizr
-测试  CSS media queries 的轻量级应用&lt;/li&gt;
-    &lt;/ol&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;ol&gt;
-      &lt;li&gt;css2sass
-把CSS代码转成SASS的应用&lt;/li&gt;
-    &lt;/ol&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-</description>
-        <pubDate>Wed, 29 Jun 2016 00:00:00 +0800</pubDate>
-        <link>https://github.com/BETH-zhang/2016/06/29/2015%E5%B9%B450+-CSS-%E5%B7%A5%E5%85%B7-%E6%A1%86%E6%9E%B6-%E5%BA%93%E5%90%88%E9%9B%86.html</link>
-        <guid isPermaLink="true">https://github.com/BETH-zhang/2016/06/29/2015%E5%B9%B450+-CSS-%E5%B7%A5%E5%85%B7-%E6%A1%86%E6%9E%B6-%E5%BA%93%E5%90%88%E9%9B%86.html</guid>
-        
-        
-      </item>
-    
-      <item>
-        <title>Fis的简单入门</title>
-        <description>&lt;blockquote&gt;
-  &lt;p&gt;FIS是专为解决前端开发中自动化工具、性能优化、模块化框架、开发规范、代码部署、开发流程等问题的工具框架。&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;使用FIS我们可以快速的完成各种前端项目的资源压缩、合并等等各种性能优化工作，同时FIS还提供了大量的开发辅助功能&lt;/p&gt;
-
-&lt;h2&gt;首先我们了解一下FIS的基本命令&lt;/h2&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;- fis install: 命令安装fis仓库提供的各种 组件、框架、示例、素材、配置等 开发资源。
-- fis release: 命令用于编译并发布的你的项目，拥有多个参数调整编译发布操作。
-- fis server: 命令可以启动一个本地调试服务器用于预览fis release产出的项目。
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;下面这张图描述了FIS的整个使用流程
-&lt;img src=&quot;/img/flow_d30795e.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-
-&lt;h2&gt;接下来我们可以通过快速入门进一步的了解FIS&lt;/h2&gt;
-
-&lt;!-- 准备工作
-快速入门除了文档外，我们还提供了视频教程，欢迎大家观看，看到最后有彩蛋哟-`д´- 传送门 --&gt;
-
-&lt;h4&gt;工具安装&lt;/h4&gt;
-&lt;p&gt;FIS使用Node.js开发，以npm包的形式发布。因此使用FIS需要先安装Node.js，再通过npm安装命令进行FIS安装。&lt;/p&gt;
-
-&lt;p&gt;$ npm install -g fis&lt;/p&gt;
-
-&lt;p&gt;$ npm install -g fis@1.9.14   此方法可以选择安装FIS版本
-安装遇到困难？点击这里&lt;/p&gt;
-
-&lt;p&gt;遇到问题：&lt;/p&gt;
-
-&lt;p&gt;FIS作为nodejs模块发布托管在 npm上，npm是nodejs的包管理工具。查看npm网站&lt;/p&gt;
-
-&lt;p&gt;用户需要使用npm install命令来安装FIS。更多npm使用，执行 npm -h 来查看&lt;/p&gt;
-
-&lt;p&gt;由于npm经常被墙，安装FIS的时候会出现速度过慢，或者安装不上的问题 。可以通过 npm的 –registry参数指定仓库。指定国内的npm镜像来解决npm被墙的问题。&lt;/p&gt;
-
-&lt;p&gt;例如：&lt;/p&gt;
-
-&lt;p&gt;npm install some-npm-module -g –registry=国内镜像
-下面提供一个国内镜像。其他镜像大家可以自己找找
-–registry=http://registry.npm.taobao.org/
-即你可以通过下面的命令使用cnpmjs仓库安装FIS&lt;/p&gt;
-
-&lt;p&gt;npm install fis -g –registry=http://registry.npm.taobao.org/
-注意 如果提示Error: No compatible version found.. ，有可能是npm版本过低导致，可以参考 #83 解决&lt;/p&gt;
-
-&lt;p&gt;注意 如果提示WARN optional dep failed, continuing fsevents 警告，可以无视，这个是一个可选依赖包，仅在Mac下可以使用。&lt;/p&gt;
-
-&lt;p&gt;示例准备
-在介绍FIS的主要功能前，需要先准备一个示例项目。可以从Github上获取。&lt;/p&gt;
-
-&lt;p&gt;$ git clone https://github.com/hefangshi/fis-quickstart-demo.git
-本地预览
-首先我们可以通过 fis server start 命令启动FIS的本地调试服务器功能对构建发布的项目进行预览调试&lt;/p&gt;
-
-&lt;p&gt;$ fis server start
-注意&lt;/p&gt;
-
-&lt;p&gt;如果8080端口被占用，可以通过 fis server start -p [port] 指定新的端口。&lt;/p&gt;
-
-&lt;p&gt;如果没有java、php环境，可以通过 fis server start –type node 启动Node版fis server。&lt;/p&gt;
-
-&lt;p&gt;命令执行后内置服务器会一直运行，可以通过 fis server stop 命令关闭内置服务器。&lt;/p&gt;
-
-&lt;p&gt;本地调试服务器启动成功后，就会自动打开 http://127.0.0.1:8080 ，但是此时服务器内没有任何内容。我们还需要通过FIS发布DEMO项目才能进行预览&lt;/p&gt;
-
-&lt;p&gt;$ cd fis-quickstart-demo #进入DEMO目录
-$ fis release #编译并发布DEMO
-fis release 命令会将编译后的项目发布至本地调试服务器，再次刷新浏览器页面，我们就可以到fis-quickstart-demo项目的主页了。&lt;/p&gt;
-
-&lt;p&gt;资源压缩
-资源压缩一直是前端项目优化中非常重要的一环，使用FIS我们无需任何配置，只需要一个命令就可以完成压缩工作。&lt;/p&gt;
-
-&lt;p&gt;$ fis release –optimize
-如果觉得参数输入比较麻烦，实际上也支持参数缩写，更多的参数可以参考 fis release -h 或命令行。&lt;/p&gt;
-
-&lt;p&gt;$ fis release -o
-FIS构建并不会修改源代码目录中的内容，而是拥有独立的产出的目录，FIS默认的产出目构录可以通过 fis server open打开，你也可以通过 fis release -d path/to/output 指定你希望的输出目录，详情可以参考FAQ&lt;/p&gt;
-
-&lt;p&gt;查看一下网站的静态资源，我们会发现脚本、样式、图片资源都已经压缩完成。无需额外的插件和配置编写，一条命令就完成了压缩工作，是不是非常方便快捷？&lt;/p&gt;
-
-&lt;p&gt;FIS默认会调整所有资源引用的相对路径为绝对路径，如果只是单纯的希望对项目的脚本、样式、图片进行压缩，不希望对资源引用地址做调整，可以直接使用基于FIS封装的spt。&lt;/p&gt;
-
-&lt;p&gt;添加文件版本
-FIS能够根据静态资源的内容自动生成文件版本，自动更新资源引用路径，解决缓存更新问题，告别手动更新时间戳。&lt;/p&gt;
-
-&lt;p&gt;我们通过开启 –md5 参数，为项目中的静态资源添加md5版本号&lt;/p&gt;
-
-&lt;p&gt;$ fis release –optimize –md5 # fis release -om
-刷新页面，我们可以看到所有资源均加上了md5版本号&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/img/md5_0102c44.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;还是喜欢时间戳？没问题，FIS也可以满足你的需求&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;nx&quot;&gt;fis&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;set&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;roadmap.path&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;na&quot;&gt;reg&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;sr&quot;&gt;/.*&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\.(&lt;/span&gt;&lt;span class=&quot;sr&quot;&gt;js|css&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;sr&quot;&gt;$/&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-        &lt;span class=&quot;na&quot;&gt;query&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;?t=${timestamp}&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-        &lt;span class=&quot;c1&quot;&gt;//useSprite: true&lt;/span&gt;
-        &lt;span class=&quot;na&quot;&gt;useHash&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;false&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;na&quot;&gt;reg&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;**.html&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-        &lt;span class=&quot;na&quot;&gt;useCache&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;false&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;]);&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;fis release --md5 -d output 
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;h2&gt;资源合并&lt;/h2&gt;
-&lt;h3&gt;设置打包&lt;/h3&gt;
-&lt;p&gt;FIS可以通过pack来进行资源文件的合并，比如我们需要将DEMO中的公共库文件打包在一起，可以修改fis-conf.js配置，加入pack配置&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;nx&quot;&gt;fis&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;set&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;pack&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;s1&quot;&gt;&#39;pkg/lib.js&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;
-        &lt;span class=&quot;s1&quot;&gt;&#39;/lib/mod.js&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-        &lt;span class=&quot;s1&quot;&gt;&#39;/modules/underscore/**.js&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-        &lt;span class=&quot;s1&quot;&gt;&#39;/modules/backbone/**.js&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-        &lt;span class=&quot;s1&quot;&gt;&#39;/modules/jquery/**.js&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-        &lt;span class=&quot;s1&quot;&gt;&#39;/modules/vendor/**.js&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-        &lt;span class=&quot;s1&quot;&gt;&#39;/modules/common/**.js&#39;&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;设置完pack后，FIS默认只会进行文件打包，不会对页面中的静态资源引用进行替换，我们可以通过引入后端静态资源管理来加载打包模块。不过也可以利用fis-postpackager-simple插件，可以自动将页面中独立的资源引用替换为打包资源。&lt;/p&gt;
-
-&lt;h3&gt;插件安装&lt;/h3&gt;
-&lt;p&gt;FIS的编译系统拥有一个使用简单、扩展方便的插件体系，这套插件体系保证了FIS编译工具的灵活性和生命力。这里我们简单介绍一下FIS插件的安装方法，更加详细的插件系统介绍可以查看配置API modules。&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;所有fis插件介绍：
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;插件的安装分为两步，首先我们需要通过npm包管理工具进行插件安装&lt;/p&gt;
-
-&lt;p&gt;$ npm install -g fis-postpackager-simple
-fis-postpackager-simple插件是提供给纯前端应用的打包合并插件，其他定制解决方案，如fis-plus、yogurt等不需要这个插件，需要查看各自的文档了解使用方式。&lt;/p&gt;
-
-&lt;p&gt;插件安装到本地后，我们还需要通过项目配置文件开启插件，修改项目根目录下的fis-conf.js配置，开启fis-postpackager-simple插件&lt;/p&gt;
-
-&lt;p&gt;$ cd fis-quickstart-demo
-$ vi fis-conf.js #vi是linux下的文本编辑器，windows用户可以选用任意文本编辑器对fis-conf.js文件进行编辑。
-//file : fis-conf.js
-fis.config.set(‘modules.postpackager’, ‘simple’);
-应用打包
-为了开发调试时更加方便 fis release 默认不会合并资源，在指定了 –pack 参数后，FIS才会进行打包合并处理。&lt;/p&gt;
-
-&lt;p&gt;$ fis release –optimize –md5 –pack # fis release -omp
-再次浏览我们可以发现原有的基础类库引用已经被替换为了 lib.js ，关于fis-postpackager-simple插件更多的静态资源处理策略和使用方法，请参考fis-postpackager-simple。&lt;/p&gt;
-
-&lt;h3&gt;资源合并&lt;/h3&gt;
-
-&lt;p&gt;自动打包
-利用simple插件，我们还可以按页面进行自动合并，将没有通过pack设置打包的零散资源自动合并起来。&lt;/p&gt;
-
-&lt;p&gt;//file : fis-conf.js
-//开启autoCombine可以将零散资源进行自动打包
-fis.config.set(‘settings.postpackager.simple.autoCombine’, true);
-再次运行FIS构建项目&lt;/p&gt;
-
-&lt;p&gt;$ fis release -omp
-我们会发现剩余的零散资源已经被自动合并了。&lt;/p&gt;
-
-&lt;p&gt;人工干预合并&lt;/p&gt;
-
-&lt;p&gt;合并图片
-通过上述几个步骤，我们已经成功将脚本资源和样式表资源进行了合并，但是为了进一步的减少HTTP连接数，我们还可以对引用的图片资源进行进一步的合并。&lt;/p&gt;
-
-&lt;p&gt;用于图片合并的插件csssprites已经在FIS中内置了，因此无需安装，只需要在fis-conf.js的配置中开启即可&lt;/p&gt;
-
-&lt;p&gt;//为所有样式资源开启csssprites
-fis.config.set(‘roadmap.path’, [{
-    reg: ‘**.css’,
-    useSprite: true
-}]);
-//设置csssprites的合并间距
-fis.config.set(‘settings.spriter.csssprites.margin’, 20);
-使用csssprites合并的图片需要在图片路径处添加query标识，示例项目中已经预先添加，更详细的使用方法可以参考使用文档&lt;/p&gt;
-
-&lt;p&gt;再次运行FIS构建项目&lt;/p&gt;
-
-&lt;p&gt;$ fis release -omp
-刷新一下，添加几个待办项，我们会发现所有待办项的图片都合并在了一张图片中。&lt;/p&gt;
-
-&lt;p&gt;人工干预合并&lt;/p&gt;
-
-&lt;p&gt;辅助开发
-语言扩展
-使用FIS可以方便的将各种异构语言转换为前端语言，比如说可以将CoffeeScript编译为JavaScript、Less编译为CSS、前端模板预编译等等，并且可以做到各种异构语言无缝混用，我们以Less为例演示如何使用FIS来扩展前端开发语言。&lt;/p&gt;
-
-&lt;p&gt;更多的语言扩展类插件可以查看更多插件&lt;/p&gt;
-
-&lt;p&gt;插件安装
-$ npm install -g fis-parser-less
-开启插件
-//file: fis-conf.js&lt;/p&gt;
-
-&lt;p&gt;//后缀名的less的文件使用fis-parser-less编译
-//modules.parser.less表示设置后缀名为less的文件的parser，第二个less表示使用fis-parser-less进行编译
-fis.config.set(‘modules.parser.less’, ‘less’);
-//将less文件编译为css
-fis.config.set(‘roadmap.ext.less’, ‘css’);
-快速试用
-在fis-conf.js同目录编写一个LESS文件&lt;/p&gt;
-
-&lt;p&gt;body {
-    .container {
-        width: 980px;
-    }
-}
-使用发布到output目录中&lt;/p&gt;
-
-&lt;p&gt;$ fis release -wd output
-可以看到在output目录中，原有的less文件已经被编译为了css文件&lt;/p&gt;
-
-&lt;p&gt;body .container {
-  width: 980px;
-}
-由于我们添加了 -w 参数，你还可以随意修改LESS文件，FIS将会自动监听文件修改，自动编译发布CSS文件&lt;/p&gt;
-
-&lt;p&gt;自动化
-文件监视
-通过文件监视功能，我们可以要求FIS在项目文件出现修改时，自动增量构建项目文件。并且增量构建是考虑了各种嵌入关系的，比如a.css文件内嵌了b.css文件，那么当b.css文件修改时，FIS会自动重新构建a.css和b.css两个文件。&lt;/p&gt;
-
-&lt;p&gt;可以使用快速入门中的fis-quickstart-demo试试看，首先开启文件监听功能&lt;/p&gt;
-
-&lt;p&gt;fis release –watch #fis release -w
-随意修改项目内容，返回页面刷新即可查看到相应的变化。&lt;/p&gt;
-
-&lt;p&gt;自动刷新
-我们只需要在文件监视的参数基础上添加 –live 或 -L 参数即可实现在项目文件发生修改后，自动刷新页面的功能，大幅提高页面制作效率。&lt;/p&gt;
-
-&lt;p&gt;fis release –watch –live #fis release -wL
-随意修改项目内容，页面将会应用修改并自动刷新。&lt;/p&gt;
-
-&lt;p&gt;要求浏览器环境支持WebSocket。&lt;/p&gt;
-
-&lt;p&gt;快速部署
-通过配置我们可以快速的将FIS的编译结果上传至指定的文件夹甚至远程服务器与后端联调，结合文件监视、自动刷新功能我们可以做到修改文件后自动更新远程服务器内容，并刷新调试页面。详细配置可以参见deploy。&lt;/p&gt;
-
-&lt;p&gt;更多的辅助开发能力可以参考命令行。&lt;/p&gt;
-
-&lt;h2&gt;命令行&lt;/h2&gt;
-&lt;p&gt;三条命令，满足你的所有需求&lt;/p&gt;
-
-&lt;p&gt;执行 fis –help 让我们来看一下fis命令的相关帮助：&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Usage: fis &amp;lt;command&amp;gt;
-
-Commands:
-
-  release     build and deploy your project
-  install     install components and demos
-  server      launch a php-cgi server
-
-Options:
-
-  -h, --help     output usage information
-  -v, --version  output the version number
-  --no-color     disable colored output
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;正如你所见，使用fis你需要——也只需要——记住三条命令：&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;fis release： 编译并发布你的项目,它的参数囊括了前端开发所需的各种基础功能
-    &lt;ul&gt;
-      &lt;li&gt;–watch 或 -w，支持对项目进行增量编译，监听文件变化再触发编译&lt;/li&gt;
-      &lt;li&gt;–live 或 -L，支持编译后自动刷新浏览器。Liveload功能需要浏览器支持Web Socket功能，例如Chrome、Firefox、Safari等浏览器。&lt;/li&gt;
-      &lt;li&gt;
-        &lt;table&gt;
-          &lt;tbody&gt;
-            &lt;tr&gt;
-              &lt;td&gt;–dest [path&lt;/td&gt;
-              &lt;td&gt;name] 或 -d ，来指定编译后的代码部署路径，支持发布到 本地目录、本地调试服务器目录、远程机器目录(需要配置)，它与–watch参数配合使用，可以让你的代码保存就上传！而且–dest值支持逗号分隔，这也就意味着，你 一次编译可以同时发布到本地以及多台远程机器上！&lt;/td&gt;
-            &lt;/tr&gt;
-          &lt;/tbody&gt;
-        &lt;/table&gt;
-      &lt;/li&gt;
-      &lt;li&gt;–lint 或 -l ，支持在编译的时候根据项目配置自动代码检查&lt;/li&gt;
-      &lt;li&gt;–test 或 -t ，支持在编译的时候对代码进行自动化测试&lt;/li&gt;
-      &lt;li&gt;–pack 或 -p，对产出文件根据项目配置进行打包&lt;/li&gt;
-      &lt;li&gt;–optimize 或 -o，对js、css、html进行压缩&lt;/li&gt;
-      &lt;li&gt;–domains 或 -D，为资源添加domain域名&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;fis install：安装fis仓库提供的各种 组件，框架，库，样例项目，甚至配置文件 等模块
-    &lt;ul&gt;
-      &lt;li&gt;从fis代码仓库下载-&amp;gt;解压到当前目录。&lt;img src=&quot;/img/install.png&quot; alt=&quot;&quot; /&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;fis server：启动一个 1.8M 大小的内置调试服务器，它采用php-java-bridge技术实现， 依赖java、php-cgi外部环境 ，可以 完美支持运行php程序 哦。&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;你将看到fis的自动化工具对 html、js、css各自扩展了三种语言能力：&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;资源定位：获取任何开发中所使用资源的线上路径；
-    &lt;ul&gt;
-      &lt;li&gt;资源定位能力，可以有效的分离开发路径与部署路径之间的关系，工程师不再关心资源部署到线上之后去了哪里，变成了什么名字，这些都可以通过配置来指定。而工程师只需要使用相对路径来定位自己的开发资源即可。这样的好处是 资源可以发布到任何静态资源服务器的任何路径上而不用担心线上运行时找不到它们，而且 代码 具有很强的可移植性，甚至可以从一个产品线移植到另一个产品线而不用担心线上部署不一致的问题。&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;内容嵌入：把一个文件的内容(文本)或者base64编码(图片)嵌入到另一个文件中；
-    &lt;ul&gt;
-      &lt;li&gt;内容嵌入可以为工程师提供诸如图片base64嵌入到css、js里，前端模板编译到js文件中，将js、css、html拆分成几个文件最后合并到一起的能力。有了这项能力，可以有效的减少http请求数，提升工程的可维护性。fis不建议用户使用内容嵌入能力作为组件化拆分的手段，因为下面这个能力会更适合组件化开发。&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;依赖声明：在一个文本文件内标记对其他资源的依赖关系；
-    &lt;ul&gt;
-      &lt;li&gt;依赖声明，为工程师提供了声明依赖关系的编译接口。fis在执行编译的过程中，会扫描这些编译标记，从而建立一张静态资源关系表，它会被产出为一份 map.json 文件，这份文件详细记录了项目内的静态资源开发路径、线上路径、资源类型以及 依赖关系 和 资源打包信息，这样，使用fis作为编译工具的产品线，就可以将这张表提交给后端或者前端框架去运行时根据组件使用情况来按需加载资源或者资源所在的包，从而提升前端页面运行性能。&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;所有的资源，除了html都加了md5戳
-多了一个map.json文件，里面记录了当前项目下的静态资源信息。&lt;/p&gt;
-
-&lt;h3&gt;fis-conf.js文件，让我们看一下里面的内容：&lt;/h3&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;nx&quot;&gt;fis&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;merge&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;
-    &lt;span class=&quot;na&quot;&gt;roadmap&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;na&quot;&gt;domain&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-            &lt;span class=&quot;c1&quot;&gt;//所有css文件添加http://localhost:8080作为域名&lt;/span&gt;
-            &lt;span class=&quot;s1&quot;&gt;&#39;**.css&#39;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;http://localhost:8080&#39;&lt;/span&gt;
-        &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
-        &lt;span class=&quot;na&quot;&gt;path&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;
-            &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-                &lt;span class=&quot;c1&quot;&gt;//所有的js文件&lt;/span&gt;
-                &lt;span class=&quot;na&quot;&gt;reg&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;**.js&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-                &lt;span class=&quot;c1&quot;&gt;//发布到/static/js/xxx目录下&lt;/span&gt;
-                &lt;span class=&quot;na&quot;&gt;release&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;/static/js$&amp;amp;&#39;&lt;/span&gt;
-            &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
-            &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-                &lt;span class=&quot;c1&quot;&gt;//所有的css文件&lt;/span&gt;
-                &lt;span class=&quot;na&quot;&gt;reg&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;**.css&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-                &lt;span class=&quot;c1&quot;&gt;//发布到/static/css/xxx目录下&lt;/span&gt;
-                &lt;span class=&quot;na&quot;&gt;release&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;/static/css$&amp;amp;&#39;&lt;/span&gt;
-            &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
-            &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-                &lt;span class=&quot;c1&quot;&gt;//所有image目录下的.png，.gif文件&lt;/span&gt;
-                &lt;span class=&quot;na&quot;&gt;reg&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;sr&quot;&gt;/^&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\/&lt;/span&gt;&lt;span class=&quot;sr&quot;&gt;images&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\/(&lt;/span&gt;&lt;span class=&quot;sr&quot;&gt;.*&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\.(?:&lt;/span&gt;&lt;span class=&quot;sr&quot;&gt;png|gif&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;))&lt;/span&gt;&lt;span class=&quot;sr&quot;&gt;/i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-                &lt;span class=&quot;c1&quot;&gt;//发布到/static/pic/xxx目录下&lt;/span&gt;
-                &lt;span class=&quot;na&quot;&gt;release&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;/static/pic/$1&#39;&lt;/span&gt;
-            &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-        &lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;删除一下output目录，再次执行编译命令：&lt;/p&gt;
-
-&lt;p&gt;$ fis release –md5 –domains –dest ./output
-就可以看到，fis调整了编译产出的目录结构。编辑output目录下的index.html，还会发现，fis将所有引用资源的地方也都调整为了发布路径，所有css也自动添加了域名！&lt;/p&gt;
-
-&lt;p&gt;fis release命令还有强大的自动上传功能，这篇文档不会详细介绍此功能的使用方式，但小编可以先发个截图表示一下。截图中显示的是我在windows下编译了firstblood项目，然后自动同步到我的linux测试机上的截图。之后我修改了index.html文件，它又帮我秒传上去了，嚯嚯！&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/img/deploy.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;当你学习到这里时，恭喜你，你已掌握了F.I.S自动化/辅助开发工具的大部分功能，下面一条命令，会给你带来更爽的开发体验。&lt;/p&gt;
-
-&lt;p&gt;fis server &lt;command /&gt; [options]
-难度等级：★★☆☆☆&lt;/p&gt;
-
-&lt;p&gt;考虑到工程师需要在后端程序没开始的时候就能写点东西看看效果，或者离开公司在别处与妹子把酒言欢时突然来了灵感要写码，没有一个小巧的调试服务器怎么能行？！fis团队将本地调试服务器作为一项重要功能来开发，赋予工程师无处不在的写码调试能力。不要小看这个调试服务器，它是特别定制的，使用php-java-bridge技术实现，完美支持运行php程序，可以比较真实 的模拟产品线线上运行环境。&lt;/p&gt;
-
-&lt;p&gt;fis的调试服务器依赖于用户本地的 jre 和 php-cgi 环境，所以：&lt;/p&gt;
-
-&lt;p&gt;如果没有jre环境，请移步 这里 下载
-如果没有php-cgi环境的，请移步 这里 下载
-请把java、php-cgi命令添加到环境变量中
-搞定环境后，让我们来启动调试服务器看看：&lt;/p&gt;
-
-&lt;p&gt;$ fis server start
-checking java support : version 1.6.0
-checking php-cgi support : version 5.2.11
-starting fis-server on port : 8080
-不需要再使用调试服务器时，可以通过 fis server stop 关闭&lt;/p&gt;
-
-&lt;p&gt;服务器启动之后，它会自动检查环境，最后告诉你它监听了8080端口，这个时候，你的浏览器应该打开了一个调试服务器根目录的浏览页面，地址是 http://localhost:8080/。&lt;/p&gt;
-
-&lt;p&gt;在刚刚的firstblood项目中执行命令：&lt;/p&gt;
-
-&lt;p&gt;$ fis release –md5 –optimize –watch
-现在，fis已经将编译好的代码发布到调试服务器中啦，刷新浏览器，你会看到我们的firstblood示例项目的运行效果。此时，你修改项目文件都将自动编译并发布到调试服务器目录下，看看页面源代码，你会发现更多惊喜！顺便恭喜你，至此你已完全掌握了fis的基本用法，你可以借助fis这个利器去挑战大型商业产品开发了！&lt;/p&gt;
-</description>
-        <pubDate>Mon, 27 Jun 2016 00:00:00 +0800</pubDate>
-        <link>https://github.com/BETH-zhang/2016/06/27/FIS%E7%9A%84%E7%AE%80%E5%8D%95%E5%85%A5%E9%97%A8.html</link>
-        <guid isPermaLink="true">https://github.com/BETH-zhang/2016/06/27/FIS%E7%9A%84%E7%AE%80%E5%8D%95%E5%85%A5%E9%97%A8.html</guid>
         
         
       </item>

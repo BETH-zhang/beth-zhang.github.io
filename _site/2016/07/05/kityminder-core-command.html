@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Kityminder Core Command</title>
+  <meta name="description" content="移步：命令（Command）和 API 的差别">
+
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="canonical" href="https://github.com/BETH-zhang/2016/07/05/kityminder-core-command.html">
+  <link rel="alternate" type="application/rss+xml" title="前端花园" href="https://github.com/BETH-zhang/feed.xml">
+  <link type="image/x-icon" rel="shortcut icon" href="https://raw.githubusercontent.com/BETH-zhang/Frontend-Garden/gh-pages/_includes/favicon.ico">
+  <script type="text/javascript" src="/js/jquery.min.js"></script>
+</head>
+
+
+  <body>
+
+    <header class="site-header">
+
+  <div class="wrapper">
+
+    <a class="site-title" href="/">前端花园</a>
+
+    <nav class="site-nav">
+      <a href="#" class="menu-icon">
+        <svg viewBox="0 0 18 15">
+          <path fill="#424242" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#424242" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484 h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#424242" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+        </svg>
+      </a>
+
+      <div class="trigger">
+        
+          
+          <a class="page-link" href="/about/">About</a>
+          
+        
+          
+        
+          
+        
+          
+        
+      </div>
+    </nav>
+
+  </div>
+
+</header>
+
+
+    <div class="page-content">
+      <div class="wrapper">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title" itemprop="name headline">Kityminder Core Command</h1>
+    <p class="post-meta"><a href="https://github.com/BETH-zhang" target="_blank"/><img class="post-avatar" src="https://avatars3.githubusercontent.com/u/19342035?v=3&s=40"/></a><time datetime="2016-07-05T00:00:00+08:00" itemprop="datePublished">Jul 5, 2016</time></p>
+  </header>
+
+  <div class="post-content" itemprop="articleBody">
+    <p>移步：<a href="https://github.com/fex-team/kityminder-core/wiki/command#appendchildnode">命令（Command）和 API 的差别</a></p>
+
+<h1 id="section">命令列表</h1>
+
+<div id="kityMinderCommand"></div>
+
+<script type="text/javascript" src="/js/H5ComponentBase.js"></script>
+
+<script type="text/javascript" src="/js/is.js"></script>
+
+<script type="text/javascript" src="/js/mini_markdown.js"></script>
+
+<script type="text/javascript" src="/js/H5ComponentkityMinderCommand.js"></script>
+
+<script type="text/javascript">
+    var data = {
+        AppendChildNode: {
+            intro: "添加子节点到选中的节点中",
+            command: "minder.execCommand('AppendChildNode', textOrData);",
+            params: [{
+                param: 'textOrData',
+                type: 'string|object',
+                intro: '要插入的节点的文本或数据'
+            }],
+            state: {
+                get: "var state = minder.queryCommandState('AppendChildNode');",
+                value: {
+                    0: '当前有选中的节点',
+                    '-1': '当前没有选中的节点'
+                }
+            }
+        },
+        AppendSiblingNode: {
+            intro: "添加选中的节点的兄弟节点",
+            command: "minder.execCommand('AppendSiblingNode', textOrData);",
+            params: [{
+                param: 'textOrData',
+                type: 'string|object',
+                intro: '要添加的节点的文本或数据'
+            }],
+            state: {
+                get: "var state = minder.queryCommandState('AppendSiblingNode');",
+                value: {
+                    0: '当前有选中的节点',
+                    '-1': '当前没有选中的节点'
+                }
+            }
+        },
+        Arrange: {
+            intro: "调整选中节点的位置",
+            command: "minder.execCommand('Arrange', index);",
+            params: [{
+                param: 'index',
+                type: 'number',
+                intro: '调整后节点的新位置'
+            }],
+            state: {
+                get: "var state = minder.queryCommandState('Arrange');",
+                value: {
+                    0: '当前选中了具有相同父亲的节点',
+                    '-1': '其它情况'
+                }
+            }
+        },
+        ArrangeDown: {
+            intro: "向下调整选中节点的位置",
+            keyCode: 'Alt + Down',
+            command: "minder.execCommand('ArrangeDown');",
+            state: {
+                get: "var state = minder.queryCommandState('ArrangeDown');",
+                value: {
+                    0: '当前选中了具有相同父亲的节点',
+                    '-1': '其它情况'
+                }
+            }
+        },
+        ArrangeUp: {
+            intro: "向上调整选中节点的位置",
+            keyCode: 'Alt + Up',
+            command: "minder.execCommand('ArrangeUp');",
+            state: {
+                get: "var state = minder.queryCommandState('ArrangeUp');",
+                value: {
+                    0: '当前选中了具有相同父亲的节点',
+                    '-1': '其它情况'
+                }
+            }
+        },
+        Background: {
+            intro: "设置选中节点的背景颜色",
+            command: "minder.execCommand('Background', color);",
+            params: [{
+                param: 'color',
+                type: 'string',
+                intro: '表示颜色的字符串'
+            }],
+            state: {
+                get: "var state = minder.queryCommandState('Background');",
+                value: {
+                    0: '当前有选中的节点',
+                    '-1': '当前没有选中的节点'
+                }
+            },
+            returnValue: "var value = minder.queryCommandValue('Background');",
+            tips: "如果只有一个节点选中，返回已选中节点的背景颜色；否则返回 'mixed'"
+        },
+        Bold: {
+            intro: "加粗选中的节点",
+            keyCode: 'Ctrl + B',
+            command: "minder.execCommand('Bold');",
+            state: {
+                get: "var state = minder.queryCommandState('Bold');",
+                value: {
+                    0: '当前有选中的节点',
+                    '-1': '当前没有选中的节点',
+                    1: '当前已选中的节点已加粗'
+                }
+            }
+        },
+        Camera: {
+            intro: "设置当前视野的中心位置到某个节点上",
+            command: "minder.execCommand('Camera', focusNode, duration);",
+            params: [{
+                param: 'focusNode',
+                type: 'kityminder.MinderNode',
+                intro: '要定位的节点'
+            },{
+                param: 'duration',
+                type: 'number',
+                intro: '设置视野移动的动画时长（单位 ms），设置为 0 不使用动画'
+            }],
+            state: {
+                get: "var state = minder.queryCommandState('Camera');",
+                value: {
+                    0: '始终可用',
+                }
+            }
+        },
+        ClearStyle: {
+            intro: "移除选中节点的样式，包括字体、字号、粗体、斜体、背景色、字体色",
+            command: "minder.execCommand('ClearStyle');",
+            state: {
+                get: "var state = minder.queryCommandState('ClearStyle');",
+                value: {
+                    0: '当前有选中的节点，并且至少有一个设置了至少一种样式',
+                    '-1': '其它情况'
+                }
+            }
+        },
+        Copy: {
+            intro: "复制当前选中的节点",
+            keyCode: 'Ctrl + C',
+            command: "minder.execCommand('Copy');",
+            state: {
+                get: "var state = minder.queryCommandState('Copy');",
+                value: {
+                    0: '当前有选中的节点',
+                    '-1': '当前没有选中的节点'
+                }
+            }
+        },
+        CopyStyle: {
+            intro: "拷贝选中节点的当前样式，包括字体、字号、粗体、斜体、背景色、字体色",
+            command: "minder.execCommand('CopyStyle');",
+            state: {
+                get: "var state = minder.queryCommandState('CopyStyle');",
+                value: {
+                    0: '当前有选中的节点',
+                    '-1': '当前没有选中的节点'
+                }
+            }
+        },
+        Cut: {
+            intro: "剪切当前选中的节点",
+            keyCode: 'Ctrl + X',
+            command: "minder.execCommand('Cut');",
+            state: {
+                get: "var state = minder.queryCommandState('Cut');",
+                value: {
+                    0: '当前有选中的节点',
+                    '-1': '当前没有选中的节点'
+                }
+            }
+        },
+        EditNode: {
+            intro: "编辑选中的节点",
+            command: "minder.execCommand('EditNode');",
+            state: {
+                get: "var state = minder.queryCommandState('EditNode');",
+                value: {
+                    0: '当前有选中的节点',
+                    '-1': '当前没有选中的节点'
+                }
+            }
+        },
+        Expand: {
+            intro: "展开当前选中的节点，保证其可见",
+            command: "minder.execCommand('Expand', justParents);",
+            params: [{
+                param: 'justParents',
+                type: 'bool',
+                intro: '是否只展开到父亲<br/>* false - （默认）保证选中的节点以及其子树可见<br/>* true - 只保证选中的节点可见，不展开其子树'
+            }],            
+            state: {
+                get: "var state = minder.queryCommandState('Expand');",
+                value: {
+                    0: '当前有选中的节点',
+                    '-1': '当前没有选中的节点'
+                }
+            }
+        },
+        ExpandToLevel: {
+            intro: "展开脑图到指定的层级",
+            command: "minder.execCommand('ExpandToLevel', level);",
+            params: [{
+                param: 'level',
+                type: 'number',
+                intro: '指定展开到的层级，最少值为 1。'
+            }],            
+            state: {
+                get: "var state = minder.queryCommandState('ExpandToLevel');",
+                value: {
+                    0: '一直可用'
+                }
+            }
+        },
+        FontFamily: {
+            intro: "设置选中节点的字体",
+            command: "minder.execCommand('FontFamily', family);",
+            params: [{
+                param: 'family',
+                type: 'string',
+                intro: '表示字体的字符串'
+            }],            
+            state: {
+                get: "var state = minder.queryCommandState('FontFamily');",
+                value: {
+                    0: '当前有选中的节点',
+                    '-1': '当前没有选中的节点'
+                }
+            },
+            returnValue: "var value = minder.queryCommandValue('FontFamily');",
+            tips: '返回首个选中节点的字体'
+        },
+        FontSize: {
+            intro: "设置选中节点的字体大小",
+            command: "minder.execCommand('FontSize', size);",
+            params: [{
+                param: 'size',
+                type: 'number',
+                intro: '字体大小（px）'
+            }],            
+            state: {
+                get: "var state = minder.queryCommandState('FontSize');",
+                value: {
+                    0: '当前有选中的节点',
+                    '-1': '当前没有选中的节点'
+                }
+            },
+            returnValue: "var value = minder.queryCommandValue('FontSize');",
+            tips: '返回首个选中节点的字体大小'
+        },
+        ForeColor: {
+            intro: "设置选中节点的字体颜色",
+            command: "minder.execCommand('ForeColor', color);",
+            params: [{
+                param: 'color',
+                type: 'string',
+                intro: '表示颜色的字符串'
+            }],            
+            state: {
+                get: "var state = minder.queryCommandState('ForeColor');",
+                value: {
+                    0: '当前有选中的节点',
+                    '-1': '当前没有选中的节点'
+                }
+            },
+            returnValue: "var value = minder.queryCommandValue('ForeColor');",
+            tips: "如果只有一个节点选中，返回已选中节点的字体颜色；否则返回 'mixed'。"
+        },
+        Hand: {
+            intro: "切换抓手状态，抓手状态下，鼠标拖动将拖动视野，而不是创建选区",
+            command: "minder.execCommand('Hand');",
+            state: {
+                get: "var state = minder.queryCommandState('Hand');",
+                value: {
+                    0: '当前不是抓手状态',
+                    1: '当前是抓手状态'
+                }
+            }
+        },
+        HyperLink: {
+            intro: "为选中的节点添加超链接",
+            command: "minder.execCommand('HyperLink', url, title);",
+            params: [{
+                param: 'url',
+                type: 'string',
+                intro: '超链接的 URL，设置为 null 移除'
+            },{
+                param: 'title',
+                type: 'string',
+                intro: '超链接的说明'
+            }],            
+            state: {
+                get: "var state = minder.queryCommandState('HyperLink');",
+                value: {
+                    0: '当前有选中的节点',
+                    '-1': '当前没有选中的节点'
+                }
+            },
+            returnValue: "var value = minder.queryCommandValue('HyperLink');",
+            tips: "返回首个选中节点的超链接信息，JSON 对象： {url: url, title: title}"
+        },
+        Image: {
+            intro: "为选中的节点添加图片",
+            command: "minder.execCommand('Image', url, title);",
+            params: [{
+                param: 'url',
+                type: 'string',
+                intro: "图片的 URL，设置为空字符串 '' 为移除图片"
+            },{
+                param: 'title',
+                type: 'string',
+                intro: '图片的说明'
+            }],            
+            state: {
+                get: "var state = minder.queryCommandState('Image');",
+                value: {
+                    0: '当前有选中的节点',
+                    '-1': '当前没有选中的节点'
+                }
+            },
+            returnValue: "var value = minder.queryCommandValue('Image');",
+            tips: "返回首个选中节点的图片信息，JSON 对象： {url: url, title: title}"
+        },
+        Italic: {
+            intro: "加斜选中的节点",
+            keyCode: 'Ctrl + I',
+            command: "minder.execCommand('Italic');",
+            state: {
+                get: "var state = minder.queryCommandState('Italic');",
+                value: {
+                    0: '当前有选中的节点',
+                    '-1': '当前没有选中的节点',
+                    1: '当前已选中的节点已加斜'
+                }
+            },
+            returnValue: "var value = minder.queryCommandValue('Image');",
+            tips: "返回首个选中节点的图片信息，JSON 对象： {url: url, title: title}"
+        },
+        Layout: {
+            intro: "设置选中节点的布局<br>允许使用的布局可以使用 kityminder.Minder.getLayoutList() ",
+            command: "minder.execCommand('Layout', name);",
+            params: [{
+                param: 'name',
+                type: 'string',
+                intro: '布局的名称，设置为 null 则使用继承或默认的布局'
+            }],            
+            state: {
+                get: "var state = minder.queryCommandState('Layout');",
+                value: {
+                    0: '当前有选中的节点',
+                    '-1': '当前没有选中的节点'
+                }
+            },
+            returnValue: "var value = minder.queryCommandValue('Layout');",
+            tips: "返回首个选中节点的布局名称"
+        },
+        Move: {
+            intro: "指定方向移动当前视野",
+            command: "minder.execCommand('Move', dir, duration);",
+            params: [{
+                param: 'dir',
+                type: 'string',
+                intro: "移动方向<br/>取值为 'left'，视野向左移动一半<br/>取值为 'right'，视野向右移动一半</br>取值为 'up'，视野向上移动一半</br>取值为 'down'，视野向下移动一半"
+            },{
+                param: 'duration',
+                type: 'number',
+                intro: '视野移动的动画时长（单位 ms），设置为 0 不使用动画'
+            }],            
+            state: {
+                get: "var state = minder.queryCommandState('Move');",
+                value: {
+                    0: '始终可用'
+                }
+            }
+        },
+        Note: {
+            intro: "指定方向移动当前视野",
+            command: "minder.execCommand('Note', note);",
+            params: [{
+                param: 'note',
+                type: 'string',
+                intro: "要设置的备注信息，设置为 null 则移除备注信息"
+            }],            
+            state: {
+                get: "var state = minder.queryCommandState('Note');",
+                value: {
+                    0: '当前有选中的节点',
+                    '-1': '当前没有选中的节点'
+                }
+            }
+        },
+        Paste: {
+            intro: "粘贴已复制的节点到每一个当前选中的节点上",
+            keyCode: 'Ctrl + V',
+            command: "minder.execCommand('Paste');",
+            state: {
+                get: "var state = minder.queryCommandState('Paste');",
+                value: {
+                    0: '当前有选中的节点',
+                    '-1': '当前没有选中的节点'
+                }
+            }
+        },
+        PasteStyle: {
+            intro: "粘贴已拷贝的样式到选中的节点上，包括字体、字号、粗体、斜体、背景色、字体色",
+            command: "minder.execCommand('PasteStyle');",
+            state: {
+                get: "var state = minder.queryCommandState('PasteStyle');",
+                value: {
+                    0: '当前有选中的节点, 并且已经有复制的样式',
+                    '-1': '当前没有选中的节点, 或者没有复制的样式'
+                }
+            }
+        },
+        Priority: {
+            intro: "设置节点的优先级信息",
+            command: "minder.execCommand('Priority', value);",
+            params: [{
+                param: 'value',
+                type: 'number',
+                intro: '要设置的优先级（添加一个优先级小图标）<br/>取值为 0 移除优先级信息；<br/>取值为 1 - 9 设置优先级，超过 9 的优先级不渲染'
+            }],
+            state: {
+                get: "var state = minder.queryCommandState('Priority');",
+                value: {
+                    0: '当前有选中的节点',
+                    '-1': '当前没有选中的节点'
+                }
+            }
+        },
+        Progress: {
+            intro: "设置节点的进度信息（添加一个进度小图标）",
+            command: "minder.execCommand('Progress', value);",
+            params: [{
+                param: 'value',
+                type: 'number',
+                intro: '要设置的进度<br/>取值为 0 移除进度信息；</br>取值为 1 表示未开始；<br/>取值为 2 表示完成 1/8；<br/>取值为 3 表示完成 2/8；<br/>取值为 4 表示完成 3/8；<br/>其余类推，取值为 9 表示全部完成'
+            }],
+            state: {
+                get: "var state = minder.queryCommandState('Progress');",
+                value: {
+                    0: '当前有选中的节点',
+                    '-1': '当前没有选中的节点'
+                }
+            }
+        },
+        RemoveNode: {
+            intro: "移除选中的节点",
+            command: "minder.execCommand('RemoveNode');",
+            state: {
+                get: "var state = minder.queryCommandState('RemoveNode');",
+                value: {
+                    0: '当前有选中的节点',
+                    '-1': '当前没有选中的节点'
+                }
+            }
+        },
+        ResetLayout: {
+            intro: "重设选中节点的布局，如果当前没有选中的节点，重设整个脑图的布局",
+            command: "minder.execCommand('ResetLayout');",
+            state: {
+                get: "var state = minder.queryCommandState('ResetLayout');",
+                value: {
+                    0: '始终可用'
+                }
+            },
+            returnValue: "var value = minder.queryCommandValue('ResetLayout');",
+            tips: '返回首个选中节点的布局名称'
+        },
+        Resource: {
+            intro: "设置节点的资源标签",
+            command: "minder.execCommand('Resource', resource);",
+            params: [{
+                param: 'resource',
+                type: 'Array<string>',
+                intro: '要设置的资源列表，设置为空清除节点的资源标签'
+            }],
+            returnValue: "var value = minder.queryCommandValue('Resource');",
+            tips: '返回当前选中节点中包含的资源（数组）'
+        },
+        Template: {
+            intro: "设置当前脑图的模板",
+            command: "minder.execCommand('Template', name);",
+            params: [{
+                param: 'name',
+                type: 'string',
+                intro: '模板名称<br/>允许使用的模板可以使用 kityminder.Minder.getTemplateList() 查询'
+            }],
+            state: {
+                get: "var state = minder.queryCommandState('Template');",
+                value: {
+                    0: '始终可用'
+                }
+            },
+            returnValue: "var value = minder.queryCommandValue('Template');",
+            tips: '返回当前的模板名称'
+        },
+        Theme: {
+            intro: "设置当前脑图的主题",
+            command: "minder.execCommand('Theme', name);",
+            params: [{
+                param: 'name',
+                type: 'string',
+                intro: '主题名称<br/>允许使用的主题可以使用 kityminder.Minder.getThemeList() 查询'
+            }],
+            state: {
+                get: "var state = minder.queryCommandState('Theme');",
+                value: {
+                    0: '始终可用'
+                }
+            },
+            returnValue: "var value = minder.queryCommandValue('Theme');",
+            tips: '返回当前的主题名称'
+        },
+        Zoom: {
+            intro: "缩放当前的视野到一定的比例（百分比）",
+            command: "minder.execCommand('Zoom', value);",
+            params: [{
+                param: 'value',
+                type: 'number',
+                intro: '设置的比例，取值 100 则为原尺寸'
+            }],
+            state: {
+                get: "var state = minder.queryCommandState('Zoom');",
+                value: {
+                    0: '始终可用'
+                }
+            }
+        },
+        ZoomIn: {
+            intro: "放大当前的视野到下一个比例等级（百分比）",
+            keyCode: '=',
+            command: "minder.execCommand('ZoomIn');",
+            state: {
+                get: "var state = minder.queryCommandState('ZoomIn');",
+                value: {
+                    0: '如果当前脑图的配置中还有下一个比例等级',
+                    '-1': '其它情况'
+                }
+            }
+        },
+        ZoomOut: {
+            intro: "缩小当前的视野到上一个比例等级（百分比）",
+            keyCode: '-',
+            command: "minder.execCommand('ZoomOut');",
+            state: {
+                get: "var state = minder.queryCommandState('ZoomOut');",
+                value: {
+                    0: '如果当前脑图的配置中还有上一个比例等级',
+                    '-1': '其它情况'
+                }
+            }
+        }
+    };
+    var kityMinderCommand = new H5ComponentkityMinderCommand('my', {
+        type: 'kityMinderCommand',
+        data: data
+    });
+
+    $('#kityMinderCommand').append(kityMinderCommand);
+</script>
+
+
+  </div>
+
+</article>
+
+      </div>
+    </div>
+
+    <footer class="site-footer">
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">前端花园</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li><a href="mailto:gemeiwangji789@qq.com">gemeiwangji789@qq.com</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col footer-col-2">
+        <ul class="social-media-list">
+          
+          <li>
+            <a href="https://github.com/BETH-zhang"><span class="icon icon--github"><svg viewBox="0 0 16 16"><path fill="#828282" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761 c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32 c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472 c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037 C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65 c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261 c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082 c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129 c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/></svg>
+</span><span class="username">BETH-zhang</span></a>
+
+          </li>
+          
+
+          
+        </ul>
+      </div>
+
+      <div class="footer-col footer-col-3">
+        <p>在前端的道路上风景更加绚丽多姿</p>
+      </div>
+    </div>
+
+  </div>
+
+  <img src="/img/return-top.png" class="return-top js_return_top" />
+
+</footer>
+
+<script type="text/javascript" src="/js/returnTop.js"></script>
+<script type="text/javascript" src="/js/webConsole.js"></script>
+
+
+
+  </body>
+
+</html>

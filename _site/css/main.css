@@ -574,3 +574,17 @@ pre {
 .h5_component_githubapi .value {
   padding-left: 50px;
   color: #2196f3; }
+
+.h5_component_kityMinderCommand h1 {
+  margin-top: 50px;
+  background: #c1e3f3;
+  color: #fff;
+  font-weight: bold;
+  padding-left: 20px; }
+.h5_component_kityMinderCommand thead {
+  background: #f2f2f2;
+  color: #999; }
+.h5_component_kityMinderCommand th, .h5_component_kityMinderCommand td {
+  font-weight: normal;
+  border: 1px solid #f2f2f2;
+  padding: 2px 15px; }
