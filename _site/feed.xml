@@ -5,8 +5,8 @@
     <description>在前端的道路上风景更加绚丽多姿</description>
     <link>https://github.com/BETH-zhang/</link>
     <atom:link href="https://github.com/BETH-zhang/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Wed, 06 Jul 2016 00:21:21 +0800</pubDate>
-    <lastBuildDate>Wed, 06 Jul 2016 00:21:21 +0800</lastBuildDate>
+    <pubDate>Wed, 06 Jul 2016 11:48:02 +0800</pubDate>
+    <lastBuildDate>Wed, 06 Jul 2016 11:48:02 +0800</lastBuildDate>
     <generator>Jekyll v3.1.6</generator>
     
       <item>
@@ -1930,27 +1930,42 @@ GitHub秘籍
 &lt;/blockquote&gt;
 
 &lt;h1 id=&quot;section&quot;&gt;我们访问一个页面的时候都做了什么&lt;/h1&gt;
-&lt;p&gt;## 介绍&lt;/p&gt;
+
+&lt;h2 id=&quot;section-1&quot;&gt;介绍&lt;/h2&gt;
 
 &lt;h2 id=&quot;dnsip&quot;&gt;DNS寻址以及IP解析&lt;/h2&gt;
-&lt;p&gt;## webserver背后做的事儿
-## 前端页面渲染流程
-## 浏览器的JS引擎
-## 使用WebPageTest分析JD的网络性能(一)
-## 使用WebPageTest分析JD的网络性能(二)&lt;/p&gt;
 
-&lt;h1 id=&quot;section-1&quot;&gt;通用的不一定适合我们&lt;/h1&gt;
-&lt;p&gt;## yahoo军规为什么不合适
-## 技术优化出发点介绍
-## 技术优化出发点－后端方法
-## 技术优化出发点－加载方式&lt;/p&gt;
+&lt;h2 id=&quot;webserver&quot;&gt;webserver背后做的事儿&lt;/h2&gt;
 
-&lt;h1 id=&quot;section-2&quot;&gt;我们要到底优化什么&lt;/h1&gt;
-&lt;p&gt;## bigpipe介绍
-## bigpipe工作模式
-## bigpipe的缺点
-## 性能优化的术语回顾
-## 总结&lt;/p&gt;
+&lt;h2 id=&quot;section-2&quot;&gt;前端页面渲染流程&lt;/h2&gt;
+
+&lt;h2 id=&quot;js&quot;&gt;浏览器的JS引擎&lt;/h2&gt;
+
+&lt;h2 id=&quot;webpagetestjd&quot;&gt;使用WebPageTest分析JD的网络性能(一)&lt;/h2&gt;
+
+&lt;h2 id=&quot;webpagetestjd-1&quot;&gt;使用WebPageTest分析JD的网络性能(二)&lt;/h2&gt;
+
+&lt;h1 id=&quot;section-3&quot;&gt;通用的不一定适合我们&lt;/h1&gt;
+
+&lt;h2 id=&quot;yahoo&quot;&gt;yahoo军规为什么不合适&lt;/h2&gt;
+
+&lt;h2 id=&quot;section-4&quot;&gt;技术优化出发点介绍&lt;/h2&gt;
+
+&lt;h2 id=&quot;section-5&quot;&gt;技术优化出发点－后端方法&lt;/h2&gt;
+
+&lt;h2 id=&quot;section-6&quot;&gt;技术优化出发点－加载方式&lt;/h2&gt;
+
+&lt;h1 id=&quot;section-7&quot;&gt;我们要到底优化什么&lt;/h1&gt;
+
+&lt;h2 id=&quot;bigpipe&quot;&gt;bigpipe介绍&lt;/h2&gt;
+
+&lt;h2 id=&quot;bigpipe-1&quot;&gt;bigpipe工作模式&lt;/h2&gt;
+
+&lt;h2 id=&quot;bigpipe-2&quot;&gt;bigpipe的缺点&lt;/h2&gt;
+
+&lt;h2 id=&quot;section-8&quot;&gt;性能优化的术语回顾&lt;/h2&gt;
+
+&lt;h2 id=&quot;section-9&quot;&gt;总结&lt;/h2&gt;
 </description>
         <pubDate>Mon, 04 Jul 2016 00:00:00 +0800</pubDate>
         <link>https://github.com/BETH-zhang/2016/07/04/%E5%89%8D%E7%AB%AF%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96.html</link>
