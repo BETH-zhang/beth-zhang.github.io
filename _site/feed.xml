@@ -5,9 +5,20 @@
     <description>在前端的道路上风景更加绚丽多姿</description>
     <link>https://github.com/BETH-zhang/</link>
     <atom:link href="https://github.com/BETH-zhang/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Fri, 08 Jul 2016 10:45:43 +0800</pubDate>
-    <lastBuildDate>Fri, 08 Jul 2016 10:45:43 +0800</lastBuildDate>
+    <pubDate>Fri, 08 Jul 2016 11:21:31 +0800</pubDate>
+    <lastBuildDate>Fri, 08 Jul 2016 11:21:31 +0800</lastBuildDate>
     <generator>Jekyll v3.1.6</generator>
+    
+      <item>
+        <title>Sublime Text3插件工具</title>
+        <description>&lt;p&gt;&lt;img src=&quot;/img/sublimetext3.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+</description>
+        <pubDate>Fri, 08 Jul 2016 00:00:00 +0800</pubDate>
+        <link>https://github.com/BETH-zhang/2016/07/08/sublime-text3%E6%8F%92%E4%BB%B6%E5%B7%A5%E5%85%B7.html</link>
+        <guid isPermaLink="true">https://github.com/BETH-zhang/2016/07/08/sublime-text3%E6%8F%92%E4%BB%B6%E5%B7%A5%E5%85%B7.html</guid>
+        
+        
+      </item>
     
       <item>
         <title>Linux下面如何运行 sh文件</title>
@@ -2197,17 +2208,6 @@ $ npm --registry http://localhost:8080/ install socket.io
         <pubDate>Mon, 04 Jul 2016 00:00:00 +0800</pubDate>
         <link>https://github.com/BETH-zhang/2016/07/04/AMD-%E5%92%8C-CMD.html</link>
         <guid isPermaLink="true">https://github.com/BETH-zhang/2016/07/04/AMD-%E5%92%8C-CMD.html</guid>
-        
-        
-      </item>
-    
-      <item>
-        <title>Seajs</title>
-        <description>
-</description>
-        <pubDate>Sun, 03 Jul 2016 00:00:00 +0800</pubDate>
-        <link>https://github.com/BETH-zhang/2016/07/03/seajs.html</link>
-        <guid isPermaLink="true">https://github.com/BETH-zhang/2016/07/03/seajs.html</guid>
         
         
       </item>
