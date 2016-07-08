@@ -6,11 +6,11 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>前端性能优化</title>
-  <meta name="description" content="  今天看了imooc的视频，对于前端性能优化的东西之前已经搞的挺多的了，但是现在还是有好多的东西，需要做！先在此整理一个简单的内容仅供共同学习。">
+  <title>Linux下面如何运行 sh文件</title>
+  <meta name="description" content="  我们经常会有将当前文件夹压缩成tar格式的压缩包，如何快速实现呢？下面我们简单操作一下">
 
   <link rel="stylesheet" href="/css/main.css">
-  <link rel="canonical" href="https://github.com/BETH-zhang/2016/07/04/%E5%89%8D%E7%AB%AF%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96.html">
+  <link rel="canonical" href="https://github.com/BETH-zhang/2016/07/08/Linux%E4%B8%8B%E9%9D%A2%E5%A6%82%E4%BD%95%E8%BF%90%E8%A1%8C-SH%E6%96%87%E4%BB%B6.html">
   <link rel="alternate" type="application/rss+xml" title="前端花园" href="https://github.com/BETH-zhang/feed.xml">
   <link type="image/x-icon" rel="shortcut icon" href="https://raw.githubusercontent.com/BETH-zhang/Frontend-Garden/gh-pages/_includes/favicon.ico">
   <script type="text/javascript" src="/js/jquery.min.js"></script>
@@ -59,54 +59,42 @@
         <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
 
   <header class="post-header">
-    <h1 class="post-title" itemprop="name headline">前端性能优化</h1>
-    <p class="post-meta"><a href="https://github.com/BETH-zhang" target="_blank"/><img class="post-avatar" src="https://avatars3.githubusercontent.com/u/19342035?v=3&s=40"/></a><time datetime="2016-07-04T00:00:00+08:00" itemprop="datePublished">Jul 4, 2016</time></p>
+    <h1 class="post-title" itemprop="name headline">Linux下面如何运行 sh文件</h1>
+    <p class="post-meta"><a href="https://github.com/BETH-zhang" target="_blank"/><img class="post-avatar" src="https://avatars3.githubusercontent.com/u/19342035?v=3&s=40"/></a><time datetime="2016-07-08T00:00:00+08:00" itemprop="datePublished">Jul 8, 2016</time></p>
   </header>
 
   <div class="post-content" itemprop="articleBody">
     <blockquote>
-  <p>今天看了imooc的视频，对于前端性能优化的东西之前已经搞的挺多的了，但是现在还是有好多的东西，需要做！先在此整理一个简单的内容仅供共同学习。</p>
+  <p>我们经常会有将当前文件夹压缩成tar格式的压缩包，如何快速实现呢？下面我们简单操作一下</p>
 </blockquote>
 
-<p><a href="https://beth-zhang.github.io/kityminder-test/src/fe-1.html">前端性能优化脑图分享</a></p>
+<h2 id="tarsh">新建一个tar.sh文件</h2>
 
-<h1 id="section">我们访问一个页面的时候都做了什么</h1>
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="no">DIR</span><span class="o">=</span><span class="err">$</span><span class="p">(</span> <span class="n">cd</span> <span class="s2">"$( dirname "</span><span class="err">$</span><span class="p">{</span><span class="no">BASH_SOURCE</span><span class="p">[</span><span class="mi">0</span><span class="p">]}</span><span class="s2">" )"</span> <span class="o">&amp;&amp;</span> <span class="n">pwd</span> <span class="p">)</span>
 
-<h4 id="section-1">介绍</h4>
+<span class="n">arr</span><span class="o">=</span><span class="err">$</span><span class="p">(</span><span class="n">find</span> <span class="vg">$DIR</span> <span class="o">-</span><span class="n">type</span> <span class="n">d</span> <span class="o">-</span><span class="n">depth</span> <span class="mi">1</span><span class="p">)</span>
 
-<h4 id="dnsip">DNS寻址以及IP解析</h4>
+<span class="k">for</span> <span class="n">item</span> <span class="k">in</span> <span class="vg">$arr</span><span class="p">;</span> <span class="k">do</span>
+  <span class="n">item</span><span class="o">=</span><span class="err">$</span><span class="p">(</span><span class="n">basename</span> <span class="vg">$item</span><span class="p">)</span>
+  <span class="n">tar</span> <span class="n">czvf</span> <span class="s2">"${item}.tar.gz"</span> <span class="s2">"./${item}"</span>
+<span class="n">done</span></code></pre></figure>
 
-<h4 id="webserver">webserver背后做的事儿</h4>
+<h2 id="tarsh-1">添加tar.sh文件的执行权限</h2>
 
-<h4 id="section-2">前端页面渲染流程</h4>
+<div class="highlighter-rouge"><pre class="highlight"><code>chmod +x tar.sh
+</code></pre>
+</div>
 
-<h4 id="js">浏览器的JS引擎</h4>
+<h2 id="section">运行</h2>
 
-<h4 id="webpagetestjd">使用WebPageTest分析JD的网络性能(一)</h4>
+<div class="highlighter-rouge"><pre class="highlight"><code>./tar.sh
+这样运行是tar.sh在当前工作目录，如果文件没在当前目录，那么就需要用绝对路径来执行,比如
+/opt/tar.sh
+/opt/test/tar.sh
+</code></pre>
+</div>
 
-<h4 id="webpagetestjd-1">使用WebPageTest分析JD的网络性能(二)</h4>
-
-<h1 id="section-3">通用的不一定适合我们</h1>
-
-<h4 id="yahoo">yahoo军规为什么不合适</h4>
-
-<h4 id="section-4">技术优化出发点介绍</h4>
-
-<h4 id="section-5">技术优化出发点－后端方法</h4>
-
-<h4 id="section-6">技术优化出发点－加载方式</h4>
-
-<h1 id="section-7">我们要到底优化什么</h1>
-
-<h4 id="bigpipe">bigpipe介绍</h4>
-
-<h4 id="bigpipe-1">bigpipe工作模式</h4>
-
-<h4 id="bigpipe-2">bigpipe的缺点</h4>
-
-<h4 id="section-8">性能优化的术语回顾</h4>
-
-<h4 id="section-9">总结</h4>
+<p><img src="/img/tarsh.png" alt="" /></p>
 
   </div>
 
