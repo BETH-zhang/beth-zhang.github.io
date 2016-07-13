@@ -5,13 +5,14 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "git": "git add . && git commit -m 'add' && git push origin gh-pages"
+    "git": "git add . && git commit -m 'add' && git push origin gh-pages",
+    "start": "gulp image-min"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/BETH-zhang/Frontend-Garden.git"
   },
-  "author": "",
+  "author": "BETH-zhang",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/BETH-zhang/Frontend-Garden/issues"
@@ -19,5 +20,10 @@
   "homepage": "https://github.com/BETH-zhang/Frontend-Garden#readme",
   "dependencies": {
     "jquery": "^3.0.0"
+  },
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-imagemin": "^3.0.1",
+    "imagemin-pngquant": "^5.0.0"
   }
 }
