@@ -3,4 +3,4 @@ node_modules
 *.log
 .sass-cache
 .idea
-img
+images
