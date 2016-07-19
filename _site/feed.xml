@@ -5,9 +5,139 @@
     <description>在前端的道路上风景更加绚丽多姿</description>
     <link>https://github.com/BETH-zhang/</link>
     <atom:link href="https://github.com/BETH-zhang/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Fri, 08 Jul 2016 11:21:31 +0800</pubDate>
-    <lastBuildDate>Fri, 08 Jul 2016 11:21:31 +0800</lastBuildDate>
+    <pubDate>Thu, 14 Jul 2016 10:59:40 +0800</pubDate>
+    <lastBuildDate>Thu, 14 Jul 2016 10:59:40 +0800</lastBuildDate>
     <generator>Jekyll v3.1.6</generator>
+    
+      <item>
+        <title>前端工程化</title>
+        <description>&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;脚手架生成工具 Yeoman 实战 　　 快速搭建框架：脚手架生成工具 Yeoman Generator 实战 　　 包管理器 Bower 实战 　　 包管理器 NPM 实战 　　 保障编码风格：Javascript 风格检查工具 ESLint 使用详解 　　 保障编码风格：CSS 代码检车工具 CSSLint使用详解 　　 保障编码风格：HTML 代码检查工具 HTMLHint 使用详解 　　 保障代码质量：单元测试工具链 Mocha Chai Sinon 实战 　　 保障代码质量：集成测试工具链 CasperJS Karma 实战 　　 保障代码质量：强制代码检查之 Git Hooks 　　 无情自动化：任务管理器 Grunt 使用实战 　　 无情自动化：流式构建工具 Gulp 使用实战 　　 无情自动化：把 LiveReload 融入开发工作流 　　 无情自动化：把 BrowserSync 融入开发工作流 　　 代码可维护性 　　 串起来：WEB应用构建过程关键点剖析
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+</description>
+        <pubDate>Wed, 13 Jul 2016 00:00:00 +0800</pubDate>
+        <link>https://github.com/BETH-zhang/2016/07/13/%E5%89%8D%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%8C%96.html</link>
+        <guid isPermaLink="true">https://github.com/BETH-zhang/2016/07/13/%E5%89%8D%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%8C%96.html</guid>
+        
+        
+      </item>
+    
+      <item>
+        <title>Gulp裁剪和压缩图片</title>
+        <description>&lt;blockquote&gt;
+  &lt;p&gt;图片压缩每次都是开发最为头疼的事情，上传到服务器上的图片必须经过压缩。这个压缩如何控制，都是不容小觑的。压缩的比例过大，图片失真，设计不愿意；压缩比例过小，大小偏大，运维埋怨。之前通过的工具都不能很好的解决我的问题
+&lt;a href=&quot;http://zhitu.isux.us/&quot;&gt;智图&lt;/a&gt;处理单个文件可行，如果需要压缩的文件过多的酒痛苦了。
+&lt;a href=&quot;https://tinypng.com/&quot;&gt;tinypng&lt;/a&gt;处理批量文件挺好的，而且可以批量下载，之前不能批量下载的时候，我还写过浏览器脚本，迫使批量下载。不过用的多了，发现压缩图片质量不是特别的理想。
+&lt;a href=&quot;http://www.tuhaokuai.com/image&quot;&gt;图好快&lt;/a&gt;处理文件还是可以的。就是付费，互联网的嫖客，用惯的就是免费。免费不了，只能自己搞。下面我们就通过gulp来实现图片批量压缩的功能。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h1 id=&quot;section&quot;&gt;声明依赖&lt;/h1&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;npm install gulp
+npm install gulp-imagemin
+npm install gulp-image-resize
+npm install imagemin-pngquant
+
+brew install imagemagick
+brew install graphicsmagick
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h1 id=&quot;gulpfilejs&quot;&gt;gulpfile.js&lt;/h1&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;kr&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;gulp&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;require&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;gulp&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;kr&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;imageResize&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;require&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;gulp-image-resize&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;kr&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;imagemin&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;require&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;gulp-imagemin&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;kr&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;pngquant&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;require&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;imagemin-pngquant&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;//png图片压缩插件&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;h1 id=&quot;section-1&quot;&gt;图片批量压缩&lt;/h1&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;nx&quot;&gt;gulp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;task&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;image-min&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;gulp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;src&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;src/images/*&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;pipe&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;imagemin&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;
+        &lt;span class=&quot;na&quot;&gt;progressive&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+        &lt;span class=&quot;na&quot;&gt;use&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;pngquant&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;quality&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;65-80&#39;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;})]&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}))&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;pipe&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;gulp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;dest&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;dist/images&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;gulp image-min
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&quot;section-2&quot;&gt;压缩前&lt;/h2&gt;
+&lt;table&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;img src=&quot;/img/img1.png&quot; /&gt;&lt;/td&gt;
+        &lt;td&gt;&lt;img src=&quot;/img/img2.png&quot; /&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+&lt;/table&gt;
+
+&lt;h2 id=&quot;section-3&quot;&gt;压缩后&lt;/h2&gt;
+&lt;table&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;img src=&quot;/img/img1-1.png&quot; /&gt;&lt;/td&gt;
+        &lt;td&gt;&lt;img src=&quot;/img/img2-1.png&quot; /&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+&lt;/table&gt;
+
+&lt;h1 id=&quot;section-4&quot;&gt;图片大小压缩&lt;/h1&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;nx&quot;&gt;gulp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;task&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;image-resize&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;gulp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;src&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;src/images/*.+(jpeg|jpg|png)&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;pipe&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;imageResize&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;
+            &lt;span class=&quot;na&quot;&gt;width&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;100&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+            &lt;span class=&quot;na&quot;&gt;height&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;100&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+            &lt;span class=&quot;na&quot;&gt;crop&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+            &lt;span class=&quot;na&quot;&gt;upscale&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;false&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;}))&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;pipe&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;gulp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;dest&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;dist/resize/&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;gulp image-resize
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+</description>
+        <pubDate>Wed, 13 Jul 2016 00:00:00 +0800</pubDate>
+        <link>https://github.com/BETH-zhang/2016/07/13/Gulp%E8%A3%81%E5%89%AA%E5%92%8C%E5%8E%8B%E7%BC%A9%E5%9B%BE%E7%89%87.html</link>
+        <guid isPermaLink="true">https://github.com/BETH-zhang/2016/07/13/Gulp%E8%A3%81%E5%89%AA%E5%92%8C%E5%8E%8B%E7%BC%A9%E5%9B%BE%E7%89%87.html</guid>
+        
+        
+      </item>
+    
+      <item>
+        <title>Mac下不得不会的技巧</title>
+        <description>&lt;h1 id=&quot;mactree&quot;&gt;mac终端中显示tree的命令&lt;/h1&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;命令：find . -print | sed -e &#39;s;[^/]*/;|____;g;s;____|; |;g&#39;
+手动alias一下，在你的.bash_profile或者.zshrc中添加:
+alias tree=&quot;find . -print | sed -e &#39;s;[^/]*/;|____;g;s;____|; |;g&#39;&quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/mactree.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;或者brew install tree 安装
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+</description>
+        <pubDate>Sat, 09 Jul 2016 00:00:00 +0800</pubDate>
+        <link>https://github.com/BETH-zhang/2016/07/09/mac%E4%B8%8B%E4%B8%8D%E5%BE%97%E4%B8%8D%E4%BC%9A%E7%9A%84%E6%8A%80%E5%B7%A7.html</link>
+        <guid isPermaLink="true">https://github.com/BETH-zhang/2016/07/09/mac%E4%B8%8B%E4%B8%8D%E5%BE%97%E4%B8%8D%E4%BC%9A%E7%9A%84%E6%8A%80%E5%B7%A7.html</guid>
+        
+        
+      </item>
+    
+      <item>
+        <title>Jquery源码分析</title>
+        <description>&lt;p&gt;http://www.360doc.com/content/12/0105/13/452429_177428585.shtml&lt;/p&gt;
+</description>
+        <pubDate>Sat, 09 Jul 2016 00:00:00 +0800</pubDate>
+        <link>https://github.com/BETH-zhang/2016/07/09/jQuery%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90.html</link>
+        <guid isPermaLink="true">https://github.com/BETH-zhang/2016/07/09/jQuery%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90.html</guid>
+        
+        
+      </item>
     
       <item>
         <title>Sublime Text3插件工具</title>
@@ -1971,243 +2101,6 @@ GitHub秘籍
         <pubDate>Mon, 04 Jul 2016 00:00:00 +0800</pubDate>
         <link>https://github.com/BETH-zhang/2016/07/04/%E5%89%8D%E7%AB%AF%E8%B5%84%E6%BA%90%E5%A4%A7%E6%B1%87%E6%80%BB.html</link>
         <guid isPermaLink="true">https://github.com/BETH-zhang/2016/07/04/%E5%89%8D%E7%AB%AF%E8%B5%84%E6%BA%90%E5%A4%A7%E6%B1%87%E6%80%BB.html</guid>
-        
-        
-      </item>
-    
-      <item>
-        <title>前端性能优化</title>
-        <description>&lt;blockquote&gt;
-  &lt;p&gt;今天看了imooc的视频，对于前端性能优化的东西之前已经搞的挺多的了，但是现在还是有好多的东西，需要做！先在此整理一个简单的内容仅供共同学习。&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://beth-zhang.github.io/kityminder-test/src/fe-1.html&quot;&gt;前端性能优化脑图分享&lt;/a&gt;&lt;/p&gt;
-
-&lt;h1 id=&quot;section&quot;&gt;我们访问一个页面的时候都做了什么&lt;/h1&gt;
-
-&lt;h4 id=&quot;section-1&quot;&gt;介绍&lt;/h4&gt;
-
-&lt;h4 id=&quot;dnsip&quot;&gt;DNS寻址以及IP解析&lt;/h4&gt;
-
-&lt;h4 id=&quot;webserver&quot;&gt;webserver背后做的事儿&lt;/h4&gt;
-
-&lt;h4 id=&quot;section-2&quot;&gt;前端页面渲染流程&lt;/h4&gt;
-
-&lt;h4 id=&quot;js&quot;&gt;浏览器的JS引擎&lt;/h4&gt;
-
-&lt;h4 id=&quot;webpagetestjd&quot;&gt;使用WebPageTest分析JD的网络性能(一)&lt;/h4&gt;
-
-&lt;h4 id=&quot;webpagetestjd-1&quot;&gt;使用WebPageTest分析JD的网络性能(二)&lt;/h4&gt;
-
-&lt;h1 id=&quot;section-3&quot;&gt;通用的不一定适合我们&lt;/h1&gt;
-
-&lt;h4 id=&quot;yahoo&quot;&gt;yahoo军规为什么不合适&lt;/h4&gt;
-
-&lt;h4 id=&quot;section-4&quot;&gt;技术优化出发点介绍&lt;/h4&gt;
-
-&lt;h4 id=&quot;section-5&quot;&gt;技术优化出发点－后端方法&lt;/h4&gt;
-
-&lt;h4 id=&quot;section-6&quot;&gt;技术优化出发点－加载方式&lt;/h4&gt;
-
-&lt;h1 id=&quot;section-7&quot;&gt;我们要到底优化什么&lt;/h1&gt;
-
-&lt;h4 id=&quot;bigpipe&quot;&gt;bigpipe介绍&lt;/h4&gt;
-
-&lt;h4 id=&quot;bigpipe-1&quot;&gt;bigpipe工作模式&lt;/h4&gt;
-
-&lt;h4 id=&quot;bigpipe-2&quot;&gt;bigpipe的缺点&lt;/h4&gt;
-
-&lt;h4 id=&quot;section-8&quot;&gt;性能优化的术语回顾&lt;/h4&gt;
-
-&lt;h4 id=&quot;section-9&quot;&gt;总结&lt;/h4&gt;
-</description>
-        <pubDate>Mon, 04 Jul 2016 00:00:00 +0800</pubDate>
-        <link>https://github.com/BETH-zhang/2016/07/04/%E5%89%8D%E7%AB%AF%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96.html</link>
-        <guid isPermaLink="true">https://github.com/BETH-zhang/2016/07/04/%E5%89%8D%E7%AB%AF%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96.html</guid>
-        
-        
-      </item>
-    
-      <item>
-        <title>Npm工作流</title>
-        <description>&lt;p&gt;npm install –cache-min 9999999&lt;/p&gt;
-
-&lt;h2 id=&quot;section&quot;&gt;离线安装的解决方案&lt;/h2&gt;
-
-&lt;h3 id=&quot;registry-&quot;&gt;Registry 代理。&lt;/h3&gt;
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;https://www.npmjs.com/package/npm-proxy-cache&quot;&gt;npm-proxy-cache&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://github.com/nolanlawson/local-npm&quot;&gt;local-npm（用法）&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://github.com/mixu/npm_lazy&quot;&gt;npm-lazy&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;hr /&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;# npm-proxy-cache
-$ npm --proxy http://localhost:8080 \
-  --https-proxy http://localhost:8080 \
-  --strict-ssl false \
-  install
-
-# local-npm
-$ npm set registry http://127.0.0.1:5080
-
-# npm-lazy
-$ npm --registry http://localhost:8080/ install socket.io
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-</description>
-        <pubDate>Mon, 04 Jul 2016 00:00:00 +0800</pubDate>
-        <link>https://github.com/BETH-zhang/2016/07/04/NPM%E5%B7%A5%E4%BD%9C%E6%B5%81.html</link>
-        <guid isPermaLink="true">https://github.com/BETH-zhang/2016/07/04/NPM%E5%B7%A5%E4%BD%9C%E6%B5%81.html</guid>
-        
-        
-      </item>
-    
-      <item>
-        <title>Github Api</title>
-        <description>&lt;blockquote&gt;
-  &lt;p&gt;github的api，来收藏一下吧&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;div id=&quot;github-api&quot;&gt;&lt;/div&gt;
-
-&lt;script type=&quot;text/javascript&quot; src=&quot;/js/H5ComponentBase.js&quot;&gt;&lt;/script&gt;
-
-&lt;script type=&quot;text/javascript&quot; src=&quot;/js/H5ComponentJsonObject.js&quot;&gt;&lt;/script&gt;
-
-&lt;script type=&quot;text/javascript&quot;&gt;
-    $.ajax({
-        url: &#39;https://api.github.com/&#39;,
-        type: &#39;get&#39;,
-        success: function(res){
-
-            var apiOject = new H5ComponentJsonObject(&#39;api&#39;, {
-                type: &#39;githubapi&#39;,
-                text: &#39;通过遍历所有的api对象，获取的内容如下（https://api.github.com/）：&#39;,
-                data: res
-            });
-
-            $(&#39;#github-api&#39;).append(apiOject);
-        }
-    });
-&lt;/script&gt;
-
-&lt;h3 id=&quot;httpsdevelopergithubcomv3hypermedia&quot;&gt;https://developer.github.com/v3/#hypermedia&lt;/h3&gt;
-</description>
-        <pubDate>Mon, 04 Jul 2016 00:00:00 +0800</pubDate>
-        <link>https://github.com/BETH-zhang/2016/07/04/Github-Api.html</link>
-        <guid isPermaLink="true">https://github.com/BETH-zhang/2016/07/04/Github-Api.html</guid>
-        
-        
-      </item>
-    
-      <item>
-        <title>Amd 和 cmd</title>
-        <description>&lt;blockquote&gt;
-  &lt;p&gt;关于AMD，CMD的问题，也算是一个基础的问题了。这里把一些相关内容整理一下&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;h1 id=&quot;amd--cmd-&quot;&gt;AMD 和 CMD 的区别&lt;/h1&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;作者：玉伯 
-链接：https://www.zhihu.com/question/20351507/answer/14859415
-来源：知乎&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://github.com/amdjs/amdjs-api/wiki/AMD&quot;&gt;AMD 规范在这里&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://github.com/seajs/seajs/issues/242&quot;&gt;CMD 规范在这里&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;AMD 是 RequireJS 在推广过程中对模块定义的规范化产出。&lt;/p&gt;
-
-&lt;p&gt;CMD 是 SeaJS 在推广过程中对模块定义的规范化产出。&lt;/p&gt;
-
-&lt;p&gt;类似的还有 CommonJS Modules/2.0 规范，是 BravoJS 在推广过程中对模块定义的规范化产出。
-还有不少⋯⋯&lt;/p&gt;
-
-&lt;p&gt;这些规范的目的都是为了 JavaScript 的模块化开发，特别是在浏览器端的。
-目前这些规范的实现都能达成浏览器端模块化开发的目的。&lt;/p&gt;
-
-&lt;p&gt;区别：&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;
-    &lt;p&gt;对于依赖的模块，AMD 是提前执行，CMD 是延迟执行。不过 RequireJS 从 2.0 开始，也改成可以延迟执行（根据写法不同，处理方式不同）。CMD 推崇 as lazy as possible.&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;CMD 推崇依赖就近，AMD 推崇依赖前置。看代码：&lt;/p&gt;
-
-    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt; // CMD
- define(function(require, exports, module) {
-     var a = require(&#39;./a&#39;)
-     a.doSomething()
-     // 此处略去 100 行
-     var b = require(&#39;./b&#39;) // 依赖可以就近书写
-     b.doSomething()
-     // ... 
- })
-
- // AMD 默认推荐的是
- define([&#39;./a&#39;, &#39;./b&#39;], function(a, b) { // 依赖必须一开始就写好
-     a.doSomething()
-     // 此处略去 100 行
-     b.doSomething()
-     ...
- }) 
-&lt;/code&gt;&lt;/pre&gt;
-    &lt;/div&gt;
-  &lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;虽然 AMD 也支持 CMD 的写法，同时还支持将 require 作为依赖项传递，但 RequireJS 的作者默认是最喜欢上面的写法，也是官方文档里默认的模块定义写法。&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;
-    &lt;p&gt;AMD 的 API 默认是一个当多个用，CMD 的 API 严格区分，推崇职责单一。比如 AMD 里，require 分全局 require 和局部 require，都叫 require。CMD 里，没有全局 require，而是根据模块系统的完备性，提供 seajs.use 来实现模块系统的加载启动。CMD 里，每个 API 都简单纯粹。&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;还有一些细节差异，具体看这个规范的定义就好，就不多说了。&lt;/p&gt;
-  &lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h1 id=&quot;seajs--requirejs-httpswwwdoubancomnote283566440&quot;&gt;&lt;a href=&quot;https://www.douban.com/note/283566440/&quot;&gt;SeaJS 和 RequireJS 的差异&lt;/a&gt;&lt;/h1&gt;
-&lt;p&gt;&lt;a href=&quot;https://github.com/seajs/seajs/issues/277&quot;&gt;原文链接&lt;/a&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;section&quot;&gt;相同之处&lt;/h2&gt;
-
-&lt;p&gt;RequireJS 和 Sea.js 都是模块加载器，倡导模块化开发理念，核心价值是让 JavaScript 的模块化开发变得简单自然。&lt;/p&gt;
-
-&lt;h2 id=&quot;section-1&quot;&gt;不同之处&lt;/h2&gt;
-
-&lt;p&gt;两者的主要区别如下：&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;
-    &lt;p&gt;定位有差异。RequireJS 想成为浏览器端的模块加载器，同时也想成为 Rhino / Node 等环境的模块加载器。Sea.js 则专注于 Web 浏览器端，同时通过 Node 扩展的方式可以很方便跑在 Node 环境中。&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;遵循的规范不同。RequireJS 遵循 AMD（异步模块定义）规范，Sea.js 遵循 CMD （通用模块定义）规范。规范的不同，导致了两者 API 不同。Sea.js 更贴近 CommonJS Modules/1.1 和 Node Modules 规范。&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;推广理念有差异。RequireJS 在尝试让第三方类库修改自身来支持 RequireJS，目前只有少数社区采纳。Sea.js 不强推，采用自主封装的方式来“海纳百川”，目前已有较成熟的封装策略。&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;对开发调试的支持有差异。Sea.js 非常关注代码的开发调试，有 nocache、debug 等用于调试的插件。RequireJS 无这方面的明显支持。&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;插件机制不同。RequireJS 采取的是在源码中预留接口的形式，插件类型比较单一。Sea.js 采取的是通用事件机制，插件类型更丰富。&lt;/p&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;还有不少差异，涉及具体使用方式和源码实现，欢迎有兴趣者研究并发表看法。&lt;/p&gt;
-
-&lt;p&gt;总之，如果说 RequireJS 是 Prototype 类库的话，则 Sea.js 致力于成为 jQuery 类库。&lt;/p&gt;
-
-</description>
-        <pubDate>Mon, 04 Jul 2016 00:00:00 +0800</pubDate>
-        <link>https://github.com/BETH-zhang/2016/07/04/AMD-%E5%92%8C-CMD.html</link>
-        <guid isPermaLink="true">https://github.com/BETH-zhang/2016/07/04/AMD-%E5%92%8C-CMD.html</guid>
         
         
       </item>

@@ -6,11 +6,11 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>淘宝镜像</title>
-  <meta name="description" content="  http://npm.taobao.org/">
+  <title>Mac下不得不会的技巧</title>
+  <meta name="description" content="mac终端中显示tree的命令">
 
   <link rel="stylesheet" href="/css/main.css">
-  <link rel="canonical" href="https://github.com/BETH-zhang/2016/06/23/%E6%B7%98%E5%AE%9D%E9%95%9C%E5%83%8F.html">
+  <link rel="canonical" href="https://github.com/BETH-zhang/2016/07/09/mac%E4%B8%8B%E4%B8%8D%E5%BE%97%E4%B8%8D%E4%BC%9A%E7%9A%84%E6%8A%80%E5%B7%A7.html">
   <link rel="alternate" type="application/rss+xml" title="前端花园" href="https://github.com/BETH-zhang/feed.xml">
   <link type="image/x-icon" rel="shortcut icon" href="https://raw.githubusercontent.com/BETH-zhang/Frontend-Garden/gh-pages/_includes/favicon.ico">
   <script type="text/javascript" src="/js/jquery.min.js"></script>
@@ -59,57 +59,22 @@
         <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
 
   <header class="post-header">
-    <h1 class="post-title" itemprop="name headline">淘宝镜像</h1>
-    <p class="post-meta"><a href="https://github.com/BETH-zhang" target="_blank"/><img class="post-avatar" src="https://avatars3.githubusercontent.com/u/19342035?v=3&s=40"/></a><time datetime="2016-06-23T00:00:00+08:00" itemprop="datePublished">Jun 23, 2016</time></p>
+    <h1 class="post-title" itemprop="name headline">Mac下不得不会的技巧</h1>
+    <p class="post-meta"><a href="https://github.com/BETH-zhang" target="_blank"/><img class="post-avatar" src="https://avatars3.githubusercontent.com/u/19342035?v=3&s=40"/></a><time datetime="2016-07-09T00:00:00+08:00" itemprop="datePublished">Jul 9, 2016</time></p>
   </header>
 
   <div class="post-content" itemprop="articleBody">
-    <blockquote>
-  <p>http://npm.taobao.org/</p>
-</blockquote>
+    <h1 id="mactree">mac终端中显示tree的命令</h1>
 
-<h1 id="section">使用说明</h1>
-
-<p>你可以使用我们定制的 cnpm (gzip 压缩支持) 命令行工具代替默认的 npm:</p>
-
-<div class="highlighter-rouge"><pre class="highlight"><code>$ npm install -g cnpm --registry=https://registry.npm.taobao.org 或者你直接通过添加 npm 参数 alias 一个新命令:
-
-alias cnpm="npm --registry=https://registry.npm.taobao.org \
---cache=$HOME/.npm/.cache/cnpm \
---disturl=https://npm.taobao.org/dist \
---userconfig=$HOME/.cnpmrc"
-
-# Or alias it in .bashrc or .zshrc
-$ echo '\n#alias for cnpm\nalias cnpm="npm --registry=https://registry.npm.taobao.org \
-  --cache=$HOME/.npm/.cache/cnpm \
-  --disturl=https://npm.taobao.org/dist \
-  --userconfig=$HOME/.cnpmrc"' &gt;&gt; ~/.zshrc &amp;&amp; source ~/.zshrc
+<div class="highlighter-rouge"><pre class="highlight"><code>命令：find . -print | sed -e 's;[^/]*/;|____;g;s;____|; |;g'
+手动alias一下，在你的.bash_profile或者.zshrc中添加:
+alias tree="find . -print | sed -e 's;[^/]*/;|____;g;s;____|; |;g'"
 </code></pre>
 </div>
 
-<h1 id="section-1">安装模块</h1>
+<p><img src="/img/mactree.png" alt="" /></p>
 
-<p>从 registry.npm.taobao.org 安装所有模块. 当安装的时候发现安装的模块还没有同步过来, 淘宝 NPM 会自动在后台进行同步, 并且会让你从官方 NPM registry.npmjs.org 进行安装. 下次你再安装这个模块的时候, 就会直接从 淘宝 NPM 安装了.</p>
-
-<div class="highlighter-rouge"><pre class="highlight"><code>$ cnpm install [name]
-</code></pre>
-</div>
-
-<h1 id="section-2">同步模块</h1>
-
-<p>直接通过 sync 命令马上同步一个模块, 只有 cnpm 命令行才有此功能:</p>
-
-<div class="highlighter-rouge"><pre class="highlight"><code>$ cnpm sync connect 当然, 你可以直接通过 web 方式来同步: /sync/connect
-
-$ open https://npm.taobao.org/sync/connect
-</code></pre>
-</div>
-
-<h1 id="section-3">其它命令</h1>
-
-<p>支持 npm 除了 publish 之外的所有命令, 如:</p>
-
-<div class="highlighter-rouge"><pre class="highlight"><code>$ cnpm info connect
+<div class="highlighter-rouge"><pre class="highlight"><code>或者brew install tree 安装
 </code></pre>
 </div>
 
