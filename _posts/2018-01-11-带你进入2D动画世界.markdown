@@ -31,7 +31,7 @@ theme: pick
   background: #000;color: #fff">刀耕火种的前端史</div>
 
 | 年份 | 事件 |
-|-------|:------:|
+|-------|:------|
 |1994|Tim Berners－Lee(万维网之父)创建W3C，Tim基友发布CSS<br />网景推出了第一版Navigator<br />前端起点(Web 1.0时代)|
 |2003|SVG于2003年1月14日成为W3C推荐标准,SVG 的主要竞争者是 Flash,SVG可缩放矢量图形|
 |2005|谷歌利用Ajax技术打造Gmail和谷歌地图之后－Ajax大受关注<br/>前端的第一次飞跃（进入Web2.0时代）|
@@ -55,7 +55,7 @@ theme: pick
   background: #000;color: #fff">2D的世界</div>
 
 | - | - |
-|-------|:------:|
+|-------|:------|
 |2D动画|是指二维交互式动画,<br />也就是我们通常所说的2d游戏种的美术资源（人物行走、人物状态、地图等等）都是以png或jpg的图形文件渲染而成，2d是没办法完成视角转换（现在比较流行的2D设计形式：扁平化、MEB等）|
 |间动画和帧动画|区间动画：从A到B执行的过度动画；<br />逐帧动画：从A到B，从B到C的连续的动画播放。<br />其中动画标准是一秒24帧，也就是24张画面组成一秒。电视播放标准是25帧每秒（但是12）<br />关键帧：能够叙述故事发展的重要帧<br />中间帧：过度帧，补充重要帧之间，使动画连续<br />极端帧:极端帧不一定是关键帧，是两个关键帧之间的次重要|
 |2D动画技术|SVG、Canvas、CSS3|
@@ -69,7 +69,7 @@ theme: pick
   background: #000;color: #fff">带你了解CSS3的世界</div>
 
 | - | - |
-|-------|:------:|
+|-------|:------|
 |变形(transform)|3D旋转：rotate旋转 \ 2D旋转：scale缩放 \ skew扭曲 \ translate移动 \ matrix矩阵变形|
 |过度(transition)|property duration timing-function delay(all 0 ease 0)|
 |动画(animation)|animation-name \ animation-duration \ animation-delay \ animation-iteration-count(infinite) \ animation-direction \ animation-play-state \ animation-fill-mode \ animation-timing-function(控制时间函数-速度曲线函数-缓动函数)|
@@ -102,7 +102,7 @@ theme: pick
   background: #000;color: #fff">Velocity.js用法</div>
 
 | - | - |
-|-------|:------:|
+|-------|:------|
 |依赖|JQuery、Velocity、Velocity.UI|
 |用法|$ele.velocity({ width: 100 }, { duration: 300 })|
 
@@ -175,7 +175,7 @@ $element
   background: #000;color: #fff">动画开发流程</div>
 
 | - | - |
-|-------|:------:|
+|-------|:------|
 |需求分析|需要的动画场景和素材整理|
 |素材整理|涉及到帧动画的图片素材，需要对其进行定位|
 |代码编写|定位动画静态元素，添加不需要事件驱动的CSS3动画；添加需要事件驱动的JS动画（连续动画，帧动画）|
