@@ -1,5 +1,5 @@
 {
-  "name": "Frontend-Garden",
+  "name": "",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -10,14 +10,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/BETH-zhang/Frontend-Garden.git"
+    "url": "git+https://github.com/BETH-zhang/.git"
   },
   "author": "BETH-zhang",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/BETH-zhang/Frontend-Garden/issues"
+    "url": "https://github.com/BETH-zhang/issues"
   },
-  "homepage": "https://github.com/BETH-zhang/Frontend-Garden#readme",
+  "homepage": "https://github.com/BETH-zhang/#readme",
   "dependencies": {
     "jquery": "^3.0.0"
   },

@@ -9,7 +9,7 @@
 title: 前端花园
 email: gemeiwangji789@qq.com
 description: 在前端的道路上风景更加绚丽多姿
-baseurl: "https://beth-zhang.github.io/Frontend-Garden" # the subpath of your site, e.g. /blog
+baseurl: "https://beth-zhang.github.io/" # the subpath of your site, e.g. /blog
 url: "https://github.com/BETH-zhang" # the base hostname & protocol for your site
 twitter_username: 
 github_username:  BETH-zhang
